@@ -1,0 +1,37 @@
+.nav {
+  height: 40px;
+  padding: 1vh auto;
+
+  background-color: #010101;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navList {
+  margin: 1vh auto;
+  padding: 0;
+  padding-top: 0.2rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+
+  width: 80vw;
+  list-style: none;
+}
+
+.navList * {
+  width: 33%;
+  margin: auto;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.navList *:hover {
+  color: #f5ff01;
+}
