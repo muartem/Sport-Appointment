@@ -15,7 +15,12 @@ export function getServices(){
 
 export function addService(service){
     return async dispatch => {
-        const user = await Api.post('/todos', service)
+        try {
+            const response = await Api.post('Service/', service)
+        } catch (e){
+            console.log(e.message)
+        }
+
         dispatch(
             {
                 type: ADD_SERVICE,

@@ -34,7 +34,9 @@
   text-align: center;
   transition: all 0.2s;
 }
-
+.addBtn[disabled]{
+  color: #ffffff66;
+}
 .addBtn:hover {
   color: #000000;
   background-color: #f5ff01;
@@ -42,6 +44,14 @@
 
   cursor: pointer;
 }
+.addBtn[disabled]:hover {
+  color: #ffffff;
+  background-color: #86868621;
+  border: none;
+
+  cursor: auto;
+}
+
 
 .addBtnText {
   margin: auto;
