@@ -1,0 +1,24 @@
+{
+  "Service": [
+    {
+      "name": "string",
+      "description": "string",
+      "price": 1000
+    }
+
+  ],
+  "Coach": [
+    {
+      "firstName": "string",
+      "lastName": "string",
+      "birthData": "date",
+      "description": "string",
+      "phoneNumber": "string"
+    }
+  ],
+  "Qualification": [
+  ],
+  "Client": [],
+  "Slots": [],
+  "Booking": []
+}
