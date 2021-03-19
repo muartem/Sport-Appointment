@@ -1,0 +1,38 @@
+{
+  "Service": [
+    {
+      "name": "Box",
+      "description": "string",
+      "price": 1000
+    },
+    {
+      "name": "Sex",
+      "description": "string",
+      "price": 2000
+    },
+    {
+      "name": "Flex",
+      "description": "string",
+      "price": 3000
+    },
+    {
+      "name": "Kung-fu",
+      "description": "string",
+      "price": 4000
+    }
+  ],
+  "Coach": [
+    {
+      "firstName": "string",
+      "lastName": "string",
+      "birthData": "date",
+      "description": "string",
+      "phoneNumber": "string"
+    }
+  ],
+  "Qualification": [
+  ],
+  "Client": [],
+  "Slots": [],
+  "Booking": []
+}

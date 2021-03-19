@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Nav from "./Nav/Nav";
-import Services from "./Services/Services";
-import Clients from "./Clients/Clients";
-import Coaches from "./Coaches/Coaches";
-import Slots from "./Slots/Slots";
-import Booking from "./Booking/Booking";
+import Nav from "./components/Nav/Nav";
+import Services from "./components/Services/Services";
+import Clients from "./components/Clients/Clients";
+import Coaches from "./components/Coaches/Coaches";
+import Slots from "./components/Slots/Slots";
+import Booking from "./components/Booking/Booking";
 import "./App.css";
 
 function App() {
