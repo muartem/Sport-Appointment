@@ -23,6 +23,12 @@
       "name": "Kung-fu",
       "description": "string",
       "price": 4000
+    },
+    {
+      "name": "pex",
+      "description": "string",
+      "price": "100",
+      "id": 5
     }
   ],
   "Coach": [
@@ -51,8 +57,7 @@
       "phoneNumber": "380658374633"
     }
   ],
-  "Qualification": [
-  ],
+  "Qualification": [],
   "Client": [
     {
       "id": 1,
