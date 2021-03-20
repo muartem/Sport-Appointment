@@ -6,8 +6,8 @@ import {
   GET_COACHES,
   RESET_COACHES,
   GET_CLIENTS,
-  RESET_CLIENTS,
-} from "./types";
+  RESET_CLIENTS, UPDATE_SERVICE, DELETE_SERVICE,
+} from './types';
 import Api from "./axios";
 
 export function getServices() {
@@ -31,6 +31,36 @@ export function addService(service) {
     dispatch({
       type: ADD_SERVICE,
       payload: service,
+    });
+  };
+}
+
+export function updateService(service) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.patch(`Service/${service.id}`, service);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: UPDATE_SERVICE,
+      payload: service,
+    });
+  };
+}
+
+export function deleteService(serviceId) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.delete(`Service/${serviceId}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: DELETE_SERVICE,
+      payload: serviceId,
     });
   };
 }
