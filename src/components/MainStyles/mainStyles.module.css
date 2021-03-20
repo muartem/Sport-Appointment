@@ -85,7 +85,7 @@
 
 .btnContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   gap: 10px;
 
   width: inherit;

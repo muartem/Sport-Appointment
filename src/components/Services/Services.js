@@ -26,25 +26,25 @@ const Services = () => {
   const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
   const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
 
-  const initialInputs = [
-    {
+  const initialInputs = {
+    name: {
       name: "name",
       value: "",
       error: "",
     },
-    {
+    description: {
       name: "description",
       value: "",
       error: "",
     },
-    {
+    price: {
       name: "price",
       value: "",
       error: "",
     },
-  ];
+  };
 
-  const [inputs, setInputs] = useState([...initialInputs]);
+  const [inputs, setInputs] = useState({...initialInputs});
 
   useEffect(() => {
     dispatch(getServices());
@@ -56,18 +56,17 @@ const Services = () => {
     setCreateButtonVisibility(true);
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
-    setInputs((state) => [...initialInputs]);
+    setInputs((state) => ({...initialInputs}));
   };
 
   const inputHandler = (e) => {
     setInputs((state) => {
-      let new_state = [...state];
-      const index = new_state.findIndex((obj) => obj.name === e.target.name);
-      new_state[index].value = e.target.value;
-      new_state[index].error = "";
+      let new_state = {...state};
+      new_state[e.target.name].value = e.target.value;
+      new_state[e.target.name].error = "";
       return new_state;
     });
-    if (e.target.value && inputs.every((i) => i.value.length > 1)) {
+    if (e.target.value && [inputs.name.value, inputs.price.value, inputs.description.value].every(i => i.length > 0)) {
       setCreateButtonDisabling(false);
       setUpdateButtonDisabling(false);
     }
@@ -76,9 +75,8 @@ const Services = () => {
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
       setInputs((state) => {
-        let new_state = [...state];
-        const index = new_state.findIndex((obj) => obj.name === e.target.name);
-        new_state[index].error = "Empty field";
+        let new_state = {...state};
+        new_state[e.target.name].error = "Empty field";
         return new_state;
       });
       setCreateButtonDisabling(true);
@@ -89,20 +87,21 @@ const Services = () => {
     e.preventDefault();
     dispatch(
       addService({
-        name: inputs.find((i) => i.name === "name").value,
-        description: inputs.find((i) => i.name === "description").value,
-        price: inputs.find((i) => i.name === "price").value,
+        id: services.sort((a, b) => b.id - a.id)[0].id + 1,
+        name: inputs.name.value,
+        description: inputs.description.value,
+        price: inputs.price.value,
       })
     );
-    setInputs((state) => []);
+    initialFormState();
   };
 
   const updateHandler = () => {
     dispatch(
       updateService({
-        name: inputs.find((i) => i.name === "name").value,
-        description: inputs.find((i) => i.name === "description").value,
-        price: inputs.find((i) => i.name === "price").value,
+        name: inputs.name.value,
+        description: inputs.description.value,
+        price: inputs.price.value,
         id: service.id,
       })
     );
@@ -126,24 +125,24 @@ const Services = () => {
       setDeleteButtonDisabling(false);
       const service = services.find((service) => service.id === serviceId);
       setUpdateService(service);
-      const serviceInput = [
-        {
+      const serviceInput = {
+        name: {
           name: "name",
           value: service.name,
           error: "",
         },
-        {
+        description: {
           name: "description",
           value: service.description,
           error: "",
         },
-        {
+        price: {
           name: "price",
           value: service.price,
           error: "",
         },
-      ];
-      setInputs((state) => [...serviceInput]);
+      };
+      setInputs((state) => ({...serviceInput}));
     };
   };
 
@@ -153,6 +152,7 @@ const Services = () => {
         {s.name}
       </p>
     ));
+
 
   return (
     <div className={styles.container}>
@@ -165,19 +165,34 @@ const Services = () => {
       </div>
 
       <div className={styles.rightContainer}>
-        {inputs.length > 0 && (
           <form action="" onSubmit={submitHandler}>
-            {inputs.map((i) => (
-              <Input
-                key={i.name + "_service"}
+            <Input
+                key={inputs.name.name + "_service"}
                 onBlur={blurHandler}
                 onChange={inputHandler}
                 type="text"
-                name={i.name}
-                defaultValue={i.value}
-                error={i?.error}
-              />
-            ))}
+                name={inputs.name.name}
+                defaultValue={inputs.name.value}
+                error={inputs.name?.error}
+                />
+            <Input
+                key={inputs.description.name + "_service"}
+                onBlur={blurHandler}
+                onChange={inputHandler}
+                type="text"
+                name={inputs.description.name}
+                defaultValue={inputs.description.value}
+                error={inputs.description?.error}
+            />
+            <Input
+                key={inputs.price.name + "_service"}
+                onBlur={blurHandler}
+                onChange={inputHandler}
+                type="text"
+                name={inputs.price.name}
+                defaultValue={inputs.price.value}
+                error={inputs.price?.error}
+            />
             <div className={styles.btnContainer}>
               {isCreateButtonVisible && (
                 <button
@@ -209,7 +224,6 @@ const Services = () => {
               )}
             </div>
           </form>
-        )}
       </div>
     </div>
   );
