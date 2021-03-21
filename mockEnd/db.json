@@ -3,8 +3,8 @@
     {
       "id": 3,
       "name": "Flex",
-      "description": "string",
-      "price": 3000
+      "description": "string1",
+      "price": "300"
     },
     {
       "id": 4,
@@ -42,7 +42,7 @@
       "id": 1,
       "firstName": "Leanne",
       "lastName": "Graham",
-      "birthDate": "01.10.1975",
+      "birthDate": "2021-03-18",
       "description": "I'm selfish, impatient and a little insecure.",
       "phoneNumber": "380657365488"
     },
@@ -50,7 +50,7 @@
       "id": 2,
       "firstName": "Ervin",
       "lastName": "Howell",
-      "birthDate": "15.08.1983",
+      "birthDate": "2021-03-11",
       "description": "In three words I can sum up everything I've learned about life: it goes on.",
       "phoneNumber": "380973846170"
     },
@@ -58,15 +58,15 @@
       "id": 3,
       "firstName": "Clementine",
       "lastName": "Bauch",
-      "birthDate": "23.06.1989",
+      "birthDate": "2021-03-05",
       "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
     },
     {
       "firstName": "sadf",
       "lastName": "sadf",
-      "birthDate": "",
-      "description": "",
+      "birthDate": "2021-03-05",
+      "description": "xgfm",
       "phoneNumber": "sadf",
       "id": 4
     },
@@ -81,8 +81,8 @@
     {
       "firstName": "sadf",
       "lastName": "sadf",
-      "birthDate": "",
-      "description": "",
+      "birthDate": "2021-03-03",
+      "description": "tzdjmzxtkm",
       "phoneNumber": "sadf",
       "id": 6
     },
@@ -96,10 +96,10 @@
     },
     {
       "firstName": "sadfdsaf",
-      "lastName": "",
-      "birthDate": "",
-      "description": "",
-      "phoneNumber": "",
+      "lastName": "gxf",
+      "birthDate": "2021-03-10",
+      "description": "gfcm",
+      "phoneNumber": "fcgm",
       "id": 8
     }
   ],

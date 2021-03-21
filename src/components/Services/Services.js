@@ -44,7 +44,7 @@ const Services = () => {
     },
   };
 
-  const [inputs, setInputs] = useState({...initialInputs});
+  const [inputs, setInputs] = useState({ ...initialInputs });
 
   useEffect(() => {
     dispatch(getServices());
@@ -56,17 +56,22 @@ const Services = () => {
     setCreateButtonVisibility(true);
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
-    setInputs((state) => ({...initialInputs}));
+    setInputs((state) => ({ ...initialInputs }));
   };
 
   const inputHandler = (e) => {
     setInputs((state) => {
-      let new_state = {...state};
+      let new_state = { ...state };
       new_state[e.target.name].value = e.target.value;
       new_state[e.target.name].error = "";
       return new_state;
     });
-    if (e.target.value && [inputs.name.value, inputs.price.value, inputs.description.value].every(i => i.length > 0)) {
+    if (
+      e.target.value &&
+      [inputs.name.value, inputs.price.value, inputs.description.value].every(
+        (i) => i.length > 0
+      )
+    ) {
       setCreateButtonDisabling(false);
       setUpdateButtonDisabling(false);
     }
@@ -75,7 +80,7 @@ const Services = () => {
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
       setInputs((state) => {
-        let new_state = {...state};
+        let new_state = { ...state };
         new_state[e.target.name].error = "Empty field";
         return new_state;
       });
@@ -142,7 +147,7 @@ const Services = () => {
           error: "",
         },
       };
-      setInputs((state) => ({...serviceInput}));
+      setInputs((state) => ({ ...serviceInput }));
     };
   };
 
@@ -152,7 +157,6 @@ const Services = () => {
         {s.name}
       </p>
     ));
-
 
   return (
     <div className={styles.container}>
@@ -165,65 +169,65 @@ const Services = () => {
       </div>
 
       <div className={styles.rightContainer}>
-          <form action="" onSubmit={submitHandler}>
-            <Input
-                key={inputs.name.name + "_service"}
-                onBlur={blurHandler}
-                onChange={inputHandler}
-                type="text"
-                name={inputs.name.name}
-                defaultValue={inputs.name.value}
-                error={inputs.name?.error}
-                />
-            <Input
-                key={inputs.description.name + "_service"}
-                onBlur={blurHandler}
-                onChange={inputHandler}
-                type="text"
-                name={inputs.description.name}
-                defaultValue={inputs.description.value}
-                error={inputs.description?.error}
-            />
-            <Input
-                key={inputs.price.name + "_service"}
-                onBlur={blurHandler}
-                onChange={inputHandler}
-                type="text"
-                name={inputs.price.name}
-                defaultValue={inputs.price.value}
-                error={inputs.price?.error}
-            />
-            <div className={styles.btnContainer}>
-              {isCreateButtonVisible && (
-                <button
-                  type="submit"
-                  disabled={isCreateButtonDisabled}
-                  className={styles.addBtn}
-                >
-                  <p className={styles.addBtnText}>Done</p>
-                </button>
-              )}
-              {isUpdateButtonVisible && (
-                <button
-                  onClick={updateHandler}
-                  disabled={isUpdateButtonDisabling}
-                  className={styles.addBtn}
-                >
-                  <p className={styles.addBtnText}>Update</p>
-                </button>
-              )}
+        <form action="" onSubmit={submitHandler}>
+          <Input
+            key={inputs.name.name + "_service"}
+            onBlur={blurHandler}
+            onChange={inputHandler}
+            type="text"
+            name={inputs.name.name}
+            defaultValue={inputs.name.value}
+            error={inputs.name?.error}
+          />
+          <Input
+            key={inputs.description.name + "_service"}
+            onBlur={blurHandler}
+            onChange={inputHandler}
+            type="text"
+            name={inputs.description.name}
+            defaultValue={inputs.description.value}
+            error={inputs.description?.error}
+          />
+          <Input
+            key={inputs.price.name + "_service"}
+            onBlur={blurHandler}
+            onChange={inputHandler}
+            type="text"
+            name={inputs.price.name}
+            defaultValue={inputs.price.value}
+            error={inputs.price?.error}
+          />
+          <div className={styles.btnContainer}>
+            {isCreateButtonVisible && (
+              <button
+                type="submit"
+                disabled={isCreateButtonDisabled}
+                className={styles.addBtn}
+              >
+                <p className={styles.addBtnText}>Done</p>
+              </button>
+            )}
+            {isUpdateButtonVisible && (
+              <button
+                onClick={updateHandler}
+                disabled={isUpdateButtonDisabling}
+                className={styles.addBtn}
+              >
+                <p className={styles.addBtnText}>Update</p>
+              </button>
+            )}
 
-              {isDeleteButtonVisible && (
-                <button
-                  onClick={deleteHandler}
-                  disabled={isDeleteButtonDisabled}
-                  className={styles.addBtn}
-                >
-                  <p className={styles.addBtnText}>Delete</p>
-                </button>
-              )}
-            </div>
-          </form>
+            {isDeleteButtonVisible && (
+              <button
+                onClick={deleteHandler}
+                disabled={isDeleteButtonDisabled}
+                className={styles.addBtn}
+              >
+                <p className={styles.addBtnText}>Delete</p>
+              </button>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
