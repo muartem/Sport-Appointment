@@ -10,7 +10,6 @@
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   overflow-y: scroll;
-  scrollbar-width: none;
 }
 
 .container::-webkit-scrollbar {
@@ -85,7 +84,7 @@
 
 .btnContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   gap: 10px;
 
   width: inherit;
@@ -151,9 +150,6 @@
   scroll-behavior: smooth;
 }
 
-.resultList::-webkit-scrollbar {
-  display: none;
-}
 
 .resultList > * {
   width: 60%;

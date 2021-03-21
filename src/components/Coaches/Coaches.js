@@ -13,35 +13,35 @@ const Coaches = () => {
 
   const [buttonState, setButtonState] = useState(true);
 
-  const initialInputs = [
-    {
+  const initialInputs = {
+    firstName: {
       name: "firstName",
       value: "",
       error: "",
     },
-    {
+    lastName: {
       name: "lastName",
       value: "",
       error: "",
     },
-    {
+    birthDate: {
       name: "birthDate",
       value: "",
       error: "",
     },
-    {
+    description: {
       name: "description",
       value: "",
       error: "",
     },
-    {
+    phoneNumber: {
       name: "phoneNumber",
       value: "",
       error: "",
     },
-  ];
+  };
 
-  const [inputs, setInputs] = useState([...initialInputs]);
+  const [inputs, setInputs] = useState({...initialInputs});
 
   useEffect(() => {
     dispatch(getCoaches());
@@ -50,13 +50,12 @@ const Coaches = () => {
 
   const inputHandler = (e) => {
     setInputs((state) => {
-      let new_state = [...state];
-      const index = new_state.findIndex((obj) => obj.name === e.target.name);
-      new_state[index].value = e.target.value;
-      new_state[index].error = "";
+      let new_state = {...state};
+      new_state[e.target.name].value = e.target.value;
+      new_state[e.target.name].error = "";
       return new_state;
     });
-    if (e.target.value && inputs.every((i) => i.value.length > 1)) {
+    if (e.target.value && [inputs.phoneNumber.value, inputs.lastName.value, inputs.firstName.value, inputs.description.value].every((i) => i.length > 0)) {
       setButtonState(false);
     }
   };
@@ -64,9 +63,8 @@ const Coaches = () => {
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
       setInputs((state) => {
-        let new_state = [...state];
-        const index = new_state.findIndex((obj) => obj.name === e.target.name);
-        new_state[index].error = "Empty field";
+        let new_state = {...state};
+        new_state[e.target.name].error = "Empty field";
         return new_state;
       });
       setButtonState(true);
@@ -77,19 +75,20 @@ const Coaches = () => {
     e.preventDefault();
     dispatch(
       addCoach({
-        firstName: inputs.find((i) => i.name === "firstName").value,
-        lastName: inputs.find((i) => i.name === "lastName").value,
-        birthDate: inputs.find((i) => i.name === "birthDate").value,
-        description: inputs.find((i) => i.name === "description").value,
-        phoneNumber: inputs.find((i) => i.name === "phoneNumber").value,
+        id: coaches.sort((a, b) => b.id - a.id)[0].id + 1,
+        firstName: inputs.firstName.value,
+        lastName: inputs.lastName.value,
+        birthDate: inputs.birthDate.value,
+        description: inputs.description.value,
+        phoneNumber: inputs.phoneNumber.value,
       })
     );
-    setInputs((state) => []);
+    setInputs((state) => ({...initialInputs}));
   };
 
   const addForm = (e) => {
     setButtonState(true);
-    setInputs((state) => [...initialInputs]);
+    setInputs((state) => ({...initialInputs}));
   };
 
   const formatCoaches = () =>
@@ -111,18 +110,42 @@ const Coaches = () => {
       </div>
 
       <div className={styles.rightContainer}>
-        {inputs.length > 0 && (
           <form action="" onSubmit={submitHandler}>
-            {inputs.map((i) => (
-              <Input
-                key={i.name + "_coach"}
+            <Input
+              onBlur={blurHandler}
+              onChange={inputHandler}
+              type="text"
+              name={inputs.firstName.name}
+              error={inputs.firstName?.error}
+            />
+            <Input
                 onBlur={blurHandler}
                 onChange={inputHandler}
                 type="text"
-                name={i.name}
-                error={i?.error}
-              />
-            ))}
+                name={inputs.lastName.name}
+                error={inputs.lastName?.error}
+            />
+            <Input
+                onBlur={blurHandler}
+                onChange={inputHandler}
+                type="text"
+                name={inputs.description.name}
+                error={inputs.description?.error}
+            />
+            <Input
+                onBlur={blurHandler}
+                onChange={inputHandler}
+                type="date"
+                name={inputs.birthDate.name}
+                error={inputs.birthDate?.error}
+            />
+            <Input
+                onBlur={blurHandler}
+                onChange={inputHandler}
+                type="tel"
+                name={inputs.phoneNumber.name}
+                error={inputs.phoneNumber?.error}
+            />
             <div className={styles.btnContainer}>
               <button
                 type="submit"
@@ -140,7 +163,6 @@ const Coaches = () => {
               </button>
             </div>
           </form>
-        )}
       </div>
     </div>
   );

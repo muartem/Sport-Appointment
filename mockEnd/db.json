@@ -1,18 +1,6 @@
 {
   "Service": [
     {
-      "id": 1,
-      "name": "Box",
-      "description": "string",
-      "price": 1000
-    },
-    {
-      "id": 2,
-      "name": "Sex",
-      "description": "string",
-      "price": 2000
-    },
-    {
       "id": 3,
       "name": "Flex",
       "description": "string",
@@ -25,10 +13,28 @@
       "price": 4000
     },
     {
-      "name": "pex",
-      "description": "string",
-      "price": "100",
-      "id": 5
+      "id": 2,
+      "name": "Sexy",
+      "description": "sadf",
+      "price": "asdf"
+    },
+    {
+      "id": 1,
+      "name": "Hex",
+      "description": "sadf",
+      "price": "sadfd"
+    },
+    {
+      "id": 5,
+      "name": "Box",
+      "description": "sdf",
+      "price": "421341"
+    },
+    {
+      "id": 6,
+      "name": "dux",
+      "description": "s",
+      "price": "wq"
     }
   ],
   "Coach": [
@@ -55,6 +61,46 @@
       "birthDate": "23.06.1989",
       "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
+    },
+    {
+      "firstName": "sadf",
+      "lastName": "sadf",
+      "birthDate": "",
+      "description": "",
+      "phoneNumber": "sadf",
+      "id": 4
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "birthDate": "",
+      "description": "",
+      "phoneNumber": "",
+      "id": 5
+    },
+    {
+      "firstName": "sadf",
+      "lastName": "sadf",
+      "birthDate": "",
+      "description": "",
+      "phoneNumber": "sadf",
+      "id": 6
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "birthDate": "",
+      "description": "",
+      "phoneNumber": "sadfsadf",
+      "id": 7
+    },
+    {
+      "firstName": "sadfdsaf",
+      "lastName": "",
+      "birthDate": "",
+      "description": "",
+      "phoneNumber": "",
+      "id": 8
     }
   ],
   "Qualification": [],
