@@ -4,10 +4,14 @@ import {
   RESET_SERVICES,
   ADD_COACH,
   GET_COACHES,
+  UPDATE_COACH,
+  DELETE_COACH,
   RESET_COACHES,
   GET_CLIENTS,
-  RESET_CLIENTS, UPDATE_SERVICE, DELETE_SERVICE,
-} from './types';
+  RESET_CLIENTS,
+  UPDATE_SERVICE,
+  DELETE_SERVICE,
+} from "./types";
 import Api from "./axios";
 
 export function getServices() {
@@ -94,6 +98,34 @@ export function addCoach(coach) {
     dispatch({
       type: ADD_COACH,
       payload: coach,
+    });
+  };
+}
+
+export function updateCoach(coach) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.patch(`Coach/${coach.id}`, coach);
+    } catch (e) {
+      console.log(e.message);
+    }
+    dispatch({
+      type: UPDATE_COACH,
+      payload: coach,
+    });
+  };
+}
+
+export function deleteCoach(coachId) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.delete(`Service/${coachId}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+    dispatch({
+      type: DELETE_COACH,
+      payload: coachId,
     });
   };
 }
