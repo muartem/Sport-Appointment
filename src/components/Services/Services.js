@@ -7,10 +7,10 @@ import {
   resetService,
   updateService,
 } from "../../redux/actions";
-
-import Input from "../Input/Input";
-
 import styles from "../MainStyles/mainStyles.module.css";
+import List from "../List/List";
+import AddButton from "../buttons/AddButton/AddButton";
+import ServiceForm from "./ServicesForm";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -161,73 +161,25 @@ const Services = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
-        <button onClick={addForm} className={styles.addBtn}>
-          <p className={styles.addBtnText}>Add</p>
-          <div className={styles.addBtnPlus}>+</div>
-        </button>
-        <div className={styles.resultList}>{formatServices()}</div>
+        <AddButton addForm={addForm} />
+        <List items={formatServices()} />
       </div>
 
       <div className={styles.rightContainer}>
-        <form action="" onSubmit={submitHandler}>
-          <Input
-            key={inputs.name.name + "_service"}
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.name.name}
-            defaultValue={inputs.name.value}
-            error={inputs.name?.error}
-          />
-          <Input
-            key={inputs.description.name + "_service"}
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.description.name}
-            defaultValue={inputs.description.value}
-            error={inputs.description?.error}
-          />
-          <Input
-            key={inputs.price.name + "_service"}
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.price.name}
-            defaultValue={inputs.price.value}
-            error={inputs.price?.error}
-          />
-          <div className={styles.btnContainer}>
-            {isCreateButtonVisible && (
-              <button
-                type="submit"
-                disabled={isCreateButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Done</p>
-              </button>
-            )}
-            {isUpdateButtonVisible && (
-              <button
-                onClick={updateHandler}
-                disabled={isUpdateButtonDisabling}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Update</p>
-              </button>
-            )}
-
-            {isDeleteButtonVisible && (
-              <button
-                onClick={deleteHandler}
-                disabled={isDeleteButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Delete</p>
-              </button>
-            )}
-          </div>
-        </form>
+        <ServiceForm
+          inputs={inputs}
+          blurHandler={blurHandler}
+          inputHandler={inputHandler}
+          submitHandler={submitHandler}
+          updateHandler={updateHandler}
+          deleteHandler={deleteHandler}
+          isCreateButtonVisible={isCreateButtonVisible}
+          isCreateButtonDisabled={isCreateButtonDisabled}
+          isUpdateButtonVisible={isUpdateButtonVisible}
+          isUpdateButtonDisabling={isUpdateButtonDisabling}
+          isDeleteButtonVisible={isDeleteButtonVisible}
+          isDeleteButtonDisabled={isDeleteButtonDisabled}
+        />
       </div>
     </div>
   );
