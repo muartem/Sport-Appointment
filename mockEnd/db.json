@@ -4,7 +4,7 @@
       "id": 3,
       "name": "Flex",
       "description": "string1",
-      "price": "300"
+      "price": "30000"
     },
     {
       "id": 4,
@@ -71,28 +71,12 @@
       "id": 4
     },
     {
-      "firstName": "",
-      "lastName": "",
-      "birthDate": "",
-      "description": "",
-      "phoneNumber": "",
-      "id": 5
-    },
-    {
       "firstName": "sadf",
       "lastName": "sadf",
       "birthDate": "2021-03-03",
       "description": "tzdjmzxtkm",
       "phoneNumber": "sadf",
-      "id": 6
-    },
-    {
-      "firstName": "",
-      "lastName": "",
-      "birthDate": "",
-      "description": "",
-      "phoneNumber": "sadfsadf",
-      "id": 7
+      "id": 5
     },
     {
       "firstName": "sadfdsaf",
@@ -100,7 +84,7 @@
       "birthDate": "2021-03-10",
       "description": "gfcm",
       "phoneNumber": "fcgm",
-      "id": 8
+      "id": 6
     }
   ],
   "Qualification": [],
@@ -121,6 +105,63 @@
       "phoneNumber": "380658374633"
     }
   ],
-  "Slots": [],
+  "Slots": [
+    {
+      "id": 1,
+      "coachId": 2,
+      "date": "03.26.2021",
+      "startTime": "09:00",
+      "endTime": "16:00"
+    },
+    {
+      "id": 2,
+      "coachId": 2,
+      "date": "03.27.2021",
+      "startTime": "11:00",
+      "endTime": "18:00"
+    },
+    {
+      "id": 3,
+      "coachId": 2,
+      "date": "03.28.2021",
+      "startTime": "11:00",
+      "endTime": "18:00"
+    },
+    {
+      "id": 4,
+      "coachId": 1,
+      "date": "03.26.2021",
+      "startTime": "09:00",
+      "endTime": "16:00"
+    },
+    {
+      "id": 5,
+      "coachId": 1,
+      "date": "03.27.2021",
+      "startTime": "1:00",
+      "endTime": "18:00"
+    },
+    {
+      "id": 6,
+      "coachId": 1,
+      "date": "03.28.2021",
+      "startTime": "6:00",
+      "endTime": "12:00"
+    },
+    {
+      "id": 7,
+      "coachId": 1,
+      "date": "04.01.2021",
+      "startTime": "6:00",
+      "endTime": "12:00"
+    },
+    {
+      "id": 8,
+      "coachId": 1,
+      "date": "04.01.2021",
+      "startTime": "14:00",
+      "endTime": "18:00"
+    }
+  ],
   "Booking": []
 }

@@ -1,0 +1,137 @@
+/* SLOTS */
+
+.slotsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+/* CALENDAR */
+
+.calendarContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+}
+
+.calendarBtns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.calendarBtns > * {
+  outline: none;
+  border: none;
+  background: none;
+  user-select: none;
+
+  padding: 0.4em 4em;
+  margin: 15px 0;
+  height: fit-content;
+
+  border-radius: 15px;
+  box-sizing: border-box;
+  background: #86868621;
+
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: #ffffff;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.calendarBtns > *:hover {
+  color: #000000;
+  background-color: #f5ff01;
+  border-color: #f5ff01;
+
+  cursor: pointer;
+}
+
+.calendar {
+  display: flex;
+  overflow-y: hidden;
+  list-style: none;
+  color: #fff;
+  margin-bottom: 30px;
+  width: 80vw;
+}
+
+.calendar > * {
+  width: 100px;
+}
+
+.hours {
+  list-style: none;
+  width: fit-content;
+  align-self: flex-start;
+  height: 100vh;
+  margin: 40px 0;
+  color: #fff;
+}
+
+.hours > * {
+  margin-top: 5px;
+  margin-right: 5px;
+  height: 30px;
+}
+
+.calendar .dayColumn {
+  padding: 0 5px;
+  border-left: 1px solid rgba(255, 255, 255, 0.404);
+}
+
+.calendar .cell {
+  margin-top: 5px;
+  height: 30px;
+  color: #000;
+  background-color: #6d6d6d3a;
+  border-radius: 10px;
+}
+
+.calendar .day {
+  background: none;
+  color: #fff;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.404);
+}
+
+.calendar .active {
+  background-color: #f5ff01;
+}
+
+/* FORM */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.formContainer > select {
+  outline: none;
+  border: none;
+  background: none;
+
+  padding: 0.4em 4em;
+  margin: 15px 0;
+  height: fit-content;
+
+  border-radius: 15px;
+  border: 1px solid #f5ff01;
+  box-sizing: border-box;
+
+  font-size: 1.3rem;
+  color: #f5ff01;
+  text-align: center;
+}
+
+.formContainer > select * {
+  color: #000;
+}
+
+option:hover {
+  box-shadow: 0 0 10px 100px #f5ff01 inset;
+  background: #f5ff01;
+  color: #000;
+}
