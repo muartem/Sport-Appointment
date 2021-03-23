@@ -11,6 +11,11 @@ import {
   RESET_CLIENTS,
   UPDATE_SERVICE,
   DELETE_SERVICE,
+  GET_SLOTS,
+  ADD_SLOT,
+  UPDATE_SLOT,
+  DELETE_SLOT,
+  RESET_SLOTS,
 } from "./types";
 import Api from "./axios";
 
@@ -152,6 +157,69 @@ export function resetClient() {
   return (dispatch) => {
     dispatch({
       type: RESET_CLIENTS,
+    });
+  };
+}
+
+export function getSlots() {
+  return async (dispatch) => {
+    const slots = await Api.get("Slots/");
+    dispatch({
+      type: GET_SLOTS,
+      payload: slots.data,
+    });
+  };
+}
+
+export function addSlot(slot) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.post("Slots/", slot);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: ADD_SLOT,
+      payload: slot,
+    });
+  };
+}
+
+export function updateSlot(slot) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.patch(`Slots/${slot.id}`, slot);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: UPDATE_SLOT,
+      payload: slot,
+    });
+  };
+}
+
+export function deleteSlot(slotId) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.delete(`Slots/${slotId}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: DELETE_SLOT,
+      payload: slotId,
+    });
+  };
+}
+
+export function resetSlots() {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_SLOTS,
     });
   };
 }
