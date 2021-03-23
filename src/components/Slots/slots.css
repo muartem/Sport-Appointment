@@ -108,7 +108,7 @@
   flex-direction: column;
 }
 
-.formContainer > select {
+.formContainer select {
   outline: none;
   border: none;
   background: none;
@@ -126,7 +126,7 @@
   text-align: center;
 }
 
-.formContainer > select * {
+.formContainer select * {
   color: #000;
 }
 

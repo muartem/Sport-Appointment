@@ -6,8 +6,11 @@ import {
   resetSlots,
   getCoaches,
   resetCoach,
+  addSlot,
 } from "../../redux/actions";
+import Input from "../Input/Input";
 import "./slots.css";
+import styles from "../MainStyles/mainStyles.module.css";
 
 const Slots = () => {
   const [pickedDate, setPickedDate] = useState(new Date());
@@ -36,6 +39,107 @@ const Slots = () => {
         {coach.lastName}
       </option>
     ));
+
+  // FORM
+
+  const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);
+  const [isCreateButtonVisible, setCreateButtonVisibility] = useState(true);
+
+  const initialInputs = {
+    coachId: {
+      name: "coachId",
+      value: "",
+    },
+    date: {
+      name: "date",
+      value: "",
+      error: "",
+    },
+    startTime: {
+      name: "startTime",
+      value: "",
+      error: "",
+    },
+    endTime: {
+      name: "endTime",
+      value: "",
+      error: "",
+    },
+  };
+
+  const [inputs, setInputs] = useState({ ...initialInputs });
+
+  const initialFormState = () => {
+    setCreateButtonDisabling(true);
+    setCreateButtonVisibility(true);
+    setInputs((state) => ({ ...initialInputs }));
+  };
+
+  const inputHandler = (e) => {
+    setInputs((state) => {
+      let new_state = { ...state };
+      new_state[e.target.name].value = e.target.value;
+      new_state[e.target.name].error = "";
+      return new_state;
+    });
+    if (
+      e.target.value &&
+      [inputs.date.value, inputs.startTime.value, inputs.endTime.value].every(
+        (i) => i.length > 0
+      )
+    ) {
+      setCreateButtonDisabling(false);
+    }
+  };
+
+  const blurHandler = (e) => {
+    if (e.target.value.length < 1) {
+      const { name } = e.target;
+      setInputs((state) => {
+        return {
+          ...state,
+          [name]: {
+            ...state[name],
+            error: "Empty field",
+          },
+        };
+      });
+      setCreateButtonDisabling(true);
+    }
+  };
+
+  const formattedDate = (incomeDate) => {
+    let date = new Date(incomeDate);
+
+    function checkDigit(t) {
+      return t < 10 ? `0${t}` : t;
+    }
+
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1;
+    let yyyy = date.getFullYear();
+
+    return `${checkDigit(mm)}.${checkDigit(dd)}.${yyyy}`;
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      addSlot({
+        id: slots.sort((a, b) => b.id - a.id)[0].id + 1,
+        coachId: coachId,
+        date: formattedDate(inputs.date.value),
+        startTime: inputs.startTime.value,
+        endTime: inputs.endTime.value,
+      })
+    );
+    initialFormState();
+  };
+
+  // const deleteHandler = () => {
+  //   dispatch(deleteSlot(slot.id));
+  //   initialFormState();
+  // };
 
   // CALENDAR
 
@@ -205,12 +309,53 @@ const Slots = () => {
       </div>
 
       <div className="formContainer">
-        <select
-          value={coachId}
-          onChange={(e) => setCoachId(Number(e.target.value))}
-        >
-          {formatCoaches()}
-        </select>
+        <form action="" onSubmit={submitHandler}>
+          <select
+            name={inputs.coachId.name}
+            defaultValue={inputs.coachId.value}
+            onChange={(e) => setCoachId(Number(e.target.value))}
+          >
+            {formatCoaches()}
+          </select>
+          <Input
+            key={inputs.date.name + "_slot"}
+            onBlur={blurHandler}
+            onChange={inputHandler}
+            type="date"
+            name={inputs.date.name}
+            defaultValue={inputs.date.value}
+            error={inputs.date?.error}
+          />
+          <Input
+            key={inputs.startTime.name + "_slot"}
+            onBlur={blurHandler}
+            onChange={inputHandler}
+            type="text"
+            name={inputs.startTime.name}
+            defaultValue={inputs.startTime.value}
+            error={inputs.startTime?.error}
+          />
+          <Input
+            key={inputs.endTime.name + "_slot"}
+            onBlur={blurHandler}
+            onChange={inputHandler}
+            type="text"
+            name={inputs.endTime.name}
+            defaultValue={inputs.endTime.value}
+            error={inputs.endTime?.error}
+          />
+          <div className={styles.btnContainer}>
+            {isCreateButtonVisible && (
+              <button
+                type="submit"
+                disabled={isCreateButtonDisabled}
+                className={styles.addBtn}
+              >
+                <p className={styles.addBtnText}>Done</p>
+              </button>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
