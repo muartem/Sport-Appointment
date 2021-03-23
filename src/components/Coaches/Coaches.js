@@ -7,10 +7,10 @@ import {
   deleteCoach,
   resetCoach,
 } from "../../redux/actions";
-
-import Input from "../Input/Input";
-
 import styles from "../MainStyles/mainStyles.module.css";
+import List from "../List/List";
+import AddButton from "../buttons/AddButton/AddButton";
+import CoachesForm from "./CoachesForm";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -191,86 +191,25 @@ const Coaches = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
-        <button onClick={addForm} className={styles.addBtn}>
-          <p className={styles.addBtnText}>Add</p>
-          <div className={styles.addBtnPlus}>+</div>
-        </button>
-        <div className={styles.resultList}>{formatCoaches()}</div>
+        <AddButton addForm={addForm} />
+        <List items={formatCoaches()} />
       </div>
 
       <div className={styles.rightContainer}>
-        <form action="" onSubmit={submitHandler}>
-          <Input
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.firstName.name}
-            defaultValue={inputs.firstName.value}
-            error={inputs.firstName?.error}
-          />
-          <Input
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.lastName.name}
-            defaultValue={inputs.lastName.value}
-            error={inputs.lastName?.error}
-          />
-          <Input
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.description.name}
-            defaultValue={inputs.description.value}
-            error={inputs.description?.error}
-          />
-          <Input
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="date"
-            name={inputs.birthDate.name}
-            defaultValue={inputs.birthDate.value}
-            error={inputs.birthDate?.error}
-          />
-          <Input
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="tel"
-            name={inputs.phoneNumber.name}
-            defaultValue={inputs.phoneNumber.value}
-            error={inputs.phoneNumber?.error}
-          />
-          <div className={styles.btnContainer}>
-            {isCreateButtonVisible && (
-              <button
-                type="submit"
-                disabled={isCreateButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Done</p>
-              </button>
-            )}
-            {isUpdateButtonVisible && (
-              <button
-                onClick={updateHandler}
-                disabled={isUpdateButtonDisabling}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Update</p>
-              </button>
-            )}
-
-            {isDeleteButtonVisible && (
-              <button
-                onClick={deleteHandler}
-                disabled={isDeleteButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Delete</p>
-              </button>
-            )}
-          </div>
-        </form>
+        <CoachesForm
+          inputs={inputs}
+          blurHandler={blurHandler}
+          inputHandler={inputHandler}
+          submitHandler={submitHandler}
+          updateHandler={updateHandler}
+          deleteHandler={deleteHandler}
+          isCreateButtonVisible={isCreateButtonVisible}
+          isCreateButtonDisabled={isCreateButtonDisabled}
+          isUpdateButtonVisible={isUpdateButtonVisible}
+          isUpdateButtonDisabling={isUpdateButtonDisabling}
+          isDeleteButtonVisible={isDeleteButtonVisible}
+          isDeleteButtonDisabled={isDeleteButtonDisabled}
+        />
       </div>
     </div>
   );

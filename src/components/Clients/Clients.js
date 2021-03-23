@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getClients, resetClient } from "../../redux/actions";
 
 import styles from "../MainStyles/mainStyles.module.css";
+import { clientsSelector } from "./Clients.selector";
 
 const Clients = () => {
   const dispatch = useDispatch();
 
-  const clients = useSelector((state) => state.client.data);
+  const clients = useSelector(clientsSelector);
 
   useEffect(() => {
     dispatch(getClients());
     return () => dispatch(resetClient());
-  }, []);
+  }, [dispatch]);
 
   const formatClients = () =>
     clients?.map((client) => (
