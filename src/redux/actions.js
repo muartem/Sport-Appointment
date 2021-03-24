@@ -16,8 +16,12 @@ import {
   UPDATE_SLOT,
   DELETE_SLOT,
   RESET_SLOTS,
+  GET_QUALIFICATIONS,
+  ADD_QUALIFICATION, DELETE_QUALIFICATION, RESET_QUALIFICATIONS,
 } from "./types";
 import Api from "./axios";
+
+//
 
 export function getServices() {
   return async (dispatch) => {
@@ -82,6 +86,8 @@ export function resetService() {
   };
 }
 
+//
+
 export function getCoaches() {
   return async (dispatch) => {
     const coaches = await Api.get("Coach/");
@@ -143,6 +149,8 @@ export function resetCoach() {
   };
 }
 
+//
+
 export function getClients() {
   return async (dispatch) => {
     const clients = await Api.get("Client/");
@@ -160,6 +168,8 @@ export function resetClient() {
     });
   };
 }
+
+//
 
 export function getSlots() {
   return async (dispatch) => {
@@ -220,6 +230,60 @@ export function resetSlots() {
   return (dispatch) => {
     dispatch({
       type: RESET_SLOTS,
+    });
+  };
+}
+
+//
+
+//BOOKING
+
+//
+
+export function getQualifications(param, id) {
+  return async (dispatch) => {
+    const qualifications = await Api.get(`Qualification?${param}=${id}`);
+    dispatch({
+      type: GET_QUALIFICATIONS,
+      payload: qualifications.data,
+    });
+  };
+}
+
+export function addQualification(qualification) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.post("Qualification/", qualification);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: ADD_QUALIFICATION,
+      payload: qualification,
+    });
+  };
+}
+
+export function deleteQualifications(qualificationId) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.delete(`Qualification/${qualificationId}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: DELETE_QUALIFICATION,
+      payload: qualificationId,
+    });
+  };
+}
+
+export function resetQualifications() {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_QUALIFICATIONS,
     });
   };
 }

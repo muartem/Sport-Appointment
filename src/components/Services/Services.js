@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addService,
@@ -11,6 +11,7 @@ import styles from "../MainStyles/mainStyles.module.css";
 import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import ServiceForm from "./ServicesForm";
+import TransferList from "../TransferList/TransferList";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Services = () => {
   const [isCreateButtonVisible, setCreateButtonVisibility] = useState(true);
   const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
   const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
+
+  const [isTransferListVisible, setTransferListVisibility] = useState(false);
 
   const initialInputs = {
     name: {
@@ -56,18 +59,25 @@ const Services = () => {
     setCreateButtonVisibility(true);
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
+    setTransferListVisibility(false);
+    setUpdateService({})
     setInputs((state) => ({ ...initialInputs }));
   };
 
   const inputHandler = (e) => {
-    setInputs((state) => {
-      let new_state = { ...state };
-      new_state[e.target.name].value = e.target.value;
-      new_state[e.target.name].error = "";
-      return new_state;
-    });
+    const {name, value} = e.target;
+
+    setInputs((state) => ({
+      ...state,
+      [name]: {
+        ...state[name],
+        value: value,
+        error: ""
+      }
+    }));
+
     if (
-      e.target.value &&
+      value &&
       [inputs.name.value, inputs.price.value, inputs.description.value].every(
         (i) => i.length > 0
       )
@@ -79,11 +89,14 @@ const Services = () => {
 
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
-      setInputs((state) => {
-        let new_state = { ...state };
-        new_state[e.target.name].error = "Empty field";
-        return new_state;
-      });
+      const {name} = e.target;
+      setInputs((state) => ({
+        ...state,
+        [name]: {
+          ...state[name],
+          error: "Empty field"
+        }
+      }));
       setCreateButtonDisabling(true);
     }
   };
@@ -123,13 +136,15 @@ const Services = () => {
   };
 
   const setService = (serviceId) => {
-    return (e) => {
+    return async (e) => {
       setCreateButtonVisibility(false);
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
       setDeleteButtonDisabling(false);
+      await setTransferListVisibility(false)
       const service = services.find((service) => service.id === serviceId);
       setUpdateService(service);
+      setTransferListVisibility(true)
       const serviceInput = {
         name: {
           name: "name",
@@ -180,6 +195,12 @@ const Services = () => {
           isDeleteButtonVisible={isDeleteButtonVisible}
           isDeleteButtonDisabled={isDeleteButtonDisabled}
         />
+        {isTransferListVisible &&
+        <div>
+          <h3 className={styles.yellow}>{service.name}</h3>
+          <TransferList searchParam="ServiceId" searchId={service.id} left={["one"]} right={["two"]} />
+        </div>
+        }
       </div>
     </div>
   );
