@@ -11,6 +11,7 @@ import styles from "../MainStyles/mainStyles.module.css";
 import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import CoachesForm from "./CoachesForm";
+import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -70,15 +71,15 @@ const Coaches = () => {
   };
 
   const inputHandler = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
 
     setInputs((state) => ({
       ...state,
       [name]: {
         ...state[name],
         value: value,
-        error: ""
-      }
+        error: "",
+      },
     }));
 
     if (
@@ -97,13 +98,13 @@ const Coaches = () => {
 
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
-      const {name} = e.target;
+      const { name } = e.target;
       setInputs((state) => ({
         ...state,
         [name]: {
           ...state[name],
-          error: "Empty field"
-        }
+          error: "Empty field",
+        },
       }));
       setCreateButtonDisabling(true);
     }
@@ -116,7 +117,7 @@ const Coaches = () => {
         id: coaches.sort((a, b) => b.id - a.id)[0].id + 1,
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        birthDate: inputs.birthDate.value,
+        birthDate: formattedDate(inputs.birthDate.value),
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
       })
@@ -170,7 +171,7 @@ const Coaches = () => {
         },
         birthDate: {
           name: "birthDate",
-          value: coach.birthDate,
+          value: unformattedDate(coach.birthDate),
           error: "",
         },
         description: {

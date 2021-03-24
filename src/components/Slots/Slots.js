@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSlots,
   deleteSlot,
+  updateSlot,
   resetSlots,
   getCoaches,
   resetCoach,
   addSlot,
 } from "../../redux/actions";
 import Input from "../Input/Input";
+import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -18,6 +20,8 @@ const Slots = () => {
   const dispatch = useDispatch();
 
   const slots = useSelector((state) => state.slots.data);
+  const [slot, setUpdateSlot] = useState({});
+  const [slotToDelete, setSlotToDelete] = useState({});
 
   useEffect(() => {
     dispatch(getSlots());
@@ -43,7 +47,12 @@ const Slots = () => {
   // FORM
 
   const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);
+  const [isDeleteButtonDisabled, setDeleteButtonDisabling] = useState(true);
+  const [isUpdateButtonDisabling, setUpdateButtonDisabling] = useState(true);
+
   const [isCreateButtonVisible, setCreateButtonVisibility] = useState(true);
+  const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
+  const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
 
   const initialInputs = {
     coachId: {
@@ -72,6 +81,10 @@ const Slots = () => {
   const initialFormState = () => {
     setCreateButtonDisabling(true);
     setCreateButtonVisibility(true);
+    setDeleteButtonVisibility(false);
+    setUpdateButtonVisibility(false);
+    setUpdateSlot({});
+    setSlotToDelete({});
     setInputs((state) => ({ ...initialInputs }));
   };
 
@@ -89,6 +102,7 @@ const Slots = () => {
       )
     ) {
       setCreateButtonDisabling(false);
+      setUpdateButtonDisabling(false);
     }
   };
 
@@ -108,18 +122,17 @@ const Slots = () => {
     }
   };
 
-  const formattedDate = (incomeDate) => {
-    let date = new Date(incomeDate);
-
-    function checkDigit(t) {
-      return t < 10 ? `0${t}` : t;
-    }
-
-    let dd = date.getDate();
-    let mm = date.getMonth() + 1;
-    let yyyy = date.getFullYear();
-
-    return `${checkDigit(mm)}.${checkDigit(dd)}.${yyyy}`;
+  const updateHandler = () => {
+    dispatch(
+      updateSlot({
+        id: slot.id,
+        coachId: coachId,
+        date: formattedDate(inputs.date.value),
+        startTime: inputs.startTime.value,
+        endTime: inputs.endTime.value,
+      })
+    );
+    initialFormState();
   };
 
   const submitHandler = (e) => {
@@ -136,10 +149,49 @@ const Slots = () => {
     initialFormState();
   };
 
-  // const deleteHandler = () => {
-  //   dispatch(deleteSlot(slot.id));
-  //   initialFormState();
-  // };
+  const deleteHandler = () => {
+    console.log(slotToDelete);
+    dispatch(deleteSlot(slotToDelete.id));
+    initialFormState();
+  };
+
+  const setSlot = (date) => {
+    return async (e) => {
+      setCreateButtonVisibility(false);
+      setDeleteButtonVisibility(true);
+      setUpdateButtonVisibility(true);
+      setDeleteButtonDisabling(false);
+
+      const slot = slots.find((slot) => slot.date === formattedDate(date));
+      if (slot) {
+        setUpdateSlot(slot);
+        setSlotToDelete(slot);
+
+        const slotInput = {
+          coachId: {
+            name: "coachId",
+            value: slot.coachId,
+          },
+          date: {
+            name: "date",
+            value: unformattedDate(slot.date),
+            error: "",
+          },
+          startTime: {
+            name: "startTime",
+            value: slot.startTime,
+            error: "",
+          },
+          endTime: {
+            name: "endTime",
+            value: slot.endTime,
+            error: "",
+          },
+        };
+        setInputs((state) => ({ ...slotInput }));
+      } else setInputs((state) => ({ ...initialInputs }));
+    };
+  };
 
   // CALENDAR
 
@@ -232,8 +284,6 @@ const Slots = () => {
       weekCalendar[date] = times;
     }
 
-    console.log(weekCalendar);
-
     return weekCalendar;
   };
 
@@ -255,14 +305,19 @@ const Slots = () => {
     return compactWeekCalendar;
   };
 
-  const formatCompactWeekCalendar = (currentDate) => {
-    let compactWeekCalendar = makeCompactWeekCalendar(currentDate);
+  const formatWeekCalendar = (currentDate) => {
+    let compactWeekCalendar = makeWeekCalendar(currentDate);
     let arrayRepresentation = [];
     Object.entries(compactWeekCalendar).forEach(([key, day]) => {
       let dayArray = [];
+
+      let date = new Date(key);
+      let dateDay = date.getDate();
+      let dateMonth = date.getMonth() + 1;
+
       dayArray.push(
-        <div key={key} className="day cell">
-          {key}
+        <div key={performance.now()} className="day cell">
+          {`${dateDay}.${dateMonth}`}
         </div>
       );
 
@@ -275,8 +330,13 @@ const Slots = () => {
         let cellClass = value === true ? "active cell" : "cell";
         dayArray.push(<div key={time} className={cellClass}></div>);
       });
+
       arrayRepresentation.push(
-        <div key={key} className="dayColumn">
+        <div
+          key={performance.now()}
+          className="dayColumn"
+          onClick={setSlot(key)}
+        >
           {dayArray}
         </div>
       );
@@ -304,7 +364,7 @@ const Slots = () => {
         </div>
         <div className="calendar">
           <ul className="hours">{formatHoursUl()}</ul>
-          {formatCompactWeekCalendar(pickedDate)}
+          {formatWeekCalendar(pickedDate)}
         </div>
       </div>
 
@@ -352,6 +412,24 @@ const Slots = () => {
                 className={styles.addBtn}
               >
                 <p className={styles.addBtnText}>Done</p>
+              </button>
+            )}
+            {isUpdateButtonVisible && (
+              <button
+                onClick={updateHandler}
+                disabled={isUpdateButtonDisabling}
+                className={styles.addBtn}
+              >
+                <p className={styles.addBtnText}>Update</p>
+              </button>
+            )}
+            {isDeleteButtonVisible && (
+              <button
+                onClick={deleteHandler}
+                disabled={isDeleteButtonDisabled}
+                className={styles.addBtn}
+              >
+                <p className={styles.addBtnText}>Delete</p>
               </button>
             )}
           </div>

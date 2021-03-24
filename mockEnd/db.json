@@ -36,7 +36,7 @@
       "id": 1,
       "firstName": "Leanne",
       "lastName": "Graham",
-      "birthDate": "2021-03-18",
+      "birthDate": "03.18.2021",
       "description": "I'm selfish, impatient and a little insecure.",
       "phoneNumber": "380657365488"
     },
@@ -44,7 +44,7 @@
       "id": 2,
       "firstName": "Ervin",
       "lastName": "Howell",
-      "birthDate": "2021-03-11",
+      "birthDate": "03.11.2021",
       "description": "In three words I can sum up everything I've learned about life: it goes on.",
       "phoneNumber": "380973846170"
     },
@@ -52,7 +52,7 @@
       "id": 3,
       "firstName": "Clementine",
       "lastName": "Bauch",
-      "birthDate": "2021-03-05",
+      "birthDate": "03.05.2021",
       "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
     },
@@ -60,7 +60,7 @@
       "id": 7,
       "firstName": "Serega",
       "lastName": "chorniy",
-      "birthDate": "2021-01-14",
+      "birthDate": "01.14.2021",
       "description": "bumer",
       "phoneNumber": "+380972220022"
     },
@@ -68,9 +68,25 @@
       "id": 8,
       "firstName": "Conor ",
       "lastName": "McGregor",
-      "birthDate": "2021-03-10",
+      "birthDate": "03.10.2021",
       "description": "World Champion",
       "phoneNumber": "+380972211222"
+    },
+    {
+      "id": 9,
+      "firstName": "Mike",
+      "lastName": "Tyson",
+      "birthDate": "06.30.1966",
+      "description": "Born to win",
+      "phoneNumber": "+380682635741"
+    },
+    {
+      "id": 10,
+      "firstName": "Muhammad",
+      "lastName": "Ali",
+      "birthDate": "01.17.1942",
+      "description": "American professional boxer, activist, entertainer and philanthropist. ",
+      "phoneNumber": "+380682635836"
     }
   ],
   "Qualification": [
@@ -182,25 +198,18 @@
       "endTime": "5:00"
     },
     {
-      "id": 10,
-      "coachId": 1,
-      "date": "03.24.2021",
-      "startTime": "2:00",
-      "endTime": "5:00"
-    },
-    {
       "id": 11,
       "coachId": 1,
-      "date": "03.23.2021",
-      "startTime": "12-00",
-      "endTime": "6-00"
+      "date": "03.30.2021",
+      "startTime": "1:00",
+      "endTime": "5:00"
     },
     {
       "id": 12,
       "coachId": 1,
-      "date": "03.22.2021",
-      "startTime": "12-00",
-      "endTime": "13-00"
+      "date": "03.27.2021",
+      "startTime": "10:00",
+      "endTime": "18:00"
     }
   ],
   "Booking": []

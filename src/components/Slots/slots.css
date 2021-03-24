@@ -83,6 +83,11 @@
   border-left: 1px solid rgba(255, 255, 255, 0.404);
 }
 
+.calendar .dayColumn:hover {
+  background: rgba(146, 146, 146, 0.116);
+  color: #f5ff01;
+}
+
 .calendar .cell {
   margin-top: 5px;
   height: 30px;
