@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -8,6 +8,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import {useDispatch, useSelector} from "react-redux";
+import {getQualifications, resetQualifications} from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +36,11 @@ function intersection(a, b) {
 
 export default function TransferList(props) {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  const qualifications = useSelector((state) => state.qualification.data);
+
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState(props.left);
   const [right, setRight] = React.useState(props.right);
@@ -41,7 +48,12 @@ export default function TransferList(props) {
   useEffect(() => {
     setLeft(props.left);
     setRight(props.right);
-  });
+
+    dispatch(getQualifications(props.searchParam, props.searchId));
+    return () => dispatch(resetQualifications());
+  },[dispatch]);
+
+  console.log(qualifications)
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);

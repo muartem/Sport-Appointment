@@ -7,34 +7,28 @@
       "price": "30000"
     },
     {
-      "id": 4,
-      "name": "Kung-fu",
-      "description": "string",
-      "price": 4000
-    },
-    {
       "id": 2,
-      "name": "Sexy",
+      "name": "Box",
       "description": "sadf",
       "price": "asdf"
     },
     {
       "id": 1,
-      "name": "Hex",
+      "name": "mma",
       "description": "sadf",
       "price": "sadfd"
     },
     {
-      "id": 5,
-      "name": "Box",
-      "description": "sdf",
-      "price": "421341"
+      "id": 7,
+      "name": "karate-do",
+      "description": "kiiii---ja",
+      "price": "1000"
     },
     {
-      "id": 6,
-      "name": "dux",
-      "description": "s",
-      "price": "wq"
+      "id": 8,
+      "name": "Sex",
+      "description": "fasdf",
+      "price": "1000"
     }
   ],
   "Coach": [
@@ -63,31 +57,49 @@
       "phoneNumber": "380658374633"
     },
     {
-      "firstName": "sadf",
-      "lastName": "sadf",
-      "birthDate": "2021-03-05",
-      "description": "xgfm",
-      "phoneNumber": "sadf",
-      "id": 4
+      "id": 7,
+      "firstName": "Serega",
+      "lastName": "chorniy",
+      "birthDate": "2021-01-14",
+      "description": "bumer",
+      "phoneNumber": "+380972220022"
     },
     {
-      "firstName": "sadf",
-      "lastName": "sadf",
-      "birthDate": "2021-03-03",
-      "description": "tzdjmzxtkm",
-      "phoneNumber": "sadf",
-      "id": 5
-    },
-    {
-      "firstName": "sadfdsaf",
-      "lastName": "gxf",
+      "id": 8,
+      "firstName": "Conor ",
+      "lastName": "McGregor",
       "birthDate": "2021-03-10",
-      "description": "gfcm",
-      "phoneNumber": "fcgm",
-      "id": 6
+      "description": "World Champion",
+      "phoneNumber": "+380972211222"
     }
   ],
-  "Qualification": [],
+  "Qualification": [
+    {
+      "id": 1,
+      "ServiceId": 1,
+      "CoachId": 1
+    },
+    {
+      "id": 2,
+      "ServiceId": 1,
+      "CoachId": 7
+    },
+    {
+      "id": 3,
+      "ServiceId": 1,
+      "CoachId": 8
+    },
+    {
+      "id": 4,
+      "ServiceId": 2,
+      "CoachId": 2
+    },
+    {
+      "id": 5,
+      "ServiceId": 2,
+      "CoachId": 3
+    }
+  ],
   "Client": [
     {
       "id": 1,

@@ -70,12 +70,17 @@ const Coaches = () => {
   };
 
   const inputHandler = (e) => {
-    setInputs((state) => {
-      let new_state = { ...state };
-      new_state[e.target.name].value = e.target.value;
-      new_state[e.target.name].error = "";
-      return new_state;
-    });
+    const {name, value} = e.target;
+
+    setInputs((state) => ({
+      ...state,
+      [name]: {
+        ...state[name],
+        value: value,
+        error: ""
+      }
+    }));
+
     if (
       e.target.value &&
       [
@@ -92,11 +97,14 @@ const Coaches = () => {
 
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
-      setInputs((state) => {
-        let new_state = { ...state };
-        new_state[e.target.name].error = "Empty field";
-        return new_state;
-      });
+      const {name} = e.target;
+      setInputs((state) => ({
+        ...state,
+        [name]: {
+          ...state[name],
+          error: "Empty field"
+        }
+      }));
       setCreateButtonDisabling(true);
     }
   };
