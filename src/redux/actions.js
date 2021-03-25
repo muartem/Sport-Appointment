@@ -253,7 +253,7 @@ export function getQualifications(param, id) {
 export function addQualification(qualification) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Qualification/", ...qualification);
+      const response = await Api.post("Qualification/", qualification);
     } catch (e) {
       console.log(e.message);
     }

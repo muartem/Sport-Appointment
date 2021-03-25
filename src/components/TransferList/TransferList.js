@@ -14,7 +14,6 @@ import {
   deleteQualifications,
   getCoaches,
   getQualifications,
-  getServices,
   resetCoach,
   resetQualifications
 } from "../../redux/actions";
@@ -59,10 +58,7 @@ export default function TransferList(props) {
 
   const qualifications = useSelector((state) => state.qualification.data);
 
-  const services = useSelector((state) => state.service.data);
   const coaches = useSelector((state) => state.coach.data);
-
-  const b = true;
 
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState( []);
@@ -74,18 +70,15 @@ export default function TransferList(props) {
     const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
     const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
 
-    console.log("up")
-    setLeft(prevState => [...left.map(l=> `${l.firstName}  ${l.lastName}`)])
-    setRight(prevState => [...right.map(l=> `${l.firstName}  ${l.lastName}`)])
+    setLeft(prevState => [...left])
+    setRight(prevState => [...right])
   }
 
   useEffect(  () => {
     dispatch(getQualifications(props.searchParam, props.searchId));
-      dispatch(getCoaches())
-    console.log("effect-1")
+    dispatch(getCoaches())
 
     return () => {
-      console.log('unmount')
       dispatch(resetQualifications())
       dispatch(resetCoach())
     }
@@ -93,17 +86,14 @@ export default function TransferList(props) {
 
   useEffect(()=>{
     update(coaches)
-    console.log("effect-2")
   }, [coaches])
-
-  console.log(qualifications)
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
   const createQualification = (coachID) => {
     return {
-      id: coachID * props.searchId,
+      id: coachID * 100000 + props.searchId,
       ServiceId: props.searchId,
       CoachId: coachID
     }
@@ -120,19 +110,18 @@ export default function TransferList(props) {
     }
 
     setChecked(newChecked);
-    console.log(checked);
   };
 
   const handleAllRight = () => {
+    left.forEach(c => dispatch(addQualification(createQualification(c.id))))
+
     setRight(right.concat(left));
     setLeft([]);
-
-    //coaches.forEach(c => dispatch(addQualification(createQualification(c.id))))
-
-    dispatch(addQualification(coaches.map(c=> createQualification(c.id))))
   };
 
-  const handleCheckedRight = () => {
+  const handleCheckedRight = async () => {
+    leftChecked.forEach(c => dispatch(addQualification(createQualification(c.id))))
+
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
@@ -140,16 +129,22 @@ export default function TransferList(props) {
   };
 
   const handleCheckedLeft = () => {
+    const selectedId = rightChecked.map(c => c.id)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.CoachId) !== -1)
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+
     setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
   const handleAllLeft = () => {
+    const selectedId = right.map(c => c.id)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.CoachId) !== -1)
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+
     setLeft(left.concat(right));
     setRight([]);
-
-    qualifications.forEach(q => dispatch(deleteQualifications(q.id)))
   };
 
   const customList = (title, items) => (
@@ -160,11 +155,11 @@ export default function TransferList(props) {
       <Divider className={classes.hr} />
       <List dense component="div" role="list">
         {items.map((value) => {
-          const labelId = `transfer-list-item-${value}-label`;
+          const labelId = `transfer-list-item-${value.id}-label`;
 
           return (
             <ListItem
-              key={value}
+              key={value.id}
               role="listitem"
               button
               onClick={handleToggle(value)}
@@ -178,7 +173,7 @@ export default function TransferList(props) {
                   style={{ color: "#f5ff01" }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={value} />
+              <ListItemText id={labelId} primary={value.firstName +" "+ value.lastName} />
             </ListItem>
           );
         })}
