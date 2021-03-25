@@ -1,5 +1,5 @@
 {
-  "Service": [
+  "Services": [
     {
       "id": 3,
       "name": "Flex",
@@ -20,7 +20,7 @@
     },
     {
       "id": 7,
-      "name": "karate-do",
+      "name": "karate",
       "description": "kiiii---ja",
       "price": "1000"
     },
@@ -50,10 +50,10 @@
     },
     {
       "id": 3,
-      "firstName": "Clementine",
-      "lastName": "Bauch",
-      "birthDate": "03.05.2021",
-      "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
+      "firstName": "Jackie",
+      "lastName": " Chan",
+      "birthDate": "2021-03-09",
+      "description": "I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
     },
     {
@@ -114,6 +114,16 @@
       "id": 5,
       "ServiceId": 2,
       "CoachId": 3
+    },
+    {
+      "id": 104,
+      "ServiceId": 1,
+      "CoachId": 1
+    },
+    {
+      "id": 104,
+      "ServiceId": 3,
+      "CoachId": 5
     }
   ],
   "Client": [

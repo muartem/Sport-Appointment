@@ -9,7 +9,17 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import {useDispatch, useSelector} from "react-redux";
-import {getQualifications, resetQualifications} from "../../redux/actions";
+import {
+  addQualification,
+  deleteQualifications,
+  getCoaches,
+  getQualifications,
+  getServices,
+  resetCoach,
+  resetQualifications
+} from "../../redux/actions";
+import Divider from "@material-ui/core/Divider";
+import CardHeader from "@material-ui/core/CardHeader";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,6 +28,14 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     background: "#01010152",
     color: "#fff",
+  },
+  header: {
+    padding: "8px",
+    color: "#f5ff01",
+    fontSize: "1rem"
+  },
+  hr: {
+    background: "#fff",
   },
   button: {
     margin: theme.spacing(0.5, 0),
@@ -41,22 +59,47 @@ export default function TransferList(props) {
 
   const qualifications = useSelector((state) => state.qualification.data);
 
+  const services = useSelector((state) => state.service.data);
+  const coaches = useSelector((state) => state.coach.data);
+
   const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(props.left);
-  const [right, setRight] = React.useState(props.right);
+  const [left, setLeft] = React.useState( []);
+  const [right, setRight] = React.useState( []);
 
-  useEffect(() => {
-    setLeft(props.left);
-    setRight(props.right);
+  const update = (list) => {
+    const selectedId = qualifications.map(q => q.CoachId)
 
-    dispatch(getQualifications(props.searchParam, props.searchId));
-    return () => dispatch(resetQualifications());
+    const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
+    const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
+
+    setLeft(prevState => [...left.map(l=> `${l.firstName}  ${l.lastName}`)])
+    setRight(prevState => [...right.map(l=> `${l.firstName}  ${l.lastName}`)])
+  }
+
+  useEffect(async () => {
+    await dispatch(getQualifications(props.searchParam, props.searchId));
+    await dispatch(getCoaches())
+
+    setTimeout(()=> update(coaches), 1000)
+
+    return () => {
+      dispatch(resetQualifications())
+      dispatch(resetCoach())
+    }
   },[dispatch]);
 
   console.log(qualifications)
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+  const createQualification = (coachID) => {
+    return {
+      id: coachID * props.searchId,
+      ServiceId: props.searchId,
+      CoachId: coachID
+    }
+  }
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -69,17 +112,22 @@ export default function TransferList(props) {
     }
 
     setChecked(newChecked);
+    console.log(checked);
   };
 
   const handleAllRight = () => {
     setRight(right.concat(left));
     setLeft([]);
+
+    //coaches.forEach(c => dispatch(addQualification(createQualification(c.id))))
+    dispatch(addQualification(coaches.map(c=> createQualification(c.id))))
   };
 
   const handleCheckedRight = () => {
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
+
   };
 
   const handleCheckedLeft = () => {
@@ -91,10 +139,16 @@ export default function TransferList(props) {
   const handleAllLeft = () => {
     setLeft(left.concat(right));
     setRight([]);
+
+    qualifications.forEach(q => dispatch(deleteQualifications(q.id)))
   };
 
-  const customList = (items) => (
+  const customList = (title, items) => (
     <Paper className={classes.paper}>
+      <CardHeader className={classes.header}
+          title={title}
+      />
+      <Divider className={classes.hr} />
       <List dense component="div" role="list">
         {items.map((value) => {
           const labelId = `transfer-list-item-${value}-label`;
@@ -126,7 +180,7 @@ export default function TransferList(props) {
 
   return (
     <Grid container spacing={2} justify="center" alignItems="center">
-      <Grid item>{customList(left)}</Grid>
+      <Grid item>{customList('Available', left)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <Button
@@ -171,7 +225,7 @@ export default function TransferList(props) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList(right)}</Grid>
+      <Grid item>{customList('Selected', right)}</Grid>
     </Grid>
   );
 }

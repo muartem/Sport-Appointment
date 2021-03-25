@@ -12,6 +12,7 @@ import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import CoachesForm from "./CoachesForm";
 import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
+import TransferList from "../TransferList/TransferList";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Coaches = () => {
   const [isCreateButtonVisible, setCreateButtonVisibility] = useState(true);
   const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
   const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
+
+  const [isTransferListVisible, setTransferListVisibility] = useState(false);
 
   const initialInputs = {
     firstName: {
@@ -67,8 +70,10 @@ const Coaches = () => {
     setCreateButtonVisibility(true);
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
+    setTransferListVisibility(false);
     setInputs((state) => ({ ...initialInputs }));
   };
+
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -149,15 +154,15 @@ const Coaches = () => {
   };
 
   const setCoach = (coachId) => {
-    return (e) => {
+    return async (e) => {
       setCreateButtonVisibility(false);
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
       setDeleteButtonDisabling(false);
-
+      await setTransferListVisibility(false)
       const coach = coaches.find((coach) => coach.id === coachId);
       setUpdateCoach(coach);
-
+      setTransferListVisibility(true)
       const serviceInput = {
         firstName: {
           name: "firstName",
@@ -219,6 +224,12 @@ const Coaches = () => {
           isDeleteButtonVisible={isDeleteButtonVisible}
           isDeleteButtonDisabled={isDeleteButtonDisabled}
         />
+        {isTransferListVisible &&
+        <div>
+          <h3 className={styles.yellow}>{coach.firstName} {coach.lastName}</h3>
+          <TransferList searchParam="CoachId" searchId={coach.id} left={["one"]} right={["two"]} />
+        </div>
+        }
       </div>
     </div>
   );
