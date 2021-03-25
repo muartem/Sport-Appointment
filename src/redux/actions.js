@@ -24,13 +24,13 @@ import {
   RESET_BOOKINGS,
   DELETE_BOOKING,
 } from "./types";
-import Api from "./axios";
+import {mockApi as Api, realApi as Api2} from "./axios";
 
 //
 
 export function getServices() {
   return async (dispatch) => {
-    const services = await Api.get("Services/");
+    const services = await Api.get("/Services");
     dispatch({
       type: GET_SERVICES,
       payload: services.data,
@@ -41,7 +41,7 @@ export function getServices() {
 export function addService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Services/", service);
+      const response = await Api.post("/Services", service);
     } catch (e) {
       console.log(e.message);
     }
@@ -56,10 +56,8 @@ export function addService(service) {
 export function updateService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(
-        `Services/update/${service.id}`,
-        service
-      );
+      const response = await Api.patch(`Services/${service.id}`, service);
+
     } catch (e) {
       console.log(e.message);
     }

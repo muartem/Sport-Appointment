@@ -198,7 +198,7 @@ const Services = () => {
         {isTransferListVisible &&
         <div>
           <h3 className={styles.yellow}>{service.name}</h3>
-          <TransferList searchParam="ServiceId" searchId={service.id} left={["one"]} right={["two"]} />
+          <TransferList searchParam="ServiceId" searchId={service.id}/>
         </div>
         }
       </div>

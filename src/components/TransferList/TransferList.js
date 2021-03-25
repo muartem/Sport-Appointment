@@ -9,7 +9,16 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import {useDispatch, useSelector} from "react-redux";
-import {getQualifications, resetQualifications} from "../../redux/actions";
+import {
+  addQualification,
+  deleteQualifications,
+  getCoaches,
+  getQualifications,
+  resetCoach,
+  resetQualifications
+} from "../../redux/actions";
+import Divider from "@material-ui/core/Divider";
+import CardHeader from "@material-ui/core/CardHeader";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     background: "#01010152",
     color: "#fff",
+  },
+  header: {
+    padding: "8px",
+    color: "#f5ff01",
+    fontSize: "1rem"
+  },
+  hr: {
+    background: "#fff",
   },
   button: {
     margin: theme.spacing(0.5, 0),
@@ -41,22 +58,46 @@ export default function TransferList(props) {
 
   const qualifications = useSelector((state) => state.qualification.data);
 
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(props.left);
-  const [right, setRight] = React.useState(props.right);
+  const coaches = useSelector((state) => state.coach.data);
 
-  useEffect(() => {
-    setLeft(props.left);
-    setRight(props.right);
+  const [checked, setChecked] = useState([]);
+  const [left, setLeft] = useState( []);
+  const [right, setRight] = useState( []);
 
+  const update = (list) => {
+    const selectedId = qualifications.map(q => q.CoachId)
+
+    const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
+    const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
+
+    setLeft([...left])
+    setRight([...right])
+  }
+
+  useEffect(  () => {
     dispatch(getQualifications(props.searchParam, props.searchId));
-    return () => dispatch(resetQualifications());
+    dispatch(getCoaches())
+
+    return () => {
+      dispatch(resetQualifications())
+      dispatch(resetCoach())
+    }
   },[dispatch]);
 
-  console.log(qualifications)
+  useEffect(()=>{
+    update(coaches)
+  }, [coaches])
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+  const createQualification = (coachID) => {
+    return {
+      id: coachID * 100000 + props.searchId,
+      ServiceId: props.searchId,
+      CoachId: coachID
+    }
+  }
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -72,37 +113,54 @@ export default function TransferList(props) {
   };
 
   const handleAllRight = () => {
+    left.forEach(c => dispatch(addQualification(createQualification(c.id))))
+
     setRight(right.concat(left));
     setLeft([]);
   };
 
-  const handleCheckedRight = () => {
+  const handleCheckedRight = async () => {
+    leftChecked.forEach(c => dispatch(addQualification(createQualification(c.id))))
+
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
+
   };
 
   const handleCheckedLeft = () => {
+    const selectedId = rightChecked.map(c => c.id)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.CoachId) !== -1)
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+
     setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
   const handleAllLeft = () => {
+    const selectedId = right.map(c => c.id)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.CoachId) !== -1)
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+
     setLeft(left.concat(right));
     setRight([]);
   };
 
-  const customList = (items) => (
+  const customList = (title, items) => (
     <Paper className={classes.paper}>
+      <CardHeader className={classes.header}
+          title={title}
+      />
+      <Divider className={classes.hr} />
       <List dense component="div" role="list">
         {items.map((value) => {
-          const labelId = `transfer-list-item-${value}-label`;
+          const labelId = `transfer-list-item-${value.id}-label`;
 
           return (
             <ListItem
-              key={value}
-              role="listitem"
+              key={value.id}
+              role="listItem"
               button
               onClick={handleToggle(value)}
             >
@@ -115,7 +173,7 @@ export default function TransferList(props) {
                   style={{ color: "#f5ff01" }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={value} />
+              <ListItemText id={labelId} primary={value.firstName +" "+ value.lastName} />
             </ListItem>
           );
         })}
@@ -126,7 +184,7 @@ export default function TransferList(props) {
 
   return (
     <Grid container spacing={2} justify="center" alignItems="center">
-      <Grid item>{customList(left)}</Grid>
+      <Grid item>{customList('Available', left)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <Button
@@ -171,7 +229,7 @@ export default function TransferList(props) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList(right)}</Grid>
+      <Grid item>{customList('Selected', right)}</Grid>
     </Grid>
   );
 }

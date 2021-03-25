@@ -78,7 +78,6 @@
   width: 25px;
 
   margin: auto;
-  padding: auto;
   border: 1px solid;
   border-radius: 50%;
 
@@ -112,6 +111,30 @@
   width: 250px;
 }
 
+.rightContainer {
+  margin-top: 80px;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  gap: 20px;
+
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.rightContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.rightContainer form {
+  margin-left: 15px;
+}
+
+
 .resultList {
   display: flex;
   flex-direction: column;
@@ -129,7 +152,6 @@
 
   -ms-overflow-style: none;
   overflow-y: scroll;
-  scrollbar-width: none;
   scroll-behavior: smooth;
 }
 
@@ -145,7 +167,6 @@
   margin: 0 auto;
   cursor: pointer;
 
-  user-select: #ffffff;
 }
 
 .resultList > *::after {
