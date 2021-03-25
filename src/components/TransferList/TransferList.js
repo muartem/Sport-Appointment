@@ -62,6 +62,8 @@ export default function TransferList(props) {
   const services = useSelector((state) => state.service.data);
   const coaches = useSelector((state) => state.coach.data);
 
+  const b = true;
+
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState( []);
   const [right, setRight] = React.useState( []);
@@ -72,21 +74,27 @@ export default function TransferList(props) {
     const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
     const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
 
+    console.log("up")
     setLeft(prevState => [...left.map(l=> `${l.firstName}  ${l.lastName}`)])
     setRight(prevState => [...right.map(l=> `${l.firstName}  ${l.lastName}`)])
   }
 
-  useEffect(async () => {
-    await dispatch(getQualifications(props.searchParam, props.searchId));
-    await dispatch(getCoaches())
-
-    setTimeout(()=> update(coaches), 1000)
+  useEffect(  () => {
+    dispatch(getQualifications(props.searchParam, props.searchId));
+      dispatch(getCoaches())
+    console.log("effect-1")
 
     return () => {
+      console.log('unmount')
       dispatch(resetQualifications())
       dispatch(resetCoach())
     }
   },[dispatch]);
+
+  useEffect(()=>{
+    update(coaches)
+    console.log("effect-2")
+  }, [coaches])
 
   console.log(qualifications)
 
@@ -120,6 +128,7 @@ export default function TransferList(props) {
     setLeft([]);
 
     //coaches.forEach(c => dispatch(addQualification(createQualification(c.id))))
+
     dispatch(addQualification(coaches.map(c=> createQualification(c.id))))
   };
 
