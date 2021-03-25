@@ -38,8 +38,8 @@ const Coaches = () => {
       value: "",
       error: "",
     },
-    birthDate: {
-      name: "birthDate",
+    dateBirth: {
+      name: "dateBirth",
       value: "",
       error: "",
     },
@@ -117,7 +117,7 @@ const Coaches = () => {
         id: coaches.sort((a, b) => b.id - a.id)[0].id + 1,
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        birthDate: formattedDate(inputs.birthDate.value),
+        dateBirth: formattedDate(inputs.dateBirth.value),
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
       })
@@ -130,7 +130,7 @@ const Coaches = () => {
       updateCoach({
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        birthDate: inputs.birthDate.value,
+        dateBirth: inputs.dateBirth.value,
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
         id: coach.id,
@@ -169,9 +169,9 @@ const Coaches = () => {
           value: coach.lastName,
           error: "",
         },
-        birthDate: {
-          name: "birthDate",
-          value: unformattedDate(coach.birthDate),
+        dateBirth: {
+          name: "dateBirth",
+          value: unformattedDate(coach.dateBirth),
           error: "",
         },
         description: {

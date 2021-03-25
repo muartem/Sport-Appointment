@@ -30,7 +30,7 @@ import Api from "./axios";
 
 export function getServices() {
   return async (dispatch) => {
-    const services = await Api.get("Service/");
+    const services = await Api.get("Services/");
     dispatch({
       type: GET_SERVICES,
       payload: services.data,
@@ -41,7 +41,7 @@ export function getServices() {
 export function addService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Service/", service);
+      const response = await Api.post("Services/", service);
     } catch (e) {
       console.log(e.message);
     }
@@ -56,7 +56,10 @@ export function addService(service) {
 export function updateService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Service/${service.id}`, service);
+      const response = await Api.patch(
+        `Services/update/${service.id}`,
+        service
+      );
     } catch (e) {
       console.log(e.message);
     }
@@ -71,7 +74,7 @@ export function updateService(service) {
 export function deleteService(serviceId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Service/${serviceId}`);
+      const response = await Api.delete(`Services/${serviceId}`);
     } catch (e) {
       console.log(e.message);
     }
@@ -121,7 +124,7 @@ export function addCoach(coach) {
 export function updateCoach(coach) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Coach/${coach.id}`, coach);
+      const response = await Api.patch(`Coach/update/${coach.id}`, coach);
     } catch (e) {
       console.log(e.message);
     }
@@ -204,7 +207,7 @@ export function addSlot(slot) {
 export function updateSlot(slot) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Slots/${slot.id}`, slot);
+      const response = await Api.patch(`Slots/update/${slot.id}`, slot);
     } catch (e) {
       console.log(e.message);
     }
