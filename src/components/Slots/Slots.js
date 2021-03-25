@@ -10,6 +10,7 @@ import {
   addSlot,
 } from "../../redux/actions";
 import Input from "../Input/Input";
+import CRUDButtons from "../buttons/CRUDButtons/CRUDButtons";
 import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
@@ -137,6 +138,7 @@ const Slots = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
     dispatch(
       addSlot({
         id: slots.sort((a, b) => b.id - a.id)[0].id + 1,
@@ -147,6 +149,8 @@ const Slots = () => {
       })
     );
     initialFormState();
+    dispatch(getSlots());
+    dispatch(resetSlots());
   };
 
   const deleteHandler = () => {
@@ -157,13 +161,15 @@ const Slots = () => {
 
   const setSlot = (date) => {
     return async (e) => {
-      setCreateButtonVisibility(false);
-      setDeleteButtonVisibility(true);
-      setUpdateButtonVisibility(true);
-      setDeleteButtonDisabling(false);
-
-      const slot = slots.find((slot) => slot.date === formattedDate(date));
+      const slot = slots.find(
+        (slot) => slot.date === formattedDate(date) && slot.coachId === coachId
+      );
       if (slot) {
+        setCreateButtonVisibility(false);
+        setDeleteButtonVisibility(true);
+        setUpdateButtonVisibility(true);
+        setDeleteButtonDisabling(false);
+
         setUpdateSlot(slot);
         setSlotToDelete(slot);
 
@@ -189,7 +195,14 @@ const Slots = () => {
           },
         };
         setInputs((state) => ({ ...slotInput }));
-      } else setInputs((state) => ({ ...initialInputs }));
+      } else {
+        setCreateButtonVisibility(true);
+        setCreateButtonDisabling(true);
+        setDeleteButtonVisibility(false);
+        setUpdateButtonVisibility(false);
+
+        setInputs((state) => ({ ...initialInputs }));
+      }
     };
   };
 
@@ -287,26 +300,9 @@ const Slots = () => {
     return weekCalendar;
   };
 
-  const makeCompactWeekCalendar = (currentDate) => {
-    let weekCalendar = makeWeekCalendar(currentDate);
-    let compactWeekCalendar = {};
-    Object.entries(weekCalendar).forEach(([key, value]) => {
-      let date = new Date(key);
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let compactValue = {};
-      Object.entries(value).forEach(([key, value]) => {
-        let date = new Date(key);
-        compactValue[`${date.getHours()}:00`] = value;
-      });
-      compactWeekCalendar[`${day}.${month}`] = compactValue;
-    });
-
-    return compactWeekCalendar;
-  };
-
   const formatWeekCalendar = (currentDate) => {
     let compactWeekCalendar = makeWeekCalendar(currentDate);
+
     let arrayRepresentation = [];
     Object.entries(compactWeekCalendar).forEach(([key, day]) => {
       let dayArray = [];
@@ -327,6 +323,7 @@ const Slots = () => {
       }
 
       Object.entries(day).forEach(([time, value]) => {
+        console.log(time, value);
         let cellClass = value === true ? "active cell" : "cell";
         dayArray.push(<div key={time} className={cellClass}></div>);
       });
@@ -341,7 +338,6 @@ const Slots = () => {
         </div>
       );
     });
-
     return arrayRepresentation;
   };
 
@@ -404,35 +400,19 @@ const Slots = () => {
             defaultValue={inputs.endTime.value}
             error={inputs.endTime?.error}
           />
-          <div className={styles.btnContainer}>
-            {isCreateButtonVisible && (
-              <button
-                type="submit"
-                disabled={isCreateButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Done</p>
-              </button>
-            )}
-            {isUpdateButtonVisible && (
-              <button
-                onClick={updateHandler}
-                disabled={isUpdateButtonDisabling}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Update</p>
-              </button>
-            )}
-            {isDeleteButtonVisible && (
-              <button
-                onClick={deleteHandler}
-                disabled={isDeleteButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Delete</p>
-              </button>
-            )}
-          </div>
+          <CRUDButtons
+            blurHandler={blurHandler}
+            inputHandler={inputHandler}
+            submitHandler={submitHandler}
+            updateHandler={updateHandler}
+            deleteHandler={deleteHandler}
+            isCreateButtonVisible={isCreateButtonVisible}
+            isCreateButtonDisabled={isCreateButtonDisabled}
+            isUpdateButtonVisible={isUpdateButtonVisible}
+            isUpdateButtonDisabling={isUpdateButtonDisabling}
+            isDeleteButtonVisible={isDeleteButtonVisible}
+            isDeleteButtonDisabled={isDeleteButtonDisabled}
+          />
         </form>
       </div>
     </div>
