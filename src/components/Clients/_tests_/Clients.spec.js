@@ -1,6 +1,7 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import Clients from "../Clients";
+import clientsSelector from "../Clients.selector";
 
 import { getClients, resetClient } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +10,9 @@ const mockDispatch = jest.fn();
 
 jest.mock("react-redux", () => ({
   useDispatch: () => mockDispatch,
-  useSelector: (selector) => selector(),
+  useSelector: (selector) => selector,
 }));
-
+console.log(useSelector);
 jest.mock("../../../redux/actions", () => ({
   getClients: jest.fn(() => Symbol.for("getClients")),
   resetClient: jest.fn(() => Symbol.for("resetClient")),
@@ -32,11 +33,41 @@ describe("Clients component", () => {
     const component = mount(<Clients />);
     expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith(Symbol.for("getClients"));
-
     component.unmount();
     expect(mockDispatch).toHaveBeenCalledTimes(2);
-    expect(mockDispatch).toHaveBeenCalledWith(2, Symbol.for("resetClients"));
+    expect(mockDispatch).toHaveBeenCalledWith(Symbol.for("resetClients"));
   });
-  // it("should render list of clients", () => {});
-  // it("should render empty page if there are no clients in the list", () => {});
+  it("should render list of clients", () => {
+    clientsSelector.mockReturnValueOnce(() => [
+      {
+        id: 1,
+        name: "Joni",
+        phoneNumber: "911",
+      },
+      {
+        id: 2,
+        name: "Julia",
+        PhoneNumber: "101",
+      },
+      {
+        id: 3,
+        name: "Julian",
+        PhoneNumber: "1287678601",
+      },
+    ]);
+
+    const component = shallow(<Clients />);
+
+    // const resultList = component.find(".resultList");
+    // expect(resultList.children.length).toBe(1);
+    expect(component).toMatchSnapshot();
+  });
+  // it("should render empty page if there are no clients in the list", () => {
+  //   clientsSelector.mockReturnValueOnce([]);
+  //   const component = shallow(<Clients />);
+
+  //   const resultList = component.find(".resultList");
+  //   expect(resultList.children.length).toBe(0);
+  //   expect(component).toMatchSnapshot();
+  // });
 });

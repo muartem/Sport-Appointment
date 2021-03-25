@@ -135,38 +135,10 @@
   ],
   "Slots": [
     {
-      "id": 1,
-      "coachId": 2,
-      "date": "03.26.2021",
-      "startTime": "09:00",
-      "endTime": "16:00"
-    },
-    {
-      "id": 2,
-      "coachId": 2,
-      "date": "03.27.2021",
-      "startTime": "11:00",
-      "endTime": "18:00"
-    },
-    {
       "id": 3,
       "coachId": 2,
       "date": "03.28.2021",
       "startTime": "11:00",
-      "endTime": "18:00"
-    },
-    {
-      "id": 4,
-      "coachId": 1,
-      "date": "03.26.2021",
-      "startTime": "09:00",
-      "endTime": "16:00"
-    },
-    {
-      "id": 5,
-      "coachId": 1,
-      "date": "03.27.2021",
-      "startTime": "1:00",
       "endTime": "18:00"
     },
     {
@@ -203,13 +175,6 @@
       "date": "03.30.2021",
       "startTime": "1:00",
       "endTime": "5:00"
-    },
-    {
-      "id": 12,
-      "coachId": 1,
-      "date": "03.27.2021",
-      "startTime": "10:00",
-      "endTime": "18:00"
     }
   ],
   "Booking": []
