@@ -17,7 +17,12 @@ import {
   DELETE_SLOT,
   RESET_SLOTS,
   GET_QUALIFICATIONS,
-  ADD_QUALIFICATION, DELETE_QUALIFICATION, RESET_QUALIFICATIONS,
+  ADD_QUALIFICATION,
+  DELETE_QUALIFICATION,
+  RESET_QUALIFICATIONS,
+  GET_BOOKINGS,
+  RESET_BOOKINGS,
+  DELETE_BOOKING,
 } from "./types";
 import Api from "./axios";
 
@@ -284,6 +289,39 @@ export function resetQualifications() {
   return (dispatch) => {
     dispatch({
       type: RESET_QUALIFICATIONS,
+    });
+  };
+}
+
+export function getBookings() {
+  return async (dispatch) => {
+    const booking = await Api.get("Booking/");
+    dispatch({
+      type: GET_BOOKINGS,
+      payload: booking.data,
+    });
+  };
+}
+
+export function resetBookings() {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_BOOKINGS,
+    });
+  };
+}
+
+export function deleteBooking(bookingId) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.delete(`Booking/${bookingId}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: DELETE_BOOKING,
+      payload: bookingId,
     });
   };
 }
