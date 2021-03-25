@@ -11,7 +11,11 @@ import {
 } from "../../redux/actions";
 import Input from "../Input/Input";
 import CRUDButtons from "../buttons/CRUDButtons/CRUDButtons";
-import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
+import {
+  formattedDate,
+  unformattedDate,
+  formattedTime,
+} from "../formattedDate/formattedDate";
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -60,18 +64,18 @@ const Slots = () => {
       name: "coachId",
       value: "",
     },
-    date: {
-      name: "date",
+    dateStart: {
+      name: "dateStart",
       value: "",
       error: "",
     },
-    startTime: {
-      name: "startTime",
+    timeStart: {
+      name: "timeStart",
       value: "",
       error: "",
     },
-    endTime: {
-      name: "endTime",
+    timeEnd: {
+      name: "timeEnd",
       value: "",
       error: "",
     },
@@ -98,9 +102,11 @@ const Slots = () => {
     });
     if (
       e.target.value &&
-      [inputs.date.value, inputs.startTime.value, inputs.endTime.value].every(
-        (i) => i.length > 0
-      )
+      [
+        inputs.dateStart.value,
+        inputs.timeStart.value,
+        inputs.timeEnd.value,
+      ].every((i) => i.length > 0)
     ) {
       setCreateButtonDisabling(false);
       setUpdateButtonDisabling(false);
@@ -128,9 +134,9 @@ const Slots = () => {
       updateSlot({
         id: slot.id,
         coachId: coachId,
-        date: formattedDate(inputs.date.value),
-        startTime: inputs.startTime.value,
-        endTime: inputs.endTime.value,
+        dateStart: formattedDate(inputs.dateStart.value),
+        timeStart: inputs.timeStart.value,
+        timeEnd: inputs.timeEnd.value,
       })
     );
     initialFormState();
@@ -141,11 +147,11 @@ const Slots = () => {
 
     dispatch(
       addSlot({
-        id: slots.sort((a, b) => b.id - a.id)[0].id + 1,
+        id: 0,
         coachId: coachId,
-        date: formattedDate(inputs.date.value),
-        startTime: inputs.startTime.value,
-        endTime: inputs.endTime.value,
+        dateStart: formattedDate(inputs.dateStart.value),
+        timeStart: formattedTime(inputs.timeStart.value),
+        timeEnd: inputs.timeEnd.value,
       })
     );
     initialFormState();
@@ -162,7 +168,8 @@ const Slots = () => {
   const setSlot = (date) => {
     return async (e) => {
       const slot = slots.find(
-        (slot) => slot.date === formattedDate(date) && slot.coachId === coachId
+        (slot) =>
+          slot.dateStart === formattedDate(date) && slot.coachId === coachId
       );
       if (slot) {
         setCreateButtonVisibility(false);
@@ -178,19 +185,19 @@ const Slots = () => {
             name: "coachId",
             value: slot.coachId,
           },
-          date: {
-            name: "date",
-            value: unformattedDate(slot.date),
+          dateStart: {
+            name: "dateStart",
+            value: unformattedDate(slot.dateStart),
             error: "",
           },
-          startTime: {
-            name: "startTime",
-            value: slot.startTime,
+          timeStart: {
+            name: "timeStart",
+            value: slot.timeStart,
             error: "",
           },
-          endTime: {
-            name: "endTime",
-            value: slot.endTime,
+          timeEnd: {
+            name: "timeEnd",
+            value: slot.timeEnd,
             error: "",
           },
         };
@@ -238,7 +245,7 @@ const Slots = () => {
     return slots.filter((slot) => {
       if (slot.coachId !== coachId) return false;
       let slotDate = new Date();
-      let [month, date, year] = slot.date.split(".");
+      let [month, date, year] = slot.dateStart.split(".");
       slotDate.setFullYear(year, month - 1, date);
 
       if (currentMonday <= slotDate && nextMonday > slotDate) return true;
@@ -284,12 +291,12 @@ const Slots = () => {
             return;
           }
 
-          let startTime = coachDaySchedule.startTime.split(":")[0];
-          let endTime = coachDaySchedule.endTime.split(":")[0];
+          let timeStart = coachDaySchedule.timeStart.split(":")[0];
+          let timeEnd = coachDaySchedule.timeEnd.split(":")[0];
 
           if (
-            startTime <= currentDateTime.getHours() &&
-            endTime >= currentDateTime.getHours()
+            timeStart <= currentDateTime.getHours() &&
+            timeEnd >= currentDateTime.getHours()
           )
             times[currentDateTime] = true;
           else times[currentDateTime] = false;
@@ -374,31 +381,31 @@ const Slots = () => {
             {formatCoaches()}
           </select>
           <Input
-            key={inputs.date.name + "_slot"}
+            key={inputs.dateStart.name + "_slot"}
             onBlur={blurHandler}
             onChange={inputHandler}
             type="date"
-            name={inputs.date.name}
-            defaultValue={inputs.date.value}
-            error={inputs.date?.error}
+            name={inputs.dateStart.name}
+            defaultValue={inputs.dateStart.value}
+            error={inputs.dateStart?.error}
           />
           <Input
-            key={inputs.startTime.name + "_slot"}
+            key={inputs.timeStart.name + "_slot"}
             onBlur={blurHandler}
             onChange={inputHandler}
             type="text"
-            name={inputs.startTime.name}
-            defaultValue={inputs.startTime.value}
-            error={inputs.startTime?.error}
+            name={inputs.timeStart.name}
+            defaultValue={inputs.timeStart.value}
+            error={inputs.timeStart?.error}
           />
           <Input
-            key={inputs.endTime.name + "_slot"}
+            key={inputs.timeEnd.name + "_slot"}
             onBlur={blurHandler}
             onChange={inputHandler}
             type="text"
-            name={inputs.endTime.name}
-            defaultValue={inputs.endTime.value}
-            error={inputs.endTime?.error}
+            name={inputs.timeEnd.name}
+            defaultValue={inputs.timeEnd.value}
+            error={inputs.timeEnd?.error}
           />
           <CRUDButtons
             blurHandler={blurHandler}

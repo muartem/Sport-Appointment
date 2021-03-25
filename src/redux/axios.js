@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: 'http://localhost:4096',
-})
+  baseURL: "https://pmfightacademyadmin-hr8mp.ondigitalocean.app/",
+});

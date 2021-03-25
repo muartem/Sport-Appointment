@@ -1,9 +1,9 @@
+function checkDigit(t) {
+  return t < 10 ? `0${t}` : t;
+}
+
 export const formattedDate = (incomeDate) => {
   let date = new Date(incomeDate);
-
-  function checkDigit(t) {
-    return t < 10 ? `0${t}` : t;
-  }
 
   let dd = date.getDate();
   let mm = date.getMonth() + 1;
@@ -18,4 +18,11 @@ export const unformattedDate = (incomeDate) => {
   let yyyy = incomeDate.split(".")[2];
 
   return `${yyyy}-${mm}-${dd}`;
+};
+
+export const formattedTime = (incomeTime) => {
+  let hh = incomeTime.split(":")[0];
+  let mm = incomeTime.split(":")[1];
+
+  return `${checkDigit(hh)}:${mm}`;
 };
