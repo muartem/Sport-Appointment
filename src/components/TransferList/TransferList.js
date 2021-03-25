@@ -60,9 +60,9 @@ export default function TransferList(props) {
 
   const coaches = useSelector((state) => state.coach.data);
 
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState( []);
-  const [right, setRight] = React.useState( []);
+  const [checked, setChecked] = useState([]);
+  const [left, setLeft] = useState( []);
+  const [right, setRight] = useState( []);
 
   const update = (list) => {
     const selectedId = qualifications.map(q => q.CoachId)
@@ -70,8 +70,8 @@ export default function TransferList(props) {
     const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
     const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
 
-    setLeft(prevState => [...left])
-    setRight(prevState => [...right])
+    setLeft([...left])
+    setRight([...right])
   }
 
   useEffect(  () => {
@@ -160,7 +160,7 @@ export default function TransferList(props) {
           return (
             <ListItem
               key={value.id}
-              role="listitem"
+              role="listItem"
               button
               onClick={handleToggle(value)}
             >
