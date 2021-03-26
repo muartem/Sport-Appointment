@@ -29,6 +29,24 @@
       "name": "Sex",
       "description": "fasdf",
       "price": "1000"
+    },
+    {
+      "id": 9,
+      "name": "Aikido",
+      "description": "asdf",
+      "price": "2000"
+    },
+    {
+      "id": 10,
+      "name": "KUNG-FU",
+      "description": "sadf",
+      "price": "200"
+    },
+    {
+      "id": 11,
+      "name": "SAmbo",
+      "description": "sdf",
+      "price": "200"
     }
   ],
   "Coach": [
@@ -87,48 +105,137 @@
       "birthDate": "01.17.1942",
       "description": "American professional boxer, activist, entertainer and philanthropist. ",
       "phoneNumber": "+380682635836"
+    },
+    {
+      "id": 11,
+      "firstName": "Sasha",
+      "lastName": "Grey",
+      "birthDate": "01.13.2021",
+      "description": "sadafas",
+      "phoneNumber": "+380999919919"
+    },
+    {
+      "id": 12,
+      "firstName": "TESTER",
+      "lastName": " test",
+      "birthDate": "NaN.NaN.NaN",
+      "description": "sadf",
+      "phoneNumber": "+380972220022"
+    },
+    {
+      "id": 13,
+      "firstName": "Barack",
+      "lastName": "Abama",
+      "birthDate": "NaN.NaN.NaN",
+      "description": "sadf",
+      "phoneNumber": "sadfas"
     }
   ],
   "Qualification": [
-    {
-      "id": 1,
-      "ServiceId": 1,
-      "CoachId": 1
-    },
-    {
-      "id": 2,
-      "ServiceId": 1,
-      "CoachId": 7
-    },
-    {
-      "id": 3,
-      "ServiceId": 1,
-      "CoachId": 8
-    },
-    {
-      "id": 4,
-      "ServiceId": 2,
-      "CoachId": 2
-    },
-    {
-      "id": 5,
-      "ServiceId": 2,
-      "CoachId": 3
-    },
-    {
-      "id": 200007,
-      "ServiceId": 7,
-      "CoachId": 2
-    },
     {
       "id": 300007,
       "ServiceId": 7,
       "CoachId": 3
     },
     {
-      "id": 300008,
-      "ServiceId": 8,
+      "id": 200003,
+      "ServiceId": 2,
       "CoachId": 3
+    },
+    {
+      "id": 200007,
+      "ServiceId": 2,
+      "CoachId": 7
+    },
+    {
+      "id": 200002,
+      "ServiceId": 2,
+      "CoachId": 2
+    },
+    {
+      "id": 200008,
+      "ServiceId": 2,
+      "CoachId": 8
+    },
+    {
+      "id": 200001,
+      "ServiceId": 2,
+      "CoachId": 1
+    },
+    {
+      "id": 300010,
+      "ServiceId": 10,
+      "CoachId": 3
+    },
+    {
+      "id": 200009,
+      "ServiceId": 9,
+      "CoachId": 2
+    },
+    {
+      "id": 700007,
+      "ServiceId": 7,
+      "CoachId": 7
+    },
+    {
+      "id": 1100008,
+      "ServiceId": 8,
+      "CoachId": 11
+    },
+    {
+      "id": 1100003,
+      "ServiceId": 11,
+      "CoachId": 3
+    },
+    {
+      "id": 1000003,
+      "ServiceId": 10,
+      "CoachId": 3
+    },
+    {
+      "id": 1000001,
+      "ServiceId": 10,
+      "CoachId": 1
+    },
+    {
+      "id": 1000007,
+      "ServiceId": 10,
+      "CoachId": 7
+    },
+    {
+      "id": 1000002,
+      "ServiceId": 10,
+      "CoachId": 2
+    },
+    {
+      "id": 1000008,
+      "ServiceId": 10,
+      "CoachId": 8
+    },
+    {
+      "id": 1000009,
+      "ServiceId": 10,
+      "CoachId": 9
+    },
+    {
+      "id": 1000010,
+      "ServiceId": 10,
+      "CoachId": 10
+    },
+    {
+      "id": 200011,
+      "ServiceId": 11,
+      "CoachId": 2
+    },
+    {
+      "id": 213406602361656,
+      "ServiceId": 11,
+      "CoachId": 12
+    },
+    {
+      "id": 101853265973004,
+      "ServiceId": 7,
+      "CoachId": 9
     }
   ],
   "Client": [

@@ -12,7 +12,7 @@ import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import CoachesForm from "./CoachesForm";
 import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
-import TransferList from "../TransferList/TransferList";
+import TransferList from "./TransferList";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const Coaches = () => {
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
     setTransferListVisibility(false);
-    setInputs((state) => ({ ...initialInputs }));
+    setInputs({ ...initialInputs });
   };
 
 
@@ -127,7 +127,7 @@ const Coaches = () => {
         phoneNumber: inputs.phoneNumber.value,
       })
     );
-    setInputs((state) => ({ ...initialInputs }));
+    setInputs({ ...initialInputs });
   };
 
   const updateHandler = () => {
@@ -149,12 +149,12 @@ const Coaches = () => {
     initialFormState();
   };
 
-  const addForm = (e) => {
+  const addForm = () => {
     initialFormState();
   };
 
   const setCoach = (coachId) => {
-    return async (e) => {
+    return async () => {
       setCreateButtonVisibility(false);
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
@@ -190,7 +190,7 @@ const Coaches = () => {
           error: "",
         },
       };
-      setInputs((state) => ({ ...serviceInput }));
+      setInputs({ ...serviceInput });
     };
   };
 
@@ -227,7 +227,7 @@ const Coaches = () => {
         {isTransferListVisible &&
         <div>
           <h3 className={styles.yellow}>{coach.firstName} {coach.lastName}</h3>
-          <TransferList searchParam="CoachId" searchId={coach.id} left={["one"]} right={["two"]} />
+          <TransferList searchId={coach.id} />
         </div>
         }
       </div>
