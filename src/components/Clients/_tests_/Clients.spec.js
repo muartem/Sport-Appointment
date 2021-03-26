@@ -34,8 +34,6 @@ describe("Clients component", () => {
     expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith(Symbol.for("getClients"));
     component.unmount();
-    // expect(jest.fn()).toHaveBeenCalledTimes(2);
-    // expect(mockDispatch).toHaveBeenCalledWith(Symbol.for("resetClients"));
   });
   it("should render list of clients", () => {
     clientsSelector.mockReturnValueOnce(() => [
@@ -57,17 +55,6 @@ describe("Clients component", () => {
     ]);
 
     const component = shallow(<Clients />);
-
-    // const resultList = component.find(".resultList");
-    // expect(resultList.children.length).toBe(1);
     expect(component).toMatchSnapshot();
   });
-  // it("should render empty page if there are no clients in the list", () => {
-  //   clientsSelector.mockReturnValueOnce([]);
-  //   const component = shallow(<Clients />);
-
-  //   const resultList = component.find(".resultList");
-  //   expect(resultList.children.length).toBe(0);
-  //   expect(component).toMatchSnapshot();
-  // });
 });
