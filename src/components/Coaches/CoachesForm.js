@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import Input from "../Input/Input";
-import CRUDButtons from "../buttons/CRUDButtons/CRUDButtons";
+import Input from '../Input/Input';
+import CRUDButtons from '../buttons/CRUDButtons/CRUDButtons';
 
 const CoachesForm = (props) => {
   return (
-    <form action="" onSubmit={props.submitHandler}>
+    <form data-testid="coach-form" action="" onSubmit={props.submitHandler}>
       <Input
         onBlur={props.blurHandler}
         onChange={props.inputHandler}
@@ -13,6 +13,7 @@ const CoachesForm = (props) => {
         name={props.inputs.firstName.name}
         defaultValue={props.inputs.firstName.value}
         error={props.inputs.firstName?.error}
+        testid="form-firstname"
       />
       <Input
         onBlur={props.blurHandler}
@@ -21,6 +22,7 @@ const CoachesForm = (props) => {
         name={props.inputs.lastName.name}
         defaultValue={props.inputs.lastName.value}
         error={props.inputs.lastName?.error}
+        testid="form-lastname"
       />
       <Input
         onBlur={props.blurHandler}
@@ -29,6 +31,7 @@ const CoachesForm = (props) => {
         name={props.inputs.description.name}
         defaultValue={props.inputs.description.value}
         error={props.inputs.description?.error}
+        testid="form-description"
       />
       <Input
         onBlur={props.blurHandler}
@@ -37,6 +40,7 @@ const CoachesForm = (props) => {
         name={props.inputs.dateBirth.name}
         defaultValue={props.inputs.dateBirth.value}
         error={props.inputs.dateBirth?.error}
+        testid="form-birthdate"
       />
       <Input
         onBlur={props.blurHandler}
@@ -45,6 +49,7 @@ const CoachesForm = (props) => {
         name={props.inputs.phoneNumber.name}
         defaultValue={props.inputs.phoneNumber.value}
         error={props.inputs.phoneNumber?.error}
+        testid="form-phone"
       />
       <CRUDButtons
         updateHandler={props.updateHandler}

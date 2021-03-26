@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "../../MainStyles/mainStyles.module.css";
+import styles from '../../MainStyles/mainStyles.module.css';
 
 const CRUDButtons = (props) => {
   return (
@@ -10,6 +10,7 @@ const CRUDButtons = (props) => {
           type="submit"
           disabled={props.isCreateButtonDisabled}
           className={styles.addBtn}
+          data-testid="crud-button-submit"
         >
           <p className={styles.addBtnText}>Done</p>
         </button>
@@ -19,6 +20,7 @@ const CRUDButtons = (props) => {
           onClick={props.updateHandler}
           disabled={props.isUpdateButtonDisabling}
           className={styles.addBtn}
+          data-testid="crud-button-update"
         >
           <p className={styles.addBtnText}>Update</p>
         </button>
@@ -29,6 +31,7 @@ const CRUDButtons = (props) => {
           onClick={props.deleteHandler}
           disabled={props.isDeleteButtonDisabled}
           className={styles.addBtn}
+          data-testid="crud-button-delete"
         >
           <p className={styles.addBtnText}>Delete</p>
         </button>

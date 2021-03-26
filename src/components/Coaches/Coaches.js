@@ -17,7 +17,7 @@ import TransferList from "./TransferList";
 const Coaches = () => {
   const dispatch = useDispatch();
 
-  const coaches = useSelector((state) => state.coach.data);
+  const coaches = useSelector((state) => state?.coach?.data);
   const [coach, setUpdateCoach] = useState({});
 
   const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);
@@ -65,6 +65,23 @@ const Coaches = () => {
     return () => dispatch(resetCoach());
   }, []);
 
+  useEffect(() => {
+    if (
+      [
+        inputs.phoneNumber.value,
+        inputs.lastName.value,
+        inputs.firstName.value,
+        inputs.description.value,
+      ].every((i) => i.length > 0)
+    ) {
+      setCreateButtonDisabling(false);
+      setUpdateButtonDisabling(false);
+    } else {
+      setCreateButtonDisabling(true);
+      setUpdateButtonDisabling(true);
+    }
+  }, [inputs]);
+
   const initialFormState = () => {
     setCreateButtonDisabling(true);
     setCreateButtonVisibility(true);
@@ -85,24 +102,12 @@ const Coaches = () => {
         error: "",
       },
     }));
-
-    if (
-      e.target.value &&
-      [
-        inputs.phoneNumber.value,
-        inputs.lastName.value,
-        inputs.firstName.value,
-        inputs.description.value,
-      ].every((i) => i.length > 0)
-    ) {
-      setCreateButtonDisabling(false);
-      setUpdateButtonDisabling(false);
-    }
   };
 
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
       const { name } = e.target;
+
       setInputs((state) => ({
         ...state,
         [name]: {
@@ -110,6 +115,7 @@ const Coaches = () => {
           error: "Empty field",
         },
       }));
+
       setCreateButtonDisabling(true);
     }
   };
@@ -195,7 +201,7 @@ const Coaches = () => {
 
   const formatCoaches = () =>
     coaches?.map((coach) => (
-      <p key={coach.id} onClick={setCoach(coach.id)}>
+      <p data-testid="list-item" key={coach.id} onClick={setCoach(coach.id)}>
         {coach.firstName} {""}
         {coach.lastName}
       </p>
@@ -223,6 +229,14 @@ const Coaches = () => {
           isDeleteButtonVisible={isDeleteButtonVisible}
           isDeleteButtonDisabled={isDeleteButtonDisabled}
         />
+        {isTransferListVisible && (
+          <div>
+            <h3 className={styles.yellow}>
+              {coach.firstName} {coach.lastName}
+            </h3>
+            <TransferList searchId={coach.id} />
+          </div>
+        )}
       </div>
     </div>
   );

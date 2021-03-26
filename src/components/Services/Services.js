@@ -16,7 +16,7 @@ import TransferList from "./TransferList";
 const Services = () => {
   const dispatch = useDispatch();
 
-  const services = useSelector((state) => state.service.data);
+  const services = useSelector((state) => state?.service?.data);
   const [service, setUpdateService] = useState({});
 
   const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);

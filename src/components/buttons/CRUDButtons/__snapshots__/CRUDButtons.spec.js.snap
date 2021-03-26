@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CRUDButtons should show all buttons 1`] = `
+<div>
+  <div
+    class="btnContainer"
+  >
+    <button
+      class="addBtn"
+      data-testid="crud-button-submit"
+      type="submit"
+    >
+      <p
+        class="addBtnText"
+      >
+        Done
+      </p>
+    </button>
+    <button
+      class="addBtn"
+      data-testid="crud-button-update"
+    >
+      <p
+        class="addBtnText"
+      >
+        Update
+      </p>
+    </button>
+    <button
+      class="addBtn"
+      data-testid="crud-button-delete"
+    >
+      <p
+        class="addBtnText"
+      >
+        Delete
+      </p>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`CRUDButtons should show no buttons 1`] = `
+<div>
+  <div
+    class="btnContainer"
+  />
+</div>
+`;
