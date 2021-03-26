@@ -10,9 +10,7 @@ const mockDispatch = jest.fn();
 
 jest.mock("react-redux", () => ({
   useDispatch: () => mockDispatch,
-  useSelector: (selector) => {
-    selector();
-  },
+  useSelector: (selector) => selector,
 }));
 
 jest.mock("../../../redux/actions", () => ({
