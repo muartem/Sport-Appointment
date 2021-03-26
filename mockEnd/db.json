@@ -70,7 +70,7 @@
       "id": 3,
       "firstName": "Jackie",
       "lastName": " Chan",
-      "birthDate": "2021-03-09",
+      "birthDate": "03.09.2021",
       "description": "I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
     },
@@ -118,7 +118,7 @@
       "id": 12,
       "firstName": "TESTER",
       "lastName": " test",
-      "birthDate": "NaN.NaN.NaN",
+      "birthDate": "03.16.1994",
       "description": "sadf",
       "phoneNumber": "+380972220022"
     },
@@ -126,9 +126,17 @@
       "id": 13,
       "firstName": "Barack",
       "lastName": "Abama",
-      "birthDate": "NaN.NaN.NaN",
+      "birthDate": "03.23.2000",
       "description": "sadf",
       "phoneNumber": "sadfas"
+    },
+    {
+      "id": 14,
+      "firstName": "test1",
+      "lastName": "test1",
+      "dateBirth": "03.26.2021",
+      "description": "test1",
+      "phoneNumber": "+380682635836"
     }
   ],
   "Qualification": [
@@ -243,51 +251,31 @@
       "CoachId": 9
     },
     {
-      "id": 113172557370250,
-      "ServiceId": 7,
-      "CoachId": 10
-    },
-    {
-      "id": 33951767211075,
-      "ServiceId": 7,
-      "CoachId": 3
-    },
-    {
-      "id": 124489813107275,
-      "ServiceId": 7,
-      "CoachId": 11
-    },
-    {
-      "id": 135807068844300,
-      "ServiceId": 7,
-      "CoachId": 12
-    },
-    {
-      "id": 147124324581325,
-      "ServiceId": 7,
-      "CoachId": 13
-    },
-    {
-      "id": 4850253172188,
+      "id": 4850255028462,
       "ServiceId": 3,
       "CoachId": 1
+    },
+    {
+      "id": 9700510056978,
+      "ServiceId": 3,
+      "CoachId": 2
     }
   ],
   "Client": [
     {
       "id": 1,
       "name": "Leanne",
-      "phoneNumber": "380657365488"
+      "login": "380657365488"
     },
     {
       "id": 2,
       "name": "Ervin",
-      "phoneNumber": "380973846170"
+      "login": "380973846170"
     },
     {
       "id": 3,
       "name": "Clementine",
-      "phoneNumber": "380658374633"
+      "login": "380658374633"
     }
   ],
   "Slots": [
@@ -301,93 +289,93 @@
     {
       "id": 2,
       "coachId": 2,
-      "date": "03.27.2021",
-      "startTime": "11:00",
-      "endTime": "18:00"
+      "dateStart": "03.27.2021",
+      "timeStart": "11:00",
+      "timeEnd": "18:00"
     },
     {
       "id": 3,
       "coachId": 2,
-      "date": "03.28.2021",
-      "startTime": "11:00",
-      "endTime": "18:00"
+      "dateStart": "03.28.2021",
+      "timeStart": "11:00",
+      "timeEnd": "18:00"
     },
     {
       "id": 4,
       "coachId": 1,
-      "date": "03.26.2021",
-      "startTime": "08:00",
-      "endTime": "16:00"
+      "dateStart": "03.26.2021",
+      "timeStart": "08:00",
+      "timeEnd": "16:00"
     },
     {
       "id": 5,
       "coachId": 1,
-      "date": "03.27.2021",
-      "startTime": "2:00",
-      "endTime": "18:00"
+      "dateStart": "03.27.2021",
+      "timeStart": "2:00",
+      "timeEnd": "18:00"
     },
     {
       "id": 6,
       "coachId": 1,
-      "date": "03.25.2021",
-      "startTime": "2:00",
-      "endTime": "18:00"
+      "dateStart": "03.25.2021",
+      "timeStart": "2:00",
+      "timeEnd": "18:00"
     },
     {
       "id": 7,
       "coachId": 1,
-      "date": "04.01.2021",
-      "startTime": "6:00",
-      "endTime": "12:00"
+      "dateStart": "04.01.2021",
+      "timeStart": "6:00",
+      "timeEnd": "12:00"
     },
     {
       "id": 8,
       "coachId": 1,
-      "date": "04.01.2021",
-      "startTime": "14:00",
-      "endTime": "18:00"
+      "dateStart": "04.01.2021",
+      "timeStart": "14:00",
+      "timeEnd": "18:00"
     },
     {
       "id": 9,
       "coachId": 1,
-      "date": "02.24.2021",
-      "startTime": "2:00",
-      "endTime": "5:00"
+      "dateStart": "02.24.2021",
+      "timeStart": "2:00",
+      "timeEnd": "5:00"
     },
     {
       "id": 11,
       "coachId": 1,
-      "date": "03.30.2021",
-      "startTime": "1:00",
-      "endTime": "5:00"
+      "dateStart": "03.30.2021",
+      "timeStart": "1:00",
+      "timeEnd": "5:00"
     },
     {
       "id": 12,
       "coachId": 1,
-      "date": "03.27.2021",
-      "startTime": "10:00",
-      "endTime": "18:00"
+      "dateStart": "03.27.2021",
+      "timeStart": "10:00",
+      "timeEnd": "18:00"
     },
     {
       "id": 13,
       "coachId": 2,
-      "date": "03.25.2021",
-      "startTime": "2:00",
-      "endTime": "8:00"
+      "dateStart": "03.25.2021",
+      "timeStart": "2:00",
+      "timeEnd": "8:00"
     },
     {
       "id": 15,
       "coachId": 1,
-      "date": "03.31.2021",
-      "startTime": "2:00",
-      "endTime": "18:00"
+      "dateStart": "03.31.2021",
+      "timeStart": "2:00",
+      "timeEnd": "18:00"
     },
     {
-      "id": 17,
+      "id": 16,
       "coachId": 1,
-      "date": "03.28.2021",
-      "startTime": "4:00",
-      "endTime": "7:00"
+      "dateStart": "03.28.2021",
+      "timeStart": "04:00",
+      "timeEnd": "18:00"
     }
   ],
   "Booking": [
@@ -407,12 +395,36 @@
       "id": 3,
       "slotId": 3,
       "serviceId": 2,
-      "clientId": 1
+      "clientId": 3
     },
     {
       "id": 4,
       "slotId": 4,
+      "serviceId": 1,
+      "clientId": 2
+    },
+    {
+      "id": 5,
+      "slotId": 1,
       "serviceId": 2,
+      "clientId": 1
+    },
+    {
+      "id": 6,
+      "slotId": 2,
+      "serviceId": 2,
+      "clientId": 1
+    },
+    {
+      "id": 7,
+      "slotId": 3,
+      "serviceId": 3,
+      "clientId": 3
+    },
+    {
+      "id": 8,
+      "slotId": 4,
+      "serviceId": 1,
       "clientId": 2
     }
   ]

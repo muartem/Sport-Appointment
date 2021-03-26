@@ -10,13 +10,14 @@
 .calendarContainer {
   display: flex;
   flex-direction: column;
-  width: 70vw;
+  width: 820px;
 }
 
 .calendarBtns {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  width: 820px;
 }
 
 .calendarBtns > * {
@@ -56,7 +57,7 @@
   list-style: none;
   color: #fff;
   margin-bottom: 30px;
-  width: 80vw;
+  width: 820px;
 }
 
 .calendar > * {
@@ -69,6 +70,7 @@
   align-self: flex-start;
   height: 100vh;
   margin: 40px 0;
+  padding: 0;
   color: #fff;
 }
 
@@ -141,4 +143,50 @@ option:hover {
   box-shadow: 0 0 10px 100px #f8ff13 inset;
   background: #f8ff13;
   color: #000;
+}
+
+@media screen and (max-width: 1225px) {
+  .slotsContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .calendarContainer,
+  .calendarBtns {
+    margin: auto;
+    width: 80vw;
+  }
+
+  .calendar {
+    max-width: fit-content;
+    width: 80vw;
+    margin: auto;
+  }
+
+  .calendarBtns * {
+    width: fit-content;
+    padding: 0.4em 2.7em;
+  }
+
+  .formContainer {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .calendarContainer {
+    width: 100vw;
+  }
+
+  .calendarBtns {
+    margin: auto;
+  }
+
+  .calendarBtns * {
+    padding: 0.4em 1.5em;
+  }
+
+  .calendar {
+    margin: auto;
+  }
 }

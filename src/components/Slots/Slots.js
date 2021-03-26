@@ -222,13 +222,7 @@ const Slots = () => {
     return date;
   };
 
-  const prev = () => {
-    setPickedDate(calculateMondayDate(pickedDate, -1));
-  };
-
-  const next = () => {
-    setPickedDate(calculateMondayDate(pickedDate, 1));
-  };
+  // CALENDAR NAVIGATION
 
   const calculateMondayDate = (currentDate, weeksToAdd = 0) => {
     let currentMonday = new Date(currentDate);
@@ -237,6 +231,20 @@ const Slots = () => {
 
     return currentMonday;
   };
+
+  const prev = () => {
+    setPickedDate(calculateMondayDate(pickedDate, -1));
+  };
+
+  const next = () => {
+    setPickedDate(calculateMondayDate(pickedDate, 1));
+  };
+
+  const today = () => {
+    setPickedDate(calculateMondayDate(new Date(), 0));
+  };
+
+  // CALENDAR CREATION
 
   const makeWeekSchedule = () => {
     let currentMonday = calculateMondayDate(pickedDate);
@@ -268,7 +276,7 @@ const Slots = () => {
       let times = {};
 
       let coachDaySchedule = coachWeekSchedule.find((slot) => {
-        let slotDate = new Date(slot.date);
+        let slotDate = new Date(slot.dateStart);
 
         if (
           date.getFullYear() === slotDate.getFullYear() &&
@@ -306,6 +314,8 @@ const Slots = () => {
 
     return weekCalendar;
   };
+
+  // CALENDAR DISPLAY
 
   const formatWeekCalendar = (currentDate) => {
     let compactWeekCalendar = makeWeekCalendar(currentDate);
@@ -363,6 +373,7 @@ const Slots = () => {
       <div className="calendarContainer">
         <div className="calendarBtns">
           <button onClick={prev}>Back</button>
+          <button onClick={today}>Today</button>
           <button onClick={next}>Next</button>
         </div>
         <div className="calendar">
