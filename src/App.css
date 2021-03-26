@@ -1,3 +1,16 @@
 .App {
   text-align: center;
 }
+
+@media screen and (max-width: 850px) {
+  .MuiGrid-container{
+    flex-direction: column;
+    gap: 5px;
+  }
+  .MuiGrid-container>div:nth-child(2){
+    transform: rotate(90deg);
+    position: relative;
+    max-height: 70px;
+    left: 57px;
+  }
+}

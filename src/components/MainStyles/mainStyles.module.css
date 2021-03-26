@@ -146,9 +146,8 @@
   background: #01010152;
 
   width: inherit;
-  height: 70vh;
-  padding-top: 25px;
-  padding-bottom: 15px;
+  max-height: 70vh;
+  padding: 20px 0;
 
   -ms-overflow-style: none;
   overflow-y: scroll;
@@ -277,4 +276,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background: #010101;
   border: 1px solid #010101;
   color: #f8ff13;
+}
+
+@media screen and (max-width: 1280px) {
+  .container{
+    justify-content: space-around;
+    width: 95vw;
+    gap: 5px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .container{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .resultList {
+    gap: 5px;
+    padding: 10px 0;
+
+    max-height: 200px;
+  }
+
+  .resultList > * {
+    width: 90%;
+  }
 }

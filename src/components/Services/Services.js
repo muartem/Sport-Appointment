@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addService,
@@ -11,7 +11,7 @@ import styles from "../MainStyles/mainStyles.module.css";
 import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import ServiceForm from "./ServicesForm";
-import TransferList from "../TransferList/TransferList";
+import TransferList from "./TransferList";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ const Services = () => {
     setUpdateButtonVisibility(false);
     setTransferListVisibility(false);
     setUpdateService({})
-    setInputs((state) => ({ ...initialInputs }));
+    setInputs({ ...initialInputs });
   };
 
   const inputHandler = (e) => {
@@ -131,12 +131,12 @@ const Services = () => {
     initialFormState();
   };
 
-  const addForm = (e) => {
+  const addForm = () => {
     initialFormState();
   };
 
   const setService = (serviceId) => {
-    return async (e) => {
+    return async () => {
       setCreateButtonVisibility(false);
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
@@ -162,7 +162,7 @@ const Services = () => {
           error: "",
         },
       };
-      setInputs((state) => ({ ...serviceInput }));
+      setInputs({ ...serviceInput });
     };
   };
 
@@ -198,7 +198,7 @@ const Services = () => {
         {isTransferListVisible &&
         <div>
           <h3 className={styles.yellow}>{service.name}</h3>
-          <TransferList searchParam="ServiceId" searchId={service.id}/>
+          <TransferList searchId={service.id}/>
         </div>
         }
       </div>
