@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addCoach,
   getCoaches,
   updateCoach,
   deleteCoach,
   resetCoach,
-} from '../../redux/actions';
-import styles from '../MainStyles/mainStyles.module.css';
-import List from '../List/List';
-import AddButton from '../buttons/AddButton/AddButton';
-import CoachesForm from './CoachesForm';
-import { formattedDate, unformattedDate } from '../formattedDate/formattedDate';
-import TransferList from './TransferList';
+} from "../../redux/actions";
+import styles from "../MainStyles/mainStyles.module.css";
+import List from "../List/List";
+import AddButton from "../buttons/AddButton/AddButton";
+import CoachesForm from "./CoachesForm";
+import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
+import TransferList from "./TransferList";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -32,29 +32,29 @@ const Coaches = () => {
 
   const initialInputs = {
     firstName: {
-      name: 'firstName',
-      value: '',
-      error: '',
+      name: "firstName",
+      value: "",
+      error: "",
     },
     lastName: {
-      name: 'lastName',
-      value: '',
-      error: '',
+      name: "lastName",
+      value: "",
+      error: "",
     },
     dateBirth: {
-      name: 'dateBirth',
-      value: '',
-      error: '',
+      name: "dateBirth",
+      value: "",
+      error: "",
     },
     description: {
-      name: 'description',
-      value: '',
-      error: '',
+      name: "description",
+      value: "",
+      error: "",
     },
     phoneNumber: {
-      name: 'phoneNumber',
-      value: '',
-      error: '',
+      name: "phoneNumber",
+      value: "",
+      error: "",
     },
   };
 
@@ -99,7 +99,7 @@ const Coaches = () => {
       [name]: {
         ...state[name],
         value: value,
-        error: '',
+        error: "",
       },
     }));
   };
@@ -112,7 +112,7 @@ const Coaches = () => {
         ...state,
         [name]: {
           ...state[name],
-          error: 'Empty field',
+          error: "Empty field",
         },
       }));
 
@@ -130,7 +130,7 @@ const Coaches = () => {
         dateBirth: formattedDate(inputs.dateBirth.value),
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
-      }),
+      })
     );
     setInputs({ ...initialInputs });
   };
@@ -140,11 +140,11 @@ const Coaches = () => {
       updateCoach({
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        dateBirth: inputs.dateBirth.value,
+        dateBirth: formattedDate(inputs.dateBirth.value),
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
         id: coach.id,
-      }),
+      })
     );
     initialFormState();
   };
@@ -170,29 +170,29 @@ const Coaches = () => {
       setTransferListVisibility(true);
       const serviceInput = {
         firstName: {
-          name: 'firstName',
+          name: "firstName",
           value: coach.firstName,
-          error: '',
+          error: "",
         },
         lastName: {
-          name: 'lastName',
+          name: "lastName",
           value: coach.lastName,
-          error: '',
+          error: "",
         },
         dateBirth: {
-          name: 'dateBirth',
+          name: "dateBirth",
           value: unformattedDate(coach.dateBirth),
-          error: '',
+          error: "",
         },
         description: {
-          name: 'description',
+          name: "description",
           value: coach.description,
-          error: '',
+          error: "",
         },
         phoneNumber: {
-          name: 'phoneNumber',
+          name: "phoneNumber",
           value: coach.phoneNumber,
-          error: '',
+          error: "",
         },
       };
       setInputs({ ...serviceInput });
@@ -202,7 +202,7 @@ const Coaches = () => {
   const formatCoaches = () =>
     coaches?.map((coach) => (
       <p data-testid="list-item" key={coach.id} onClick={setCoach(coach.id)}>
-        {coach.firstName} {''}
+        {coach.firstName} {""}
         {coach.lastName}
       </p>
     ));

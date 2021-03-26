@@ -10,10 +10,12 @@ import {
   getBookings,
   resetBookings,
   deleteBooking,
+  updateBooking,
   getServices,
   resetService,
 } from "../../redux/actions";
 import { clientsSelector } from "../Clients/Clients.selector";
+import { formattedDuration } from "../formattedDate/formattedDate";
 import "../Slots/slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -81,18 +83,10 @@ const Booking = () => {
     return () => dispatch(resetSlots());
   }, [dispatch]);
 
-  const getCoachFromSlot = (booking) =>
+  const getCoachFromSlot = (slotId) =>
     slots
-      .filter((slot) => slot.id === booking.slotId)
-      .map((slot) => (
-        <div key={slot.id}>
-          <h3>{slot.dateStart}</h3>
-          <p>
-            {slot.timeStart}-{slot.timeEnd}
-          </p>
-          <div>{getCoachName(slot.coachId)}</div>
-        </div>
-      ));
+      .filter((slot) => slot.id === slotId)
+      .map((slot) => <div key={slot.id}>{getCoachName(slot.coachId)}</div>);
 
   // BOOKING
 
@@ -103,8 +97,8 @@ const Booking = () => {
     return () => dispatch(resetBookings());
   }, [dispatch]);
 
-  const deleteHandler = (e) => {
-    dispatch(deleteBooking(e.target.id));
+  const deleteHandler = (bookingId) => {
+    dispatch(deleteBooking(bookingId));
     dispatch(resetBookings());
   };
 
@@ -114,18 +108,25 @@ const Booking = () => {
         (booking) =>
           booking.serviceId === serviceId && booking.clientId === clientId
       )
-      .map((booking) => (
-        <div key={booking.id} className={styles.bookingBox}>
-          {getCoachFromSlot(booking)}
-          <button
-            className={styles.addBtn}
-            onClick={deleteHandler}
-            id={booking.id}
-          >
-            Delete
-          </button>
-        </div>
-      ));
+      .map((booking) => {
+        return (
+          <div key={booking.id} className={styles.bookingBox}>
+            <h3>{booking.slot.dateStart}</h3>
+            <p>
+              {booking.slot.timeStart}-
+              {formattedDuration(booking.slot.timeStart)}
+            </p>
+            {getCoachFromSlot(booking.slot.id)}
+
+            <button
+              className={styles.addBtn}
+              onClick={() => deleteHandler(booking.id)}
+            >
+              Delete
+            </button>
+          </div>
+        );
+      });
 
   return (
     <div>

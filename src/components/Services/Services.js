@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addService,
   deleteService,
   getServices,
   resetService,
   updateService,
-} from '../../redux/actions';
-import styles from '../MainStyles/mainStyles.module.css';
-import List from '../List/List';
-import AddButton from '../buttons/AddButton/AddButton';
-import ServiceForm from './ServicesForm';
-import TransferList from './TransferList';
+} from "../../redux/actions";
+import styles from "../MainStyles/mainStyles.module.css";
+import List from "../List/List";
+import AddButton from "../buttons/AddButton/AddButton";
+import ServiceForm from "./ServicesForm";
+import TransferList from "./TransferList";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -31,19 +31,19 @@ const Services = () => {
 
   const initialInputs = {
     name: {
-      name: 'name',
-      value: '',
-      error: '',
+      name: "name",
+      value: "",
+      error: "",
     },
     description: {
-      name: 'description',
-      value: '',
-      error: '',
+      name: "description",
+      value: "",
+      error: "",
     },
     price: {
-      name: 'price',
-      value: '',
-      error: '',
+      name: "price",
+      value: "",
+      error: "",
     },
   };
 
@@ -72,14 +72,14 @@ const Services = () => {
       [name]: {
         ...state[name],
         value: value,
-        error: '',
+        error: "",
       },
     }));
 
     if (
       value &&
       [inputs.name.value, inputs.price.value, inputs.description.value].every(
-        (i) => i.length > 0,
+        (i) => i.length > 0
       )
     ) {
       setCreateButtonDisabling(false);
@@ -94,7 +94,7 @@ const Services = () => {
         ...state,
         [name]: {
           ...state[name],
-          error: 'Empty field',
+          error: "Empty field",
         },
       }));
       setCreateButtonDisabling(true);
@@ -109,7 +109,7 @@ const Services = () => {
         name: inputs.name.value,
         description: inputs.description.value,
         price: inputs.price.value,
-      }),
+      })
     );
     initialFormState();
   };
@@ -121,7 +121,7 @@ const Services = () => {
         description: inputs.description.value,
         price: inputs.price.value,
         id: service.id,
-      }),
+      })
     );
     initialFormState();
   };
@@ -147,19 +147,19 @@ const Services = () => {
       setTransferListVisibility(true);
       const serviceInput = {
         name: {
-          name: 'name',
+          name: "name",
           value: service.name,
-          error: '',
+          error: "",
         },
         description: {
-          name: 'description',
+          name: "description",
           value: service.description,
-          error: '',
+          error: "",
         },
         price: {
-          name: 'price',
+          name: "price",
           value: service.price,
-          error: '',
+          error: "",
         },
       };
       setInputs({ ...serviceInput });
