@@ -69,8 +69,8 @@
     {
       "id": 3,
       "firstName": "Jackie",
-      "lastName": " Chan",
-      "birthDate": "03.09.2021",
+      "lastName": "Chan",
+      "dateBirth": "03.09.2021",
       "description": "I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
     },
@@ -110,7 +110,7 @@
       "id": 11,
       "firstName": "Sasha",
       "lastName": "Grey",
-      "birthDate": "01.13.2021",
+      "dateBirth": "01.13.2021",
       "description": "sadafas",
       "phoneNumber": "+380999919919"
     },
@@ -118,17 +118,9 @@
       "id": 12,
       "firstName": "TESTER",
       "lastName": " test",
-      "birthDate": "03.16.1994",
+      "dateBirth": "03.16.1994",
       "description": "sadf",
       "phoneNumber": "+380972220022"
-    },
-    {
-      "id": 13,
-      "firstName": "Barack",
-      "lastName": "Abama",
-      "birthDate": "03.23.2000",
-      "description": "sadf",
-      "phoneNumber": "sadfas"
     },
     {
       "id": 14,
@@ -137,6 +129,14 @@
       "dateBirth": "03.26.2021",
       "description": "test1",
       "phoneNumber": "+380682635836"
+    },
+    {
+      "id": 15,
+      "firstName": "tyhdtr",
+      "lastName": "ghntyfn",
+      "dateBirth": "03.25.2021",
+      "description": "ghndm",
+      "phoneNumber": "+380682635830"
     }
   ],
   "Qualification": [
@@ -371,56 +371,55 @@
       "dateStart": "03.28.2021",
       "timeStart": "04:00",
       "timeEnd": "18:00"
+    },
+    {
+      "id": 17,
+      "coachId": 1,
+      "dateStart": "03.24.2021",
+      "timeStart": "07:00",
+      "timeEnd": "15:00"
+    },
+    {
+      "id": 18,
+      "coachId": 1,
+      "dateStart": "03.23.2021",
+      "timeStart": "01:00",
+      "timeEnd": "17:00"
+    },
+    {
+      "id": 19,
+      "coachId": 1,
+      "dateStart": "03.17.2021",
+      "timeStart": "01:00",
+      "timeEnd": "16:00"
+    },
+    {
+      "id": 20,
+      "coachId": 1,
+      "dateStart": "03.19.2021",
+      "timeStart": "04:00",
+      "timeEnd": "18:00"
+    },
+    {
+      "id": 21,
+      "coachId": 1,
+      "dateStart": "04.08.2021",
+      "timeStart": "01:00",
+      "timeEnd": "15:00"
     }
   ],
   "Booking": [
     {
       "id": 1,
-      "slotId": 1,
       "serviceId": 1,
+      "slotId": 1,
       "clientId": 1
     },
     {
       "id": 2,
-      "slotId": 2,
-      "serviceId": 1,
-      "clientId": 2
-    },
-    {
-      "id": 3,
-      "slotId": 3,
       "serviceId": 2,
-      "clientId": 3
-    },
-    {
-      "id": 4,
-      "slotId": 4,
-      "serviceId": 1,
-      "clientId": 2
-    },
-    {
-      "id": 5,
       "slotId": 1,
-      "serviceId": 2,
       "clientId": 1
-    },
-    {
-      "id": 6,
-      "slotId": 2,
-      "serviceId": 2,
-      "clientId": 1
-    },
-    {
-      "id": 7,
-      "slotId": 3,
-      "serviceId": 3,
-      "clientId": 3
-    },
-    {
-      "id": 8,
-      "slotId": 4,
-      "serviceId": 1,
-      "clientId": 2
     }
   ]
 }

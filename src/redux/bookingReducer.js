@@ -1,4 +1,9 @@
-import { GET_BOOKINGS, RESET_BOOKINGS, DELETE_BOOKING } from "./types";
+import {
+  GET_BOOKINGS,
+  RESET_BOOKINGS,
+  DELETE_BOOKING,
+  UPDATE_BOOKING,
+} from "./types";
 
 const initialState = {
   data: [],
@@ -11,6 +16,12 @@ const handlers = {
   }),
   [RESET_BOOKINGS]: (state) => initialState,
   DEFAULT: (state) => state,
+  [UPDATE_BOOKING]: (state, { payload }) => ({
+    ...state,
+    data: [
+      ...state.data.map((item) => (item.id === payload.id ? payload : item)),
+    ],
+  }),
   [DELETE_BOOKING]: (state, { payload }) => ({
     ...state,
     data: [...state.data.filter((item) => item.id !== payload)],

@@ -23,14 +23,15 @@ import {
   GET_BOOKINGS,
   RESET_BOOKINGS,
   DELETE_BOOKING,
+  UPDATE_BOOKING,
 } from "./types";
-import {mockApi as Api, realApi as Api2} from "./axios";
+import { mockApi as Api1, realApi as Api } from "./axios";
 
-//
+// SERVICES
 
 export function getServices() {
   return async (dispatch) => {
-    const services = await Api.get("/Services");
+    const services = await Api.get("Services/");
     dispatch({
       type: GET_SERVICES,
       payload: services.data,
@@ -41,7 +42,7 @@ export function getServices() {
 export function addService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("/Services", service);
+      const response = await Api.post("Services/", service);
     } catch (e) {
       console.log(e.message);
     }
@@ -56,8 +57,8 @@ export function addService(service) {
 export function updateService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Services/${service.id}`, service);
-
+      const response = await Api.post(`Services/update`, service);
+      console.log(service.id);
     } catch (e) {
       console.log(e.message);
     }
@@ -72,7 +73,8 @@ export function updateService(service) {
 export function deleteService(serviceId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Services/${serviceId}`);
+      console.log(serviceId);
+      const response = await Api.delete(`Services/`, { params: { serviceId } });
     } catch (e) {
       console.log(e.message);
     }
@@ -92,7 +94,7 @@ export function resetService() {
   };
 }
 
-//
+// COACHES
 
 export function getCoaches() {
   return async (dispatch) => {
@@ -120,9 +122,10 @@ export function addCoach(coach) {
 }
 
 export function updateCoach(coach) {
+  console.log(coach);
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Coach/update/${coach.id}`, coach);
+      const response = await Api.post(`Coach/update`, coach);
     } catch (e) {
       console.log(e.message);
     }
@@ -136,7 +139,7 @@ export function updateCoach(coach) {
 export function deleteCoach(coachId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Service/${coachId}`);
+      const response = await Api.delete(`Coach/`, { params: { coachId } });
     } catch (e) {
       console.log(e.message);
     }
@@ -155,7 +158,7 @@ export function resetCoach() {
   };
 }
 
-//
+// CLIENTS
 
 export function getClients() {
   return async (dispatch) => {
@@ -175,7 +178,7 @@ export function resetClient() {
   };
 }
 
-//
+// SLOTS
 
 export function getSlots() {
   return async (dispatch) => {
@@ -240,11 +243,7 @@ export function resetSlots() {
   };
 }
 
-//
-
-//BOOKING
-
-//
+// QUALIFICATIONS
 
 export function getQualifications(param, id) {
   return async (dispatch) => {
@@ -274,7 +273,9 @@ export function addQualification(qualification) {
 export function deleteQualifications(qualificationId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Qualification/${qualificationId}`);
+      const response = await Api.delete(`Qualification/`, {
+        params: { qualificationId },
+      });
     } catch (e) {
       console.log(e.message);
     }
@@ -294,6 +295,8 @@ export function resetQualifications() {
   };
 }
 
+// BOOKING
+
 export function getBookings() {
   return async (dispatch) => {
     const booking = await Api.get("Booking/");
@@ -312,10 +315,27 @@ export function resetBookings() {
   };
 }
 
+export function updateBooking(booking) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.post(`Booking/update`, booking);
+      console.log(booking.id);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: UPDATE_BOOKING,
+      payload: booking,
+    });
+  };
+}
+
 export function deleteBooking(bookingId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Booking/${bookingId}`);
+      console.log(bookingId);
+      const response = await Api.delete(`Booking/`, { params: { bookingId } });
     } catch (e) {
       console.log(e.message);
     }

@@ -74,7 +74,6 @@ const Coaches = () => {
     setInputs({ ...initialInputs });
   };
 
-
   const inputHandler = (e) => {
     const { name, value } = e.target;
 
@@ -135,7 +134,7 @@ const Coaches = () => {
       updateCoach({
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        dateBirth: inputs.dateBirth.value,
+        dateBirth: formattedDate(inputs.dateBirth.value),
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
         id: coach.id,
@@ -159,10 +158,10 @@ const Coaches = () => {
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
       setDeleteButtonDisabling(false);
-      await setTransferListVisibility(false)
+      await setTransferListVisibility(false);
       const coach = coaches.find((coach) => coach.id === coachId);
       setUpdateCoach(coach);
-      setTransferListVisibility(true)
+      setTransferListVisibility(true);
       const serviceInput = {
         firstName: {
           name: "firstName",
@@ -224,12 +223,6 @@ const Coaches = () => {
           isDeleteButtonVisible={isDeleteButtonVisible}
           isDeleteButtonDisabled={isDeleteButtonDisabled}
         />
-        {isTransferListVisible &&
-        <div>
-          <h3 className={styles.yellow}>{coach.firstName} {coach.lastName}</h3>
-          <TransferList searchId={coach.id} />
-        </div>
-        }
       </div>
     </div>
   );
