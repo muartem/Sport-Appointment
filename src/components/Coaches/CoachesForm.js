@@ -34,9 +34,9 @@ const CoachesForm = (props) => {
         onBlur={props.blurHandler}
         onChange={props.inputHandler}
         type="date"
-        name={props.inputs.birthDate.name}
-        defaultValue={props.inputs.birthDate.value}
-        error={props.inputs.birthDate?.error}
+        name={props.inputs.dateBirth.name}
+        defaultValue={props.inputs.dateBirth.value}
+        error={props.inputs.dateBirth?.error}
       />
       <Input
         onBlur={props.blurHandler}

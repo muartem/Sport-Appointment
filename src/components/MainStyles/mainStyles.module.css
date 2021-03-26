@@ -1,3 +1,5 @@
+/* MAIN */
+
 .container {
   display: flex;
   flex-direction: row;
@@ -15,6 +17,8 @@
 .container::-webkit-scrollbar {
   display: none;
 }
+
+/* BUTTONS */
 
 .addBtn {
   outline: none;
@@ -51,8 +55,8 @@
 
 .addBtn:hover {
   color: #000000;
-  background-color: #f5ff01;
-  border-color: #f5ff01;
+  background-color: #f8ff13;
+  border-color: #f8ff13;
 
   cursor: pointer;
 }
@@ -74,7 +78,6 @@
   width: 25px;
 
   margin: auto;
-  padding: auto;
   border: 1px solid;
   border-radius: 50%;
 
@@ -94,7 +97,8 @@
   width: 50%;
   padding: 0.4rem 0.1rem;
 }
-/*//////////////////////////////////*/
+
+/* LEFT CONTAINER */
 
 .leftContainer {
   position: sticky;
@@ -106,6 +110,81 @@
 
   width: 250px;
 }
+
+.rightContainer {
+  margin-top: 80px;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  gap: 20px;
+
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.rightContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.rightContainer form {
+  margin-left: 15px;
+}
+
+
+.resultList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  border: 1px solid #f8ff13;
+  border-radius: 20px;
+  background: #01010152;
+
+  width: inherit;
+  max-height: 70vh;
+  padding: 20px 0;
+
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.resultList > * {
+  width: 60%;
+
+  font-size: 1.4rem;
+  text-align: center;
+  color: #f8ff13;
+  text-transform: uppercase;
+
+  padding-bottom: 4px;
+  margin: 0 auto;
+  cursor: pointer;
+
+}
+
+.resultList > *::after {
+  display: block;
+  content: "";
+  border-bottom: solid 1px #f8ff13;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+
+.resultList > *:hover:after {
+  transform: scaleX(1);
+}
+
+.resultList p {
+  margin: 0;
+}
+
+/* RIGHT CONTAINER */
 
 .rightContainer {
   margin-top: 80px;
@@ -129,72 +208,97 @@
   margin-left: 15px;
 }
 
-.resultList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-
-  border: 1px solid #f5ff01;
-  border-radius: 20px;
-  background: #01010152;
-
-  width: inherit;
-  height: 70vh;
-  padding-top: 25px;
-  padding-bottom: 15px;
-
-  -ms-overflow-style: none;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-}
-
-
-.resultList > * {
-  width: 60%;
-
-  font-size: 1.4rem;
-  text-align: center;
-  color: #f5ff01;
-  text-transform: uppercase;
-
-  padding-bottom: 4px;
-  margin: 0 auto;
+input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
-
-  user-select: #ffffff;
+  border-radius: 4px;
+  margin-right: 2px;
+  filter: invert(100%);
 }
 
-.resultList > *::after {
-  display: block;
-  content: "";
-  border-bottom: solid 1px #f5ff01;
-  transform: scaleX(0);
-  transition: transform 250ms ease-in-out;
-}
-
-.resultList > *:hover:after {
-  transform: scaleX(1);
-}
-
-.resultList p {
-  margin: 0;
-}
-/*////////////////////////*/
+/* CLIENT SECTION */
 
 .clientContainer {
   width: 50vw;
   margin: 7vh auto;
 }
 
-.clientPhoneNumber {
+.clientlogin {
   color: #fff;
   font-size: 1rem;
   font-weight: 300;
   margin: 0;
   padding: 0;
 }
-.yellow{
-  color: #f5ff01;
+.yellow {
+  color: #f8ff13;
+}
+
+/* BOOKING SECTION */
+
+.bookingSelects {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.bookingContaier {
+  width: 80vw;
+  height: 70vh;
+  margin: auto;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.bookingBox {
+  width: fit-content;
+  height: fit-content;
+  padding: 15px;
+
+  border-radius: 33px;
+  background: #f8ff13;
+}
+
+.bookingBox * {
+  text-align: left;
+}
+
+.bookingBox button {
+  background: none;
+  border: 1px solid #010101;
+  color: #010101;
+}
+
+.bookingBox button:hover {
+  background: #010101;
+  border: 1px solid #010101;
+  color: #f8ff13;
+}
+
+@media screen and (max-width: 1280px) {
+  .container{
+    justify-content: space-around;
+    width: 95vw;
+    gap: 5px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .container{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .resultList {
+    gap: 5px;
+    padding: 10px 0;
+
+    max-height: 200px;
+  }
+
+  .resultList > * {
+    width: 90%;
+  }
 }

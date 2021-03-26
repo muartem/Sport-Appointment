@@ -17,15 +17,20 @@ import {
   DELETE_SLOT,
   RESET_SLOTS,
   GET_QUALIFICATIONS,
-  ADD_QUALIFICATION, DELETE_QUALIFICATION, RESET_QUALIFICATIONS,
+  ADD_QUALIFICATION,
+  DELETE_QUALIFICATION,
+  RESET_QUALIFICATIONS,
+  GET_BOOKINGS,
+  RESET_BOOKINGS,
+  DELETE_BOOKING,
 } from "./types";
-import Api from "./axios";
+import {mockApi as Api, realApi as Api2} from "./axios";
 
 //
 
 export function getServices() {
   return async (dispatch) => {
-    const services = await Api.get("Service/");
+    const services = await Api.get("/Services");
     dispatch({
       type: GET_SERVICES,
       payload: services.data,
@@ -36,7 +41,7 @@ export function getServices() {
 export function addService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Service/", service);
+      const response = await Api.post("/Services", service);
     } catch (e) {
       console.log(e.message);
     }
@@ -51,7 +56,8 @@ export function addService(service) {
 export function updateService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Service/${service.id}`, service);
+      const response = await Api.patch(`Services/${service.id}`, service);
+
     } catch (e) {
       console.log(e.message);
     }
@@ -66,7 +72,7 @@ export function updateService(service) {
 export function deleteService(serviceId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Service/${serviceId}`);
+      const response = await Api.delete(`Services/${serviceId}`);
     } catch (e) {
       console.log(e.message);
     }
@@ -116,7 +122,7 @@ export function addCoach(coach) {
 export function updateCoach(coach) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Coach/${coach.id}`, coach);
+      const response = await Api.patch(`Coach/update/${coach.id}`, coach);
     } catch (e) {
       console.log(e.message);
     }
@@ -199,7 +205,7 @@ export function addSlot(slot) {
 export function updateSlot(slot) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Slots/${slot.id}`, slot);
+      const response = await Api.patch(`Slots/update/${slot.id}`, slot);
     } catch (e) {
       console.log(e.message);
     }
@@ -284,6 +290,39 @@ export function resetQualifications() {
   return (dispatch) => {
     dispatch({
       type: RESET_QUALIFICATIONS,
+    });
+  };
+}
+
+export function getBookings() {
+  return async (dispatch) => {
+    const booking = await Api.get("Booking/");
+    dispatch({
+      type: GET_BOOKINGS,
+      payload: booking.data,
+    });
+  };
+}
+
+export function resetBookings() {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_BOOKINGS,
+    });
+  };
+}
+
+export function deleteBooking(bookingId) {
+  return async (dispatch) => {
+    try {
+      const response = await Api.delete(`Booking/${bookingId}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    dispatch({
+      type: DELETE_BOOKING,
+      payload: bookingId,
     });
   };
 }

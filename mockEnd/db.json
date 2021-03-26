@@ -1,5 +1,5 @@
 {
-  "Service": [
+  "Services": [
     {
       "id": 3,
       "name": "Flex",
@@ -20,7 +20,7 @@
     },
     {
       "id": 7,
-      "name": "karate-do",
+      "name": "karate",
       "description": "kiiii---ja",
       "price": "1000"
     },
@@ -29,6 +29,24 @@
       "name": "Sex",
       "description": "fasdf",
       "price": "1000"
+    },
+    {
+      "id": 9,
+      "name": "Aikido",
+      "description": "asdf",
+      "price": "2000"
+    },
+    {
+      "id": 10,
+      "name": "KUNG-FU",
+      "description": "sadf",
+      "price": "200"
+    },
+    {
+      "id": 11,
+      "name": "SAmbo",
+      "description": "sdf",
+      "price": "200"
     }
   ],
   "Coach": [
@@ -36,7 +54,7 @@
       "id": 1,
       "firstName": "Leanne",
       "lastName": "Graham",
-      "birthDate": "03.18.2021",
+      "dateBirth": "03.18.2021",
       "description": "I'm selfish, impatient and a little insecure.",
       "phoneNumber": "380657365488"
     },
@@ -44,23 +62,23 @@
       "id": 2,
       "firstName": "Ervin",
       "lastName": "Howell",
-      "birthDate": "03.11.2021",
+      "dateBirth": "03.11.2021",
       "description": "In three words I can sum up everything I've learned about life: it goes on.",
       "phoneNumber": "380973846170"
     },
     {
       "id": 3,
-      "firstName": "Clementine",
-      "lastName": "Bauch",
-      "birthDate": "03.05.2021",
-      "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
+      "firstName": "Jackie",
+      "lastName": " Chan",
+      "birthDate": "2021-03-09",
+      "description": "I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
     },
     {
       "id": 7,
       "firstName": "Serega",
       "lastName": "chorniy",
-      "birthDate": "01.14.2021",
+      "dateBirth": "01.14.2021",
       "description": "bumer",
       "phoneNumber": "+380972220022"
     },
@@ -68,7 +86,7 @@
       "id": 8,
       "firstName": "Conor ",
       "lastName": "McGregor",
-      "birthDate": "03.10.2021",
+      "dateBirth": "03.10.2021",
       "description": "World Champion",
       "phoneNumber": "+380972211222"
     },
@@ -76,7 +94,7 @@
       "id": 9,
       "firstName": "Mike",
       "lastName": "Tyson",
-      "birthDate": "06.30.1966",
+      "dateBirth": "06.30.1966",
       "description": "Born to win",
       "phoneNumber": "+380682635741"
     },
@@ -84,36 +102,140 @@
       "id": 10,
       "firstName": "Muhammad",
       "lastName": "Ali",
-      "birthDate": "01.17.1942",
+      "dateBirth": "01.17.1942",
       "description": "American professional boxer, activist, entertainer and philanthropist. ",
       "phoneNumber": "+380682635836"
+    },
+    {
+      "id": 11,
+      "firstName": "Sasha",
+      "lastName": "Grey",
+      "birthDate": "01.13.2021",
+      "description": "sadafas",
+      "phoneNumber": "+380999919919"
+    },
+    {
+      "id": 12,
+      "firstName": "TESTER",
+      "lastName": " test",
+      "birthDate": "NaN.NaN.NaN",
+      "description": "sadf",
+      "phoneNumber": "+380972220022"
+    },
+    {
+      "id": 13,
+      "firstName": "Barack",
+      "lastName": "Abama",
+      "birthDate": "NaN.NaN.NaN",
+      "description": "sadf",
+      "phoneNumber": "sadfas"
     }
   ],
   "Qualification": [
     {
-      "id": 1,
-      "ServiceId": 1,
-      "CoachId": 1
+      "id": 300007,
+      "ServiceId": 7,
+      "CoachId": 3
     },
     {
-      "id": 2,
-      "ServiceId": 1,
+      "id": 200003,
+      "ServiceId": 2,
+      "CoachId": 3
+    },
+    {
+      "id": 200007,
+      "ServiceId": 2,
       "CoachId": 7
     },
     {
-      "id": 3,
-      "ServiceId": 1,
-      "CoachId": 8
-    },
-    {
-      "id": 4,
+      "id": 200002,
       "ServiceId": 2,
       "CoachId": 2
     },
     {
-      "id": 5,
+      "id": 200008,
       "ServiceId": 2,
+      "CoachId": 8
+    },
+    {
+      "id": 200001,
+      "ServiceId": 2,
+      "CoachId": 1
+    },
+    {
+      "id": 300010,
+      "ServiceId": 10,
       "CoachId": 3
+    },
+    {
+      "id": 200009,
+      "ServiceId": 9,
+      "CoachId": 2
+    },
+    {
+      "id": 700007,
+      "ServiceId": 7,
+      "CoachId": 7
+    },
+    {
+      "id": 1100008,
+      "ServiceId": 8,
+      "CoachId": 11
+    },
+    {
+      "id": 1100003,
+      "ServiceId": 11,
+      "CoachId": 3
+    },
+    {
+      "id": 1000003,
+      "ServiceId": 10,
+      "CoachId": 3
+    },
+    {
+      "id": 1000001,
+      "ServiceId": 10,
+      "CoachId": 1
+    },
+    {
+      "id": 1000007,
+      "ServiceId": 10,
+      "CoachId": 7
+    },
+    {
+      "id": 1000002,
+      "ServiceId": 10,
+      "CoachId": 2
+    },
+    {
+      "id": 1000008,
+      "ServiceId": 10,
+      "CoachId": 8
+    },
+    {
+      "id": 1000009,
+      "ServiceId": 10,
+      "CoachId": 9
+    },
+    {
+      "id": 1000010,
+      "ServiceId": 10,
+      "CoachId": 10
+    },
+    {
+      "id": 200011,
+      "ServiceId": 11,
+      "CoachId": 2
+    },
+    {
+      "id": 213406602361656,
+      "ServiceId": 11,
+      "CoachId": 12
+    },
+    {
+      "id": 101853265973004,
+      "ServiceId": 7,
+      "CoachId": 9
     }
   ],
   "Client": [
@@ -135,6 +257,20 @@
   ],
   "Slots": [
     {
+      "id": 1,
+      "coachId": 2,
+      "dateStart": "03.26.2021",
+      "timeStart": "09:00",
+      "timeEnd": "16:00"
+    },
+    {
+      "id": 2,
+      "coachId": 2,
+      "date": "03.27.2021",
+      "startTime": "11:00",
+      "endTime": "18:00"
+    },
+    {
       "id": 3,
       "coachId": 2,
       "date": "03.28.2021",
@@ -142,11 +278,25 @@
       "endTime": "18:00"
     },
     {
+      "id": 4,
+      "coachId": 1,
+      "date": "03.26.2021",
+      "startTime": "08:00",
+      "endTime": "16:00"
+    },
+    {
+      "id": 5,
+      "coachId": 1,
+      "date": "03.27.2021",
+      "startTime": "2:00",
+      "endTime": "18:00"
+    },
+    {
       "id": 6,
       "coachId": 1,
-      "date": "03.28.2021",
-      "startTime": "6:00",
-      "endTime": "12:00"
+      "date": "03.25.2021",
+      "startTime": "2:00",
+      "endTime": "18:00"
     },
     {
       "id": 7,
@@ -175,7 +325,60 @@
       "date": "03.30.2021",
       "startTime": "1:00",
       "endTime": "5:00"
+    },
+    {
+      "id": 12,
+      "coachId": 1,
+      "date": "03.27.2021",
+      "startTime": "10:00",
+      "endTime": "18:00"
+    },
+    {
+      "id": 13,
+      "coachId": 2,
+      "date": "03.25.2021",
+      "startTime": "2:00",
+      "endTime": "8:00"
+    },
+    {
+      "id": 15,
+      "coachId": 1,
+      "date": "03.31.2021",
+      "startTime": "2:00",
+      "endTime": "18:00"
+    },
+    {
+      "id": 17,
+      "coachId": 1,
+      "date": "03.28.2021",
+      "startTime": "4:00",
+      "endTime": "7:00"
     }
   ],
-  "Booking": []
+  "Booking": [
+    {
+      "id": 1,
+      "slotId": 1,
+      "serviceId": 1,
+      "clientId": 1
+    },
+    {
+      "id": 2,
+      "slotId": 2,
+      "serviceId": 1,
+      "clientId": 2
+    },
+    {
+      "id": 3,
+      "slotId": 3,
+      "serviceId": 2,
+      "clientId": 1
+    },
+    {
+      "id": 4,
+      "slotId": 4,
+      "serviceId": 2,
+      "clientId": 2
+    }
+  ]
 }

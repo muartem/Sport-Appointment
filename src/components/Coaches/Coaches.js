@@ -12,6 +12,7 @@ import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import CoachesForm from "./CoachesForm";
 import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
+import TransferList from "./TransferList";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ const Coaches = () => {
   const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
   const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
 
+  const [isTransferListVisible, setTransferListVisibility] = useState(false);
+
   const initialInputs = {
     firstName: {
       name: "firstName",
@@ -38,8 +41,8 @@ const Coaches = () => {
       value: "",
       error: "",
     },
-    birthDate: {
-      name: "birthDate",
+    dateBirth: {
+      name: "dateBirth",
       value: "",
       error: "",
     },
@@ -67,8 +70,10 @@ const Coaches = () => {
     setCreateButtonVisibility(true);
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
-    setInputs((state) => ({ ...initialInputs }));
+    setTransferListVisibility(false);
+    setInputs({ ...initialInputs });
   };
+
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -117,12 +122,12 @@ const Coaches = () => {
         id: coaches.sort((a, b) => b.id - a.id)[0].id + 1,
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        birthDate: formattedDate(inputs.birthDate.value),
+        dateBirth: formattedDate(inputs.dateBirth.value),
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
       })
     );
-    setInputs((state) => ({ ...initialInputs }));
+    setInputs({ ...initialInputs });
   };
 
   const updateHandler = () => {
@@ -130,7 +135,7 @@ const Coaches = () => {
       updateCoach({
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
-        birthDate: inputs.birthDate.value,
+        dateBirth: inputs.dateBirth.value,
         description: inputs.description.value,
         phoneNumber: inputs.phoneNumber.value,
         id: coach.id,
@@ -144,20 +149,20 @@ const Coaches = () => {
     initialFormState();
   };
 
-  const addForm = (e) => {
+  const addForm = () => {
     initialFormState();
   };
 
   const setCoach = (coachId) => {
-    return (e) => {
+    return async () => {
       setCreateButtonVisibility(false);
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
       setDeleteButtonDisabling(false);
-
+      await setTransferListVisibility(false)
       const coach = coaches.find((coach) => coach.id === coachId);
       setUpdateCoach(coach);
-
+      setTransferListVisibility(true)
       const serviceInput = {
         firstName: {
           name: "firstName",
@@ -169,9 +174,9 @@ const Coaches = () => {
           value: coach.lastName,
           error: "",
         },
-        birthDate: {
-          name: "birthDate",
-          value: unformattedDate(coach.birthDate),
+        dateBirth: {
+          name: "dateBirth",
+          value: unformattedDate(coach.dateBirth),
           error: "",
         },
         description: {
@@ -185,7 +190,7 @@ const Coaches = () => {
           error: "",
         },
       };
-      setInputs((state) => ({ ...serviceInput }));
+      setInputs({ ...serviceInput });
     };
   };
 
@@ -219,6 +224,12 @@ const Coaches = () => {
           isDeleteButtonVisible={isDeleteButtonVisible}
           isDeleteButtonDisabled={isDeleteButtonDisabled}
         />
+        {isTransferListVisible &&
+        <div>
+          <h3 className={styles.yellow}>{coach.firstName} {coach.lastName}</h3>
+          <TransferList searchId={coach.id} />
+        </div>
+        }
       </div>
     </div>
   );

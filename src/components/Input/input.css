@@ -8,7 +8,7 @@
   --omrs-color-ink-lowest-contrast: rgba(255, 255, 255, 0.18);
   --omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
   --omrs-color-ink-medium-contrast: rgb(255, 255, 255);
-  --omrs-color-interaction: #f5ff01;
+  --omrs-color-interaction: #f8ff13;
   --omrs-color-interaction-minus-two: #6666661e;
   --omrs-color-danger: #b50706;
   --omrs-color-bg-low-contrast: #eff1f2;
@@ -52,7 +52,7 @@ div.omrs-input-group {
 .omrs-input-underlined > input:focus {
   outline: none;
   background: #2424247c;
-  color: #f5ff01;
+  color: #f8ff13;
 }
 
 .omrs-input-underlined > .omrs-input-label {

@@ -9,21 +9,41 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import {useDispatch, useSelector} from "react-redux";
-import {getQualifications, resetQualifications} from "../../redux/actions";
+import {
+  addQualification,
+  deleteQualifications,
+  getQualifications, getServices,
+  resetQualifications, resetService
+} from "../../redux/actions";
+import Divider from "@material-ui/core/Divider";
+import CardHeader from "@material-ui/core/CardHeader";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: 200,
-    height: 230,
-    overflow: "auto",
+    height: 250,
+    overflow: "hidden",
     background: "#01010152",
     color: "#fff",
+    display: "flex",
+    flexDirection: "Column"
+  },
+  header: {
+    padding: "8px",
+    color: "#f5ff01",
+    fontSize: "1rem"
+  },
+  hr: {
+    background: "#fff",
   },
   button: {
     margin: theme.spacing(0.5, 0),
     color: "#f5ff01",
     borderColor: "#f5ff01",
   },
+  list:{
+    overflow: "auto",
+  }
 }));
 
 function not(a, b) {
@@ -34,29 +54,53 @@ function intersection(a, b) {
   return a.filter((value) => b.indexOf(value) !== -1);
 }
 
-export default function TransferList(props) {
+export default function TransferList({searchId}) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
   const qualifications = useSelector((state) => state.qualification.data);
 
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(props.left);
-  const [right, setRight] = React.useState(props.right);
+  const services = useSelector((state) => state.service.data);
 
-  useEffect(() => {
-    setLeft(props.left);
-    setRight(props.right);
+  const [checked, setChecked] = useState([]);
+  const [left, setLeft] = useState( []);
+  const [right, setRight] = useState( []);
 
-    dispatch(getQualifications(props.searchParam, props.searchId));
-    return () => dispatch(resetQualifications());
+  const update = (list) => {
+    const selectedId = qualifications.map(q => q.ServiceId)
+
+    const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
+    const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
+
+    setLeft([...left])
+    setRight([...right])
+  }
+
+  useEffect(  () => {
+    dispatch(getQualifications('CoachId', searchId));
+    dispatch(getServices())
+
+    return () => {
+      dispatch(resetQualifications())
+      dispatch(resetService())
+    }
   },[dispatch]);
 
-  console.log(qualifications)
+  useEffect(()=>{
+    update(services)
+  }, [services])
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+  const createQualification = (serviceId) => {
+    return {
+      id: (searchId * serviceId)*Date.now(),
+      ServiceId: serviceId,
+      CoachId: searchId
+    }
+  }
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -69,40 +113,58 @@ export default function TransferList(props) {
     }
 
     setChecked(newChecked);
+    console.log(checked)
   };
 
   const handleAllRight = () => {
+    left.forEach(s => dispatch(addQualification(createQualification(s.id))))
+    left.forEach(s => console.log(createQualification(s.id)))
     setRight(right.concat(left));
     setLeft([]);
   };
 
-  const handleCheckedRight = () => {
+  const handleCheckedRight = async () => {
+    leftChecked.forEach(s => dispatch(addQualification(createQualification(s.id))))
+
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
+
   };
 
   const handleCheckedLeft = () => {
+    const selectedId = rightChecked.map(s => s.id)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.ServiceId) !== -1)
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+
     setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
   const handleAllLeft = () => {
+    const selectedId = right.map(s => s.id)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.ServiceId) !== -1)
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+
     setLeft(left.concat(right));
     setRight([]);
   };
 
-  const customList = (items) => (
+  const customList = (title, items) => (
     <Paper className={classes.paper}>
-      <List dense component="div" role="list">
+      <CardHeader className={classes.header}
+          title={title}
+      />
+      <Divider className={classes.hr} />
+      <List dense className={classes.list} component="div" role="list">
         {items.map((value) => {
-          const labelId = `transfer-list-item-${value}-label`;
+          const labelId = `transfer-list-item-${value.id}-label`;
 
           return (
             <ListItem
-              key={value}
-              role="listitem"
+              key={value.id}
+              role="listItem"
               button
               onClick={handleToggle(value)}
             >
@@ -115,7 +177,7 @@ export default function TransferList(props) {
                   style={{ color: "#f5ff01" }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={value} />
+              <ListItemText id={labelId} primary={value.name} />
             </ListItem>
           );
         })}
@@ -126,8 +188,8 @@ export default function TransferList(props) {
 
   return (
     <Grid container spacing={2} justify="center" alignItems="center">
-      <Grid item>{customList(left)}</Grid>
-      <Grid item>
+      <Grid item>{customList('Available', left)}</Grid>
+      <Grid item id="Arrow_buttons">
         <Grid container direction="column" alignItems="center">
           <Button
             variant="outlined"
@@ -171,7 +233,7 @@ export default function TransferList(props) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList(right)}</Grid>
+      <Grid item>{customList('Selected', right)}</Grid>
     </Grid>
   );
 }
