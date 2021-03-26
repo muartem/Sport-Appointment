@@ -86,9 +86,9 @@ const Booking = () => {
       .filter((slot) => slot.id === booking.slotId)
       .map((slot) => (
         <div key={slot.id}>
-          <h3>{slot.date}</h3>
+          <h3>{slot.dateStart}</h3>
           <p>
-            {slot.startTime}-{slot.endTime}
+            {slot.timeStart}-{slot.timeEnd}
           </p>
           <div>{getCoachName(slot.coachId)}</div>
         </div>

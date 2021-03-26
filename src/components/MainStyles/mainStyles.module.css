@@ -111,30 +111,6 @@
   width: 250px;
 }
 
-.rightContainer {
-  margin-top: 80px;
-  margin-bottom: 20px;
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: space-between;
-  gap: 20px;
-
-  -ms-overflow-style: none;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-}
-
-.rightContainer::-webkit-scrollbar {
-  display: none;
-}
-
-.rightContainer form {
-  margin-left: 15px;
-}
-
-
 .resultList {
   display: flex;
   flex-direction: column;
@@ -165,7 +141,6 @@
   padding-bottom: 4px;
   margin: 0 auto;
   cursor: pointer;
-
 }
 
 .resultList > *::after {
@@ -189,19 +164,11 @@
 .rightContainer {
   margin-top: 80px;
   margin-bottom: 20px;
+  width: fit-content;
 
   display: flex;
   flex-direction: column;
   gap: 60px;
-
-  -ms-overflow-style: none;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-}
-
-.rightContainer::-webkit-scrollbar {
-  display: none;
 }
 
 .rightContainer form {
@@ -229,6 +196,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: 0;
   padding: 0;
 }
+
 .yellow {
   color: #f8ff13;
 }
@@ -279,14 +247,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media screen and (max-width: 1280px) {
-  .container{
+  .container {
     justify-content: space-around;
     width: 95vw;
     gap: 5px;
   }
 }
 @media screen and (max-width: 620px) {
-  .container{
+  .container {
     flex-direction: column;
     align-items: center;
   }
