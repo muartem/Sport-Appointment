@@ -1,3 +1,3 @@
-export const clientsSelector = (state) => state.client.data;
+const clientsSelector = (state) => state.client.data;
 
-// export default clientsSelector;
+export default clientsSelector;

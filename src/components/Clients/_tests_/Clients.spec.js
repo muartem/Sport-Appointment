@@ -10,9 +10,11 @@ const mockDispatch = jest.fn();
 
 jest.mock("react-redux", () => ({
   useDispatch: () => mockDispatch,
-  useSelector: (selector) => selector,
+  useSelector: (selector) => {
+    selector();
+  },
 }));
-console.log(useSelector);
+
 jest.mock("../../../redux/actions", () => ({
   getClients: jest.fn(() => Symbol.for("getClients")),
   resetClient: jest.fn(() => Symbol.for("resetClient")),
@@ -47,12 +49,12 @@ describe("Clients component", () => {
       {
         id: 2,
         name: "Julia",
-        PhoneNumber: "101",
+        phoneNumber: "101",
       },
       {
         id: 3,
         name: "Julian",
-        PhoneNumber: "1287678601",
+        phoneNumber: "1287678601",
       },
     ]);
 

@@ -19,7 +19,7 @@ const Clients = () => {
     clients?.map((client) => (
       <div key={client.id}>
         <p>{client.name}</p>
-        <span className={styles.clientlogin}>{client.login}</span>
+        <span className={styles.clientPhoneNumber}>{client.phoneNumber}</span>
       </div>
     ));
 
