@@ -21,7 +21,6 @@ html {
   min-height: 100vh;
 }
 
-
 *::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -34,14 +33,26 @@ html {
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background: linear-gradient(0deg, rgba(2,0,36,0) 15%, rgb(245, 255, .5) 20%, rgba(245,255,1,.5) 80%, rgba(0,212,255,0) 85%);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 0, 36, 0) 15%,
+    rgb(245, 255, 0.5) 20%,
+    rgba(245, 255, 1, 0.5) 80%,
+    rgba(0, 212, 255, 0) 85%
+  );
 
   border-radius: 4px;
 }
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(0deg, rgba(2,0,36,0) 15%, rgba(245,255,1,1) 20%, rgba(245,255,1,1) 80%, rgba(0,212,255,0) 85%);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 0, 36, 0) 15%,
+    rgba(245, 255, 1, 1) 20%,
+    rgba(245, 255, 1, 1) 80%,
+    rgba(0, 212, 255, 0) 85%
+  );
 }
 
 html *::selection {

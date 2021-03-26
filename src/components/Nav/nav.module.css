@@ -32,7 +32,7 @@
 }
 
 .navList * :hover {
-  color: #f5ff01;
+  color: #f8ff13;
 }
 @media screen and (max-width: 1280px) {
   .navList{

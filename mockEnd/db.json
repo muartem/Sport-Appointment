@@ -54,7 +54,7 @@
       "id": 1,
       "firstName": "Leanne",
       "lastName": "Graham",
-      "birthDate": "03.18.2021",
+      "dateBirth": "03.18.2021",
       "description": "I'm selfish, impatient and a little insecure.",
       "phoneNumber": "380657365488"
     },
@@ -62,7 +62,7 @@
       "id": 2,
       "firstName": "Ervin",
       "lastName": "Howell",
-      "birthDate": "03.11.2021",
+      "dateBirth": "03.11.2021",
       "description": "In three words I can sum up everything I've learned about life: it goes on.",
       "phoneNumber": "380973846170"
     },
@@ -78,7 +78,7 @@
       "id": 7,
       "firstName": "Serega",
       "lastName": "chorniy",
-      "birthDate": "01.14.2021",
+      "dateBirth": "01.14.2021",
       "description": "bumer",
       "phoneNumber": "+380972220022"
     },
@@ -86,7 +86,7 @@
       "id": 8,
       "firstName": "Conor ",
       "lastName": "McGregor",
-      "birthDate": "03.10.2021",
+      "dateBirth": "03.10.2021",
       "description": "World Champion",
       "phoneNumber": "+380972211222"
     },
@@ -94,7 +94,7 @@
       "id": 9,
       "firstName": "Mike",
       "lastName": "Tyson",
-      "birthDate": "06.30.1966",
+      "dateBirth": "06.30.1966",
       "description": "Born to win",
       "phoneNumber": "+380682635741"
     },
@@ -102,7 +102,7 @@
       "id": 10,
       "firstName": "Muhammad",
       "lastName": "Ali",
-      "birthDate": "01.17.1942",
+      "dateBirth": "01.17.1942",
       "description": "American professional boxer, activist, entertainer and philanthropist. ",
       "phoneNumber": "+380682635836"
     },
@@ -259,9 +259,9 @@
     {
       "id": 1,
       "coachId": 2,
-      "date": "03.26.2021",
-      "startTime": "09:00",
-      "endTime": "16:00"
+      "dateStart": "03.26.2021",
+      "timeStart": "09:00",
+      "timeEnd": "16:00"
     },
     {
       "id": 2,
@@ -281,22 +281,22 @@
       "id": 4,
       "coachId": 1,
       "date": "03.26.2021",
-      "startTime": "09:00",
+      "startTime": "08:00",
       "endTime": "16:00"
     },
     {
       "id": 5,
       "coachId": 1,
       "date": "03.27.2021",
-      "startTime": "1:00",
+      "startTime": "2:00",
       "endTime": "18:00"
     },
     {
       "id": 6,
       "coachId": 1,
-      "date": "03.28.2021",
-      "startTime": "6:00",
-      "endTime": "12:00"
+      "date": "03.25.2021",
+      "startTime": "2:00",
+      "endTime": "18:00"
     },
     {
       "id": 7,
@@ -332,7 +332,53 @@
       "date": "03.27.2021",
       "startTime": "10:00",
       "endTime": "18:00"
+    },
+    {
+      "id": 13,
+      "coachId": 2,
+      "date": "03.25.2021",
+      "startTime": "2:00",
+      "endTime": "8:00"
+    },
+    {
+      "id": 15,
+      "coachId": 1,
+      "date": "03.31.2021",
+      "startTime": "2:00",
+      "endTime": "18:00"
+    },
+    {
+      "id": 17,
+      "coachId": 1,
+      "date": "03.28.2021",
+      "startTime": "4:00",
+      "endTime": "7:00"
     }
   ],
-  "Booking": []
+  "Booking": [
+    {
+      "id": 1,
+      "slotId": 1,
+      "serviceId": 1,
+      "clientId": 1
+    },
+    {
+      "id": 2,
+      "slotId": 2,
+      "serviceId": 1,
+      "clientId": 2
+    },
+    {
+      "id": 3,
+      "slotId": 3,
+      "serviceId": 2,
+      "clientId": 1
+    },
+    {
+      "id": 4,
+      "slotId": 4,
+      "serviceId": 2,
+      "clientId": 2
+    }
+  ]
 }

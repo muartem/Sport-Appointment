@@ -10,7 +10,12 @@ import {
   addSlot,
 } from "../../redux/actions";
 import Input from "../Input/Input";
-import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
+import CRUDButtons from "../buttons/CRUDButtons/CRUDButtons";
+import {
+  formattedDate,
+  unformattedDate,
+  formattedTime,
+} from "../formattedDate/formattedDate";
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -59,18 +64,18 @@ const Slots = () => {
       name: "coachId",
       value: "",
     },
-    date: {
-      name: "date",
+    dateStart: {
+      name: "dateStart",
       value: "",
       error: "",
     },
-    startTime: {
-      name: "startTime",
+    timeStart: {
+      name: "timeStart",
       value: "",
       error: "",
     },
-    endTime: {
-      name: "endTime",
+    timeEnd: {
+      name: "timeEnd",
       value: "",
       error: "",
     },
@@ -97,9 +102,11 @@ const Slots = () => {
     });
     if (
       e.target.value &&
-      [inputs.date.value, inputs.startTime.value, inputs.endTime.value].every(
-        (i) => i.length > 0
-      )
+      [
+        inputs.dateStart.value,
+        inputs.timeStart.value,
+        inputs.timeEnd.value,
+      ].every((i) => i.length > 0)
     ) {
       setCreateButtonDisabling(false);
       setUpdateButtonDisabling(false);
@@ -127,9 +134,9 @@ const Slots = () => {
       updateSlot({
         id: slot.id,
         coachId: coachId,
-        date: formattedDate(inputs.date.value),
-        startTime: inputs.startTime.value,
-        endTime: inputs.endTime.value,
+        dateStart: formattedDate(inputs.dateStart.value),
+        timeStart: inputs.timeStart.value,
+        timeEnd: inputs.timeEnd.value,
       })
     );
     initialFormState();
@@ -137,16 +144,19 @@ const Slots = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
     dispatch(
       addSlot({
-        id: slots.sort((a, b) => b.id - a.id)[0].id + 1,
+        id: 0,
         coachId: coachId,
-        date: formattedDate(inputs.date.value),
-        startTime: inputs.startTime.value,
-        endTime: inputs.endTime.value,
+        dateStart: formattedDate(inputs.dateStart.value),
+        timeStart: formattedTime(inputs.timeStart.value),
+        timeEnd: inputs.timeEnd.value,
       })
     );
     initialFormState();
+    dispatch(getSlots());
+    dispatch(resetSlots());
   };
 
   const deleteHandler = () => {
@@ -157,13 +167,16 @@ const Slots = () => {
 
   const setSlot = (date) => {
     return async (e) => {
-      setCreateButtonVisibility(false);
-      setDeleteButtonVisibility(true);
-      setUpdateButtonVisibility(true);
-      setDeleteButtonDisabling(false);
-
-      const slot = slots.find((slot) => slot.date === formattedDate(date));
+      const slot = slots.find(
+        (slot) =>
+          slot.dateStart === formattedDate(date) && slot.coachId === coachId
+      );
       if (slot) {
+        setCreateButtonVisibility(false);
+        setDeleteButtonVisibility(true);
+        setUpdateButtonVisibility(true);
+        setDeleteButtonDisabling(false);
+
         setUpdateSlot(slot);
         setSlotToDelete(slot);
 
@@ -172,24 +185,31 @@ const Slots = () => {
             name: "coachId",
             value: slot.coachId,
           },
-          date: {
-            name: "date",
-            value: unformattedDate(slot.date),
+          dateStart: {
+            name: "dateStart",
+            value: unformattedDate(slot.dateStart),
             error: "",
           },
-          startTime: {
-            name: "startTime",
-            value: slot.startTime,
+          timeStart: {
+            name: "timeStart",
+            value: slot.timeStart,
             error: "",
           },
-          endTime: {
-            name: "endTime",
-            value: slot.endTime,
+          timeEnd: {
+            name: "timeEnd",
+            value: slot.timeEnd,
             error: "",
           },
         };
         setInputs((state) => ({ ...slotInput }));
-      } else setInputs((state) => ({ ...initialInputs }));
+      } else {
+        setCreateButtonVisibility(true);
+        setCreateButtonDisabling(true);
+        setDeleteButtonVisibility(false);
+        setUpdateButtonVisibility(false);
+
+        setInputs((state) => ({ ...initialInputs }));
+      }
     };
   };
 
@@ -225,7 +245,7 @@ const Slots = () => {
     return slots.filter((slot) => {
       if (slot.coachId !== coachId) return false;
       let slotDate = new Date();
-      let [month, date, year] = slot.date.split(".");
+      let [month, date, year] = slot.dateStart.split(".");
       slotDate.setFullYear(year, month - 1, date);
 
       if (currentMonday <= slotDate && nextMonday > slotDate) return true;
@@ -271,12 +291,12 @@ const Slots = () => {
             return;
           }
 
-          let startTime = coachDaySchedule.startTime.split(":")[0];
-          let endTime = coachDaySchedule.endTime.split(":")[0];
+          let timeStart = coachDaySchedule.timeStart.split(":")[0];
+          let timeEnd = coachDaySchedule.timeEnd.split(":")[0];
 
           if (
-            startTime <= currentDateTime.getHours() &&
-            endTime >= currentDateTime.getHours()
+            timeStart <= currentDateTime.getHours() &&
+            timeEnd >= currentDateTime.getHours()
           )
             times[currentDateTime] = true;
           else times[currentDateTime] = false;
@@ -287,26 +307,9 @@ const Slots = () => {
     return weekCalendar;
   };
 
-  const makeCompactWeekCalendar = (currentDate) => {
-    let weekCalendar = makeWeekCalendar(currentDate);
-    let compactWeekCalendar = {};
-    Object.entries(weekCalendar).forEach(([key, value]) => {
-      let date = new Date(key);
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let compactValue = {};
-      Object.entries(value).forEach(([key, value]) => {
-        let date = new Date(key);
-        compactValue[`${date.getHours()}:00`] = value;
-      });
-      compactWeekCalendar[`${day}.${month}`] = compactValue;
-    });
-
-    return compactWeekCalendar;
-  };
-
   const formatWeekCalendar = (currentDate) => {
     let compactWeekCalendar = makeWeekCalendar(currentDate);
+
     let arrayRepresentation = [];
     Object.entries(compactWeekCalendar).forEach(([key, day]) => {
       let dayArray = [];
@@ -327,6 +330,7 @@ const Slots = () => {
       }
 
       Object.entries(day).forEach(([time, value]) => {
+        console.log(time, value);
         let cellClass = value === true ? "active cell" : "cell";
         dayArray.push(<div key={time} className={cellClass}></div>);
       });
@@ -341,7 +345,6 @@ const Slots = () => {
         </div>
       );
     });
-
     return arrayRepresentation;
   };
 
@@ -378,61 +381,45 @@ const Slots = () => {
             {formatCoaches()}
           </select>
           <Input
-            key={inputs.date.name + "_slot"}
+            key={inputs.dateStart.name + "_slot"}
             onBlur={blurHandler}
             onChange={inputHandler}
             type="date"
-            name={inputs.date.name}
-            defaultValue={inputs.date.value}
-            error={inputs.date?.error}
+            name={inputs.dateStart.name}
+            defaultValue={inputs.dateStart.value}
+            error={inputs.dateStart?.error}
           />
           <Input
-            key={inputs.startTime.name + "_slot"}
+            key={inputs.timeStart.name + "_slot"}
             onBlur={blurHandler}
             onChange={inputHandler}
             type="text"
-            name={inputs.startTime.name}
-            defaultValue={inputs.startTime.value}
-            error={inputs.startTime?.error}
+            name={inputs.timeStart.name}
+            defaultValue={inputs.timeStart.value}
+            error={inputs.timeStart?.error}
           />
           <Input
-            key={inputs.endTime.name + "_slot"}
+            key={inputs.timeEnd.name + "_slot"}
             onBlur={blurHandler}
             onChange={inputHandler}
             type="text"
-            name={inputs.endTime.name}
-            defaultValue={inputs.endTime.value}
-            error={inputs.endTime?.error}
+            name={inputs.timeEnd.name}
+            defaultValue={inputs.timeEnd.value}
+            error={inputs.timeEnd?.error}
           />
-          <div className={styles.btnContainer}>
-            {isCreateButtonVisible && (
-              <button
-                type="submit"
-                disabled={isCreateButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Done</p>
-              </button>
-            )}
-            {isUpdateButtonVisible && (
-              <button
-                onClick={updateHandler}
-                disabled={isUpdateButtonDisabling}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Update</p>
-              </button>
-            )}
-            {isDeleteButtonVisible && (
-              <button
-                onClick={deleteHandler}
-                disabled={isDeleteButtonDisabled}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Delete</p>
-              </button>
-            )}
-          </div>
+          <CRUDButtons
+            blurHandler={blurHandler}
+            inputHandler={inputHandler}
+            submitHandler={submitHandler}
+            updateHandler={updateHandler}
+            deleteHandler={deleteHandler}
+            isCreateButtonVisible={isCreateButtonVisible}
+            isCreateButtonDisabled={isCreateButtonDisabled}
+            isUpdateButtonVisible={isUpdateButtonVisible}
+            isUpdateButtonDisabling={isUpdateButtonDisabling}
+            isDeleteButtonVisible={isDeleteButtonVisible}
+            isDeleteButtonDisabled={isDeleteButtonDisabled}
+          />
         </form>
       </div>
     </div>
