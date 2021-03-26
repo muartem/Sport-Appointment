@@ -135,8 +135,8 @@ const Slots = () => {
         id: slot.id,
         coachId: coachId,
         dateStart: formattedDate(inputs.dateStart.value),
-        timeStart: inputs.timeStart.value,
-        timeEnd: inputs.timeEnd.value,
+        timeStart: formattedTime(inputs.timeStart.value),
+        timeEnd: formattedTime(inputs.timeEnd.value),
       })
     );
     initialFormState();
@@ -151,7 +151,7 @@ const Slots = () => {
         coachId: coachId,
         dateStart: formattedDate(inputs.dateStart.value),
         timeStart: formattedTime(inputs.timeStart.value),
-        timeEnd: inputs.timeEnd.value,
+        timeEnd: formattedTime(inputs.timeEnd.value),
       })
     );
     initialFormState();

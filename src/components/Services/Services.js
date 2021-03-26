@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addService,
@@ -60,20 +60,20 @@ const Services = () => {
     setDeleteButtonVisibility(false);
     setUpdateButtonVisibility(false);
     setTransferListVisibility(false);
-    setUpdateService({})
+    setUpdateService({});
     setInputs({ ...initialInputs });
   };
 
   const inputHandler = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
 
     setInputs((state) => ({
       ...state,
       [name]: {
         ...state[name],
         value: value,
-        error: ""
-      }
+        error: "",
+      },
     }));
 
     if (
@@ -89,13 +89,13 @@ const Services = () => {
 
   const blurHandler = (e) => {
     if (e.target.value.length < 1) {
-      const {name} = e.target;
+      const { name } = e.target;
       setInputs((state) => ({
         ...state,
         [name]: {
           ...state[name],
-          error: "Empty field"
-        }
+          error: "Empty field",
+        },
       }));
       setCreateButtonDisabling(true);
     }
@@ -141,10 +141,10 @@ const Services = () => {
       setDeleteButtonVisibility(true);
       setUpdateButtonVisibility(true);
       setDeleteButtonDisabling(false);
-      await setTransferListVisibility(false)
+      await setTransferListVisibility(false);
       const service = services.find((service) => service.id === serviceId);
       setUpdateService(service);
-      setTransferListVisibility(true)
+      setTransferListVisibility(true);
       const serviceInput = {
         name: {
           name: "name",
@@ -195,12 +195,12 @@ const Services = () => {
           isDeleteButtonVisible={isDeleteButtonVisible}
           isDeleteButtonDisabled={isDeleteButtonDisabled}
         />
-        {isTransferListVisible &&
-        <div>
-          <h3 className={styles.yellow}>{service.name}</h3>
-          <TransferList searchId={service.id}/>
-        </div>
-        }
+        {isTransferListVisible && (
+          <div>
+            <h3 className={styles.yellow}>{service.name}</h3>
+            <TransferList searchId={service.id} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -26,3 +26,12 @@ export const formattedTime = (incomeTime) => {
 
   return `${checkDigit(hh)}:${mm}`;
 };
+
+export const formattedDuration = (incomeTime) => {
+  let hh = incomeTime.split(":")[0];
+  let mm = incomeTime.split(":")[1];
+
+  let new_hh = Number(hh) + 1;
+
+  return `${new_hh}:${mm}`;
+};
