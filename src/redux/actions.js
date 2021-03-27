@@ -42,47 +42,42 @@ export function getServices() {
 export function addService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Services/", service);
+      await Api.post("Services/", service);
+      dispatch({
+        type: ADD_SERVICE,
+        payload: service,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: ADD_SERVICE,
-      payload: service,
-    });
   };
 }
 
 export function updateService(service) {
   return async (dispatch) => {
     try {
-      const response = await Api.post(`Services/update`, service);
-      console.log(service.id);
+      await Api.post(`Services/update`, service);
+      dispatch({
+        type: UPDATE_SERVICE,
+        payload: service,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: UPDATE_SERVICE,
-      payload: service,
-    });
   };
 }
 
 export function deleteService(serviceId) {
   return async (dispatch) => {
     try {
-      console.log(serviceId);
-      const response = await Api.delete(`Services/`, { params: { serviceId } });
+      await Api.delete(`Services/`, { params: { serviceId } });
+      dispatch({
+        type: DELETE_SERVICE,
+        payload: serviceId,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: DELETE_SERVICE,
-      payload: serviceId,
-    });
   };
 }
 
@@ -109,15 +104,14 @@ export function getCoaches() {
 export function addCoach(coach) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Coach/", coach);
+      await Api.post("Coach/", coach);
+      dispatch({
+        type: ADD_COACH,
+        payload: coach,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: ADD_COACH,
-      payload: coach,
-    });
   };
 }
 
@@ -125,28 +119,28 @@ export function updateCoach(coach) {
   console.log(coach);
   return async (dispatch) => {
     try {
-      const response = await Api.post(`Coach/update`, coach);
+      await Api.post(`Coach/update`, coach);
+      dispatch({
+        type: UPDATE_COACH,
+        payload: coach,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-    dispatch({
-      type: UPDATE_COACH,
-      payload: coach,
-    });
   };
 }
 
 export function deleteCoach(coachId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Coach/`, { params: { coachId } });
+      await Api.delete(`Coach/`, { params: { coachId } });
+      dispatch({
+        type: DELETE_COACH,
+        payload: coachId,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-    dispatch({
-      type: DELETE_COACH,
-      payload: coachId,
-    });
   };
 }
 
@@ -193,45 +187,42 @@ export function getSlots() {
 export function addSlot(slot) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Slots/", slot);
+      await Api.post("Slots/", slot);
+      dispatch({
+        type: ADD_SLOT,
+        payload: slot,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: ADD_SLOT,
-      payload: slot,
-    });
   };
 }
 
 export function updateSlot(slot) {
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Slots/update/${slot.id}`, slot);
+      await Api.patch(`Slots/update/${slot.id}`, slot);
+      dispatch({
+        type: UPDATE_SLOT,
+        payload: slot,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: UPDATE_SLOT,
-      payload: slot,
-    });
   };
 }
 
 export function deleteSlot(slotId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Slots/${slotId}`);
+      await Api.delete(`Slots/${slotId}`);
+      dispatch({
+        type: DELETE_SLOT,
+        payload: slotId,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: DELETE_SLOT,
-      payload: slotId,
-    });
   };
 }
 
@@ -247,7 +238,7 @@ export function resetSlots() {
 
 export function getQualifications(param, id) {
   return async (dispatch) => {
-    const qualifications = await Api.get(`Qualification?${param}=${id}`);
+    const qualifications = await Api.get(`Qualification/${param}/${id}`);
     dispatch({
       type: GET_QUALIFICATIONS,
       payload: qualifications.data,
@@ -258,32 +249,28 @@ export function getQualifications(param, id) {
 export function addQualification(qualification) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Qualification/", qualification);
+      await Api.post("Qualification/", qualification);
+      dispatch({
+        type: ADD_QUALIFICATION,
+        payload: qualification,
+      });
     } catch (e) {
-      console.log(e.message);
+      return e.response.data.title
     }
-
-    dispatch({
-      type: ADD_QUALIFICATION,
-      payload: qualification,
-    });
   };
 }
 
 export function deleteQualifications(qualificationId) {
   return async (dispatch) => {
     try {
-      const response = await Api.delete(`Qualification/`, {
-        params: { qualificationId },
+      await Api.delete(`Qualification/?qualificationId=${qualificationId}`)
+      dispatch({
+        type: DELETE_QUALIFICATION,
+        payload: qualificationId,
       });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: DELETE_QUALIFICATION,
-      payload: qualificationId,
-    });
   };
 }
 
@@ -318,16 +305,15 @@ export function resetBookings() {
 export function updateBooking(booking) {
   return async (dispatch) => {
     try {
-      const response = await Api.post(`Booking/update`, booking);
       console.log(booking.id);
+      await Api.post(`Booking/update`, booking);
+      dispatch({
+        type: UPDATE_BOOKING,
+        payload: booking,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: UPDATE_BOOKING,
-      payload: booking,
-    });
   };
 }
 
@@ -335,14 +321,13 @@ export function deleteBooking(bookingId) {
   return async (dispatch) => {
     try {
       console.log(bookingId);
-      const response = await Api.delete(`Booking/`, { params: { bookingId } });
+      await Api.delete(`Booking/`, { params: { bookingId } });
+      dispatch({
+        type: DELETE_BOOKING,
+        payload: bookingId,
+      });
     } catch (e) {
-      console.log(e.message);
+      console.log(e.response.data.title);
     }
-
-    dispatch({
-      type: DELETE_BOOKING,
-      payload: bookingId,
-    });
   };
 }

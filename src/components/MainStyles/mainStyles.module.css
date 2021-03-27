@@ -266,7 +266,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     max-height: 200px;
   }
 
+  .clientContainer {
+    width: 70vw;
+  }
+
   .resultList > * {
     width: 90%;
   }
+
+  .bookingSelects {
+    flex-direction: column;
+    width: 70vw;
+    margin: 0 auto;
+  }
+
 }

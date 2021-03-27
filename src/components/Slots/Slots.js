@@ -299,8 +299,8 @@ const Slots = () => {
             return;
           }
 
-          let timeStart = coachDaySchedule.timeStart.split(":")[0];
-          let timeEnd = coachDaySchedule.timeEnd.split(":")[0];
+          let timeStart = coachDaySchedule.timeStart?.split(":")[0];
+          let timeEnd = coachDaySchedule.timeEnd?.split(":")[0];
 
           if (
             timeStart <= currentDateTime.getHours() &&

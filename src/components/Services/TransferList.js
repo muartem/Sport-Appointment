@@ -79,9 +79,9 @@ export default function TransferList({searchId}) {
     setLeft([...left])
     setRight([...right])
   }
-
+  console.log(qualifications)
   useEffect(  () => {
-    dispatch(getQualifications('ServiceId', searchId));
+    dispatch(getQualifications('service', searchId));
     dispatch(getCoaches())
 
     return () => {
@@ -92,14 +92,14 @@ export default function TransferList({searchId}) {
 
   useEffect(()=>{
     update(coaches)
-  }, [coaches])
+  }, [dispatch, coaches])
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
   const createQualification = (coachID) => {
     return {
-      id: (coachID * searchId)*Date.now(),
+      id: (coachID * searchId)*100+11,
       ServiceId: searchId,
       CoachId: coachID
     }
@@ -123,6 +123,7 @@ export default function TransferList({searchId}) {
 
     setRight(right.concat(left));
     setLeft([]);
+    /*update(coaches)*/
   };
 
   const handleCheckedRight = async () => {
@@ -131,6 +132,7 @@ export default function TransferList({searchId}) {
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
+    /*update(coaches)*/
 
   };
 
