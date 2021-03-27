@@ -78,7 +78,7 @@ export default function TransferList({searchId}) {
   }
 
   useEffect(  () => {
-    dispatch(getQualifications('CoachId', searchId));
+    dispatch(getQualifications('coach', searchId));
     dispatch(getServices())
 
     return () => {
@@ -96,7 +96,7 @@ export default function TransferList({searchId}) {
 
   const createQualification = (serviceId) => {
     return {
-      id: (searchId * serviceId)*Date.now(),
+      id: (searchId * serviceId)*1000*Date.now(),
       ServiceId: serviceId,
       CoachId: searchId
     }
@@ -113,19 +113,16 @@ export default function TransferList({searchId}) {
     }
 
     setChecked(newChecked);
-    console.log(checked)
   };
 
   const handleAllRight = () => {
     left.forEach(s => dispatch(addQualification(createQualification(s.id))))
-    left.forEach(s => console.log(createQualification(s.id)))
     setRight(right.concat(left));
     setLeft([]);
   };
 
   const handleCheckedRight = async () => {
     leftChecked.forEach(s => dispatch(addQualification(createQualification(s.id))))
-
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
