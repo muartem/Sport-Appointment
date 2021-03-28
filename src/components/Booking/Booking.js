@@ -2,14 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { clientsSelector } from "../Clients/Clients.selector";
-import { formattedDuration } from "../formattedDate/formattedDate";
+import {
+  formattedTime,
+  formattedDuration,
+} from "../formattedDate/formattedDate";
 import "../Slots/slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
-import {getClients, resetClient} from "../../redux/Ducks/Clients.duck";
-import {getCoaches, resetCoach} from "../../redux/Ducks/Coaches.duck";
-import {getServices, resetService} from "../../redux/Ducks/Services.duck";
-import {getSlots, resetSlots} from "../../redux/Ducks/Slots.duck";
-import {deleteBooking, getBookings, resetBookings} from "../../redux/Ducks/Bookings.duck";
+import { getClients, resetClient } from "../../redux/Ducks/Clients.duck";
+import { getCoaches, resetCoach } from "../../redux/Ducks/Coaches.duck";
+import { getServices, resetService } from "../../redux/Ducks/Services.duck";
+import { getSlots, resetSlots } from "../../redux/Ducks/Slots.duck";
+import {
+  deleteBooking,
+  getBookings,
+  resetBookings,
+} from "../../redux/Ducks/Bookings.duck";
 
 const Booking = () => {
   const dispatch = useDispatch();
@@ -103,14 +110,15 @@ const Booking = () => {
       .map((booking) => {
         return (
           <div key={booking.id} className={styles.bookingBox}>
-            <h3>{booking.slot.dateStart}</h3>
+            <h3>
+              {booking.slot.dateStart} - {booking.resultPrice}UAH
+            </h3>
             <p>
               {booking.slot.timeStart}-
-              {formattedDuration(booking.slot.timeStart)}
+              {formattedTime(formattedDuration(booking.slot.timeStart))}
             </p>
             {getCoachFromSlot(booking.slot.id)}
 
-            <button className={styles.addBtn}>Update</button>
             <button
               className={styles.addBtn}
               onClick={() => deleteHandler(booking.id)}

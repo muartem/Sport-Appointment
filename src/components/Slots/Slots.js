@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { formattedDate, formattedTime } from "../formattedDate/formattedDate";
-import {addSlot, deleteSlot, getSlots, resetSlots} from "../../redux/Ducks/Slots.duck";
-import {getCoaches, resetCoach} from "../../redux/Ducks/Coaches.duck";
+import {
+  addSlots,
+  deleteSlots,
+  getSlots,
+  resetSlots,
+} from "../../redux/Ducks/Slots.duck";
+import { getCoaches, resetCoach } from "../../redux/Ducks/Coaches.duck";
 
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
@@ -17,18 +22,17 @@ const Slots = () => {
 
   useEffect(() => {
     dispatch(getSlots());
-    return () => dispatch(resetSlots());
+    dispatch(getCoaches());
+    return () => {
+      dispatch(resetSlots());
+      dispatch(resetCoach());
+    };
   }, [dispatch]);
 
   // COACHES
 
   const coaches = useSelector((state) => state.coach.data);
   const [coachId, setCoachId] = useState(1);
-
-  useEffect(() => {
-    dispatch(getCoaches());
-    return () => dispatch(resetCoach());
-  }, [dispatch]);
 
   const formatCoaches = () =>
     coaches?.map((coach) => (
@@ -40,9 +44,7 @@ const Slots = () => {
 
   // ACTIONS
 
-  const setSlot = (e, slotArr) => {
-    console.log(slotArr);
-
+  const setSlot = (slotArr) => {
     let slotArrDelete = [];
     let slotArrAdd = [];
 
@@ -70,10 +72,9 @@ const Slots = () => {
       }
     });
 
-    if (slotArrDelete.length > 0) dispatch(deleteSlot(slotArrDelete));
-    if (slotArrAdd.length > 0) dispatch(addSlot(slotArrAdd));
+    if (slotArrDelete.length > 0) dispatch(deleteSlots(slotArrDelete));
+    if (slotArrAdd.length > 0) dispatch(addSlots(slotArrAdd));
 
-    dispatch(getSlots());
     return () => dispatch(resetSlots());
   };
 
@@ -187,7 +188,7 @@ const Slots = () => {
 
       let offset = 24 - day.length;
       if (offset > 0) {
-        dayArray.push(<div key={0} className="cell empty"/>);
+        dayArray.push(<div key={0} className="cell empty" />);
       }
 
       day.forEach((value, index) => {
@@ -239,25 +240,17 @@ const Slots = () => {
       </div>
 
       <div className="formContainer">
-        <form action="">
-          <select onChange={(e) => setCoachId(Number(e.target.value))}>
-            {formatCoaches()}
-          </select>
-          <div className={styles.btnContainer}>
-            <button
-              onClick={(e) => setSlot(e, slotArr)}
-              className={styles.addBtn}
-            >
-              <p className={styles.addBtnText}>Add</p>
-            </button>
-            <button
-              onClick={(e) => setSlot(e, slotArr)}
-              className={styles.addBtn}
-            >
-              <p className={styles.addBtnText}>Delete</p>
-            </button>
-          </div>
-        </form>
+        <select onChange={(e) => setCoachId(Number(e.target.value))}>
+          {formatCoaches()}
+        </select>
+        <div className={styles.btnContainer}>
+          <button onClick={() => setSlot(slotArr)} className={styles.addBtn}>
+            <p className={styles.addBtnText}>Add</p>
+          </button>
+          <button onClick={() => setSlot(slotArr)} className={styles.addBtn}>
+            <p className={styles.addBtnText}>Delete</p>
+          </button>
+        </div>
       </div>
     </div>
   );
