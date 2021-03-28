@@ -162,7 +162,7 @@ const Slots = () => {
           times[time] = true;
         }
       });
-
+      
       weekCalendar[date] = times;
     }
 

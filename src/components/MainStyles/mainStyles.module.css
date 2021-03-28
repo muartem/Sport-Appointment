@@ -270,6 +270,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     max-height: 200px;
   }
 
+  .clientContainer {
+    width: 70vw;
+  }
+
   .resultList > * {
     width: 90%;
   }
@@ -279,14 +283,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     max-height: fit-content;
   }
 
-  .bookingSelects {
-    width: 90vw;
-    margin: auto;
-    display: flex;
+    .bookingSelects {
     flex-direction: column;
-    gap: 0;
+    width: 70vw;
+    margin: 0 auto;
+    gap: 5px;
   }
-
+  
   .bookingContaier {
     display: flex;
     flex-direction: column;
@@ -294,4 +297,3 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     justify-content: start;
     gap: 20px;
   }
-}
