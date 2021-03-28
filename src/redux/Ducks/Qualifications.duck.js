@@ -9,11 +9,16 @@ const RESET_QUALIFICATIONS = "PM_FIGHT/QUALIFICATIONS/RESET";
 
 export function getQualifications(param, id) {
     return async (dispatch) => {
-        const qualifications = await Api.get(`Qualification/${param}/${id}`);
-        dispatch({
-            type: GET_QUALIFICATIONS,
-            payload: qualifications.data,
-        });
+        try {
+            const qualifications = await Api.get(`Qualification/${param}/qualification/${id}`);
+            dispatch({
+                type: GET_QUALIFICATIONS,
+                payload: qualifications.data,
+            });
+        } catch (e){
+            console.log(e.response.data);
+        }
+
     };
 }
 
@@ -26,7 +31,7 @@ export function addQualification(qualification) {
                 payload: qualification,
             });
         } catch (e) {
-            return e.response.data.title
+            console.log(e.response.data.title);
         }
     };
 }
@@ -72,7 +77,7 @@ const handlers = {
         ...state,
         data: [...state.data.filter(item => item.id !== payload)],
     }),
-    [RESET_QUALIFICATIONS]: (state) => initialState,
+    [RESET_QUALIFICATIONS]: initialState,
     DEFAULT: (state) => state,
 };
 export const qualificationReducer = (state = initialState, action) => {

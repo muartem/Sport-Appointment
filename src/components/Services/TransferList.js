@@ -71,15 +71,18 @@ export default function TransferList({searchId}) {
   const [right, setRight] = useState( []);
 
   const update = (list) => {
-    const selectedId = qualifications.map(q => q.CoachId)
-
-    const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
-    const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
-
-    setLeft([...left])
-    setRight([...right])
+    try {
+      const selectedId = qualifications.map(q => q.coachId)
+      const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
+      const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
+      setLeft([...left])
+      setRight([...right])
+    }
+    catch (e){
+      const left = [...coaches]
+      setLeft([...left])
+    }
   }
-  console.log(qualifications)
   useEffect(  () => {
     dispatch(getQualifications('service', searchId));
     dispatch(getCoaches())
@@ -88,11 +91,11 @@ export default function TransferList({searchId}) {
       dispatch(resetQualifications())
       dispatch(resetCoach())
     }
-  },[dispatch]);
+  },[dispatch, searchId]);
 
-  useEffect(()=>{
+  useEffect(() => {
     update(coaches)
-  }, [dispatch, coaches])
+  }, [coaches, qualifications])
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
