@@ -7,7 +7,13 @@ import AddButton from "../buttons/AddButton/AddButton";
 import CoachesForm from "./CoachesForm";
 import TransferList from "./TransferList";
 
-import {addCoach, deleteCoach, getCoaches, resetCoach, updateCoach} from "../../redux/Ducks/Coaches.duck";
+import {
+  addCoach,
+  deleteCoach,
+  getCoaches,
+  resetCoach,
+  updateCoach,
+} from "../../redux/Ducks/Coaches.duck";
 
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -129,7 +135,7 @@ const Coaches = () => {
         phoneNumber: inputs.phoneNumber.value,
       })
     );
-    setInputs({ ...initialInputs });
+    initialFormState();
   };
 
   const updateHandler = () => {

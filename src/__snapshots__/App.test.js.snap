@@ -83,6 +83,7 @@ exports[`App should render properly 1`] = `
       >
         <form
           action=""
+          data-testid="service-form"
         >
           <div
             class="omrs-input-group"
@@ -91,6 +92,7 @@ exports[`App should render properly 1`] = `
               class="omrs-input-underlined"
             >
               <input
+                data-testid="form-name"
                 name="name"
                 type="text"
                 value=""
@@ -112,6 +114,7 @@ exports[`App should render properly 1`] = `
               class="omrs-input-underlined"
             >
               <input
+                data-testid="form-description"
                 name="description"
                 type="text"
                 value=""
@@ -133,6 +136,7 @@ exports[`App should render properly 1`] = `
               class="omrs-input-underlined"
             >
               <input
+                data-testid="form-price"
                 name="price"
                 type="text"
                 value=""

@@ -4,7 +4,7 @@ import CRUDButtons from "../buttons/CRUDButtons/CRUDButtons";
 
 const ServiceForm = (props) => {
   return (
-    <form action="" onSubmit={props.submitHandler}>
+    <form data-testid="service-form" action="" onSubmit={props.submitHandler}>
       <Input
         key={props.inputs.name.name + "_service"}
         onBlur={props.blurHandler}
@@ -13,6 +13,7 @@ const ServiceForm = (props) => {
         name={props.inputs.name.name}
         defaultValue={props.inputs.name.value}
         error={props.inputs.name?.error}
+        testid="form-name"
       />
       <Input
         key={props.inputs.description.name + "_service"}
@@ -22,6 +23,7 @@ const ServiceForm = (props) => {
         name={props.inputs.description.name}
         defaultValue={props.inputs.description.value}
         error={props.inputs.description?.error}
+        testid="form-description"
       />
       <Input
         key={props.inputs.price.name + "_service"}
@@ -31,6 +33,7 @@ const ServiceForm = (props) => {
         name={props.inputs.price.name}
         defaultValue={props.inputs.price.value}
         error={props.inputs.price?.error}
+        testid="form-price"
       />
       <CRUDButtons
         updateHandler={props.updateHandler}
