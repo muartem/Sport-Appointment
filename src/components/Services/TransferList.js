@@ -95,6 +95,7 @@ export default function TransferList({searchId}) {
 
   useEffect(() => {
     update(coaches)
+    // eslint-disable-next-line
   }, [coaches, qualifications])
 
   const leftChecked = intersection(checked, left);
@@ -141,7 +142,7 @@ export default function TransferList({searchId}) {
 
   const handleCheckedLeft = () => {
     const selectedId = rightChecked.map(c => c.id)
-    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.CoachId) !== -1)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
     qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
 
     setLeft(left.concat(rightChecked));
@@ -151,7 +152,7 @@ export default function TransferList({searchId}) {
 
   const handleAllLeft = () => {
     const selectedId = right.map(c => c.id)
-    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.CoachId) !== -1)
+    const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
     qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
 
     setLeft(left.concat(right));

@@ -108,9 +108,8 @@ const Coaches = () => {
   };
 
   const blurHandler = (e) => {
-    if (e.target.value.length < 1) {
-      const { name } = e.target;
-
+    const { type, value, name} = e.target;
+    if (value.length < 1) {
       setInputs((state) => ({
         ...state,
         [name]: {
@@ -120,6 +119,27 @@ const Coaches = () => {
       }));
 
       setCreateButtonDisabling(true);
+    }
+    if (type === 'tel' &&
+        (value.length < 9 || value.length > 13)){
+      setInputs((state) => ({
+        ...state,
+        [name]: {
+          ...state[name],
+          error: "Invalid phone number. Example: +380971234567",
+        },
+      }));
+
+      setCreateButtonDisabling(true);
+    } else if (e.target.type === 'tel'){
+      const number = e.target.value.slice(-9)
+      setInputs((state) => ({
+        ...state,
+        [name]: {
+          ...state[name],
+          value: `+380${number}`,
+        },
+      }))
     }
   };
 
