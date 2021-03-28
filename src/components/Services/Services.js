@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addService,
-  deleteService,
-  getServices,
-  resetService,
-  updateService,
-} from "../../redux/actions";
+
 import styles from "../MainStyles/mainStyles.module.css";
 import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import ServiceForm from "./ServicesForm";
 import TransferList from "./TransferList";
+import {addService, deleteService, getServices, resetService, updateService} from "../../redux/Ducks/Services.duck";
 
 const Services = () => {
   const dispatch = useDispatch();

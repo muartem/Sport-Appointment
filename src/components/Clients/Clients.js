@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getClients, resetClient } from "../../redux/actions";
 import { clientsSelector } from "./Clients.selector";
+
+import {getClients, resetClient} from "../../redux/Ducks/Clients.duck";
 
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -19,7 +20,7 @@ const Clients = () => {
     clients?.map((client) => (
       <div key={client.id}>
         <p>{client.name}</p>
-        <span className={styles.clientlogin}>{client.login}</span>
+        <span className={styles.clientLogin}>{client.login}</span>
       </div>
     ));
 

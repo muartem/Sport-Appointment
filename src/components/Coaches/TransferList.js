@@ -9,14 +9,16 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import {useDispatch, useSelector} from "react-redux";
+
+import Divider from "@material-ui/core/Divider";
+import CardHeader from "@material-ui/core/CardHeader";
 import {
   addQualification,
   deleteQualifications,
-  getQualifications, getServices,
-  resetQualifications, resetService
-} from "../../redux/actions";
-import Divider from "@material-ui/core/Divider";
-import CardHeader from "@material-ui/core/CardHeader";
+  getQualifications,
+  resetQualifications
+} from "../../redux/Ducks/Qualifications.duck";
+import {getServices, resetService} from "../../redux/Ducks/Services.duck";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -67,6 +69,7 @@ export default function TransferList({searchId}) {
   const [left, setLeft] = useState( []);
   const [right, setRight] = useState( []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const update = (list) => {
     const selectedId = qualifications.map(q => q.ServiceId)
 
@@ -85,7 +88,7 @@ export default function TransferList({searchId}) {
       dispatch(resetQualifications())
       dispatch(resetService())
     }
-  },[dispatch]);
+  },[dispatch, searchId]);
 
   useEffect(()=>{
     update(services)
@@ -96,7 +99,7 @@ export default function TransferList({searchId}) {
 
   const createQualification = (serviceId) => {
     return {
-      id: (searchId * serviceId)*1000*Date.now(),
+      id: (searchId*serviceId)*100+11,
       ServiceId: serviceId,
       CoachId: searchId
     }
