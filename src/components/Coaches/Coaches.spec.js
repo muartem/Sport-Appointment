@@ -22,8 +22,8 @@ jest.mock("react-redux", () => ({
   ],
 }));
 
-jest.mock("../../redux/actions", () => ({
-  ...jest.requireActual("../../redux/actions"),
+jest.mock("../../redux/Ducks/Coaches.duck.js", () => ({
+  ...jest.requireActual("../../redux/Ducks/Coaches.duck.js"),
   addCoach: () => ({ type: "some/type" }),
 }));
 
