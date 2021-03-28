@@ -71,13 +71,17 @@ export default function TransferList({searchId}) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const update = (list) => {
-    const selectedId = qualifications.map(q => q.ServiceId)
-
-    const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
-    const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
-
-    setLeft([...left])
-    setRight([...right])
+    try {
+      const selectedId = qualifications.map(q => q.serviceId)
+      const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
+      const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
+      setLeft([...left])
+      setRight([...right])
+    }
+    catch (e){
+      const left = [...services]
+      setLeft([...left])
+    }
   }
 
   useEffect(  () => {
@@ -92,7 +96,7 @@ export default function TransferList({searchId}) {
 
   useEffect(()=>{
     update(services)
-  }, [services])
+  }, [services, qualifications])
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
