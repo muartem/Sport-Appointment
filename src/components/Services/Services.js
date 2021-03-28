@@ -6,7 +6,13 @@ import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import ServiceForm from "./ServicesForm";
 import TransferList from "./TransferList";
-import {addService, deleteService, getServices, resetService, updateService} from "../../redux/Ducks/Services.duck";
+import {
+  addService,
+  deleteService,
+  getServices,
+  resetService,
+  updateService,
+} from "../../redux/Ducks/Services.duck";
 
 const Services = () => {
   const dispatch = useDispatch();
@@ -49,6 +55,20 @@ const Services = () => {
     return () => dispatch(resetService());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (
+      [inputs.name.value, inputs.price.value, inputs.description.value].every(
+        (i) => i.length > 0
+      )
+    ) {
+      setCreateButtonDisabling(false);
+      setUpdateButtonDisabling(false);
+    } else {
+      setCreateButtonDisabling(true);
+      setUpdateButtonDisabling(true);
+    }
+  }, [inputs]);
+
   const initialFormState = () => {
     setCreateButtonDisabling(true);
     setCreateButtonVisibility(true);
@@ -70,16 +90,6 @@ const Services = () => {
         error: "",
       },
     }));
-
-    if (
-      value &&
-      [inputs.name.value, inputs.price.value, inputs.description.value].every(
-        (i) => i.length > 0
-      )
-    ) {
-      setCreateButtonDisabling(false);
-      setUpdateButtonDisabling(false);
-    }
   };
 
   const blurHandler = (e) => {
@@ -163,7 +173,7 @@ const Services = () => {
 
   const formatServices = () =>
     services?.map((s) => (
-      <p key={s.id} onClick={setService(s.id)}>
+      <p data-testid="list-item" key={s.id} onClick={setService(s.id)}>
         {s.name}
       </p>
     ));

@@ -4,7 +4,7 @@ import Clients from "../Clients";
 import clientsSelector from "../Clients.selector";
 
 import { useDispatch, useSelector } from "react-redux";
-import {getClients, resetClient} from "../../../redux/Ducks/Clients.duck";
+import { getClients, resetClient } from "../../../redux/Ducks/Clients.duck";
 
 const mockDispatch = jest.fn();
 
@@ -13,7 +13,7 @@ jest.mock("react-redux", () => ({
   useSelector: (selector) => selector,
 }));
 
-jest.mock("../../../redux/actions", () => ({
+jest.mock("../../../redux/Ducks/Clients.duck.js", () => ({
   getClients: jest.fn(() => Symbol.for("getClients")),
   resetClient: jest.fn(() => Symbol.for("resetClient")),
 }));

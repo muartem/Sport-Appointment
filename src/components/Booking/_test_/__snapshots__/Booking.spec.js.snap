@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Booking should render properly 1`] = `
+<div>
+  <div>
+    <div
+      class="bookingSelects"
+    >
+      <select>
+        <option
+          value="1"
+        />
+      </select>
+      <select>
+        <option
+          value="1"
+        />
+      </select>
+    </div>
+    <div
+      class="bookingContainer"
+    />
+  </div>
+</div>
+`;

@@ -2,7 +2,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import Coaches from "./Coaches";
+import Services from "../Services";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -12,26 +12,23 @@ jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useSelector: () => [
     {
-      id: 1,
-      firstName: "test",
-      lastName: "user",
-      dateBirth: "2001-01-01",
+      name: "test",
       description: "123",
-      phoneNumber: "123",
+      price: "123",
     },
   ],
 }));
 
-jest.mock("../../redux/Ducks/Coaches.duck.js", () => ({
-  ...jest.requireActual("../../redux/Ducks/Coaches.duck.js"),
-  addCoach: () => ({ type: "some/type" }),
+jest.mock("../../../redux/Ducks/Services.duck.js", () => ({
+  ...jest.requireActual("../../../redux/Ducks/Services.duck.js"),
+  addService: () => ({ type: "some/type" }),
 }));
 
-describe("Coaches", () => {
+describe("Services", () => {
   it("should render properly", () => {
     const { container } = render(
       <Provider store={store}>
-        <Coaches />
+        <Services />
       </Provider>
     );
 
@@ -41,18 +38,16 @@ describe("Coaches", () => {
   it("blurHandler should trigger on input and on blur", async () => {
     const { getByTestId, findByTestId } = render(
       <Provider store={store}>
-        <Coaches />
+        <Services />
       </Provider>
     );
 
-    const firstname = getByTestId("form-firstname");
-    const lastname = getByTestId("form-lastname");
+    const name = getByTestId("form-name");
     const description = getByTestId("form-description");
-    const birthdate = getByTestId("form-birthdate");
-    const phone = getByTestId("form-phone");
+    const price = getByTestId("form-price");
 
     const value = {
-      target: { value: "2020-05-24" },
+      target: { value: "test" },
     };
     const emptyValue = {
       target: { value: "" },
@@ -60,29 +55,29 @@ describe("Coaches", () => {
 
     const submitButton = getByTestId("crud-button-submit");
     const addButton = getByTestId("add-button");
-    const coachForm = getByTestId("coach-form");
+    const servicesForm = getByTestId("service-form");
 
     expect(submitButton).toBeDisabled();
 
     // fill the form
-    fireEvent.change(firstname, value);
-    fireEvent.change(lastname, value);
+    fireEvent.change(name, value);
+
     fireEvent.change(description, value);
-    fireEvent.change(birthdate, value);
-    fireEvent.change(phone, value);
+
+    fireEvent.change(price, value);
 
     expect(submitButton).not.toBeDisabled();
 
     // check blur
-    fireEvent.change(phone, emptyValue);
-    fireEvent.blur(phone);
+    fireEvent.change(name, emptyValue);
+    fireEvent.blur(name);
 
     expect(submitButton).toBeDisabled();
 
     // fill the form
-    fireEvent.change(phone, value);
+    fireEvent.change(price, value);
 
-    expect(submitButton).not.toBeDisabled();
+    expect(submitButton).toBeDisabled();
 
     // check add button
     fireEvent.click(addButton);
@@ -90,14 +85,12 @@ describe("Coaches", () => {
     expect(submitButton).toBeDisabled();
 
     // check submit
-    fireEvent.change(firstname, value);
-    fireEvent.change(lastname, value);
+    fireEvent.change(name, value);
     fireEvent.change(description, value);
-    fireEvent.change(birthdate, value);
-    fireEvent.change(phone, value);
+    fireEvent.change(price, value);
     expect(submitButton).not.toBeDisabled();
 
-    fireEvent.submit(coachForm);
+    fireEvent.submit(servicesForm);
     expect(submitButton).toBeDisabled();
 
     // check update
