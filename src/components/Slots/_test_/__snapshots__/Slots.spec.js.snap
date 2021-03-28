@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Coaches should render properly 1`] = `
+exports[`Slots should render properly 1`] = `
 <div>
   <div
     class="slotsContainer"
