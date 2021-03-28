@@ -13,7 +13,6 @@ import {
   DELETE_SERVICE,
   GET_SLOTS,
   ADD_SLOT,
-  UPDATE_SLOT,
   DELETE_SLOT,
   RESET_SLOTS,
   GET_QUALIFICATIONS,
@@ -190,47 +189,36 @@ export function getSlots() {
   };
 }
 
-export function addSlot(slot) {
+export function addSlot(slotArr) {
   return async (dispatch) => {
     try {
-      const response = await Api.post("Slots/", slot);
+      const response = await Api.post("Slots/", slotArr);
     } catch (e) {
       console.log(e.message);
     }
 
     dispatch({
       type: ADD_SLOT,
-      payload: slot,
+      payload: slotArr,
     });
   };
 }
 
-export function updateSlot(slot) {
+export function deleteSlot(slotArr) {
+  console.log(slotArr);
   return async (dispatch) => {
     try {
-      const response = await Api.patch(`Slots/update/${slot.id}`, slot);
-    } catch (e) {
-      console.log(e.message);
-    }
-
-    dispatch({
-      type: UPDATE_SLOT,
-      payload: slot,
-    });
-  };
-}
-
-export function deleteSlot(slotId) {
-  return async (dispatch) => {
-    try {
-      const response = await Api.delete(`Slots/${slotId}`);
+      const response = await Api.delete(`Slots/`, {
+        data: slotArr,
+        headers: { "Content-Type": "application/json" },
+      });
     } catch (e) {
       console.log(e.message);
     }
 
     dispatch({
       type: DELETE_SLOT,
-      payload: slotId,
+      payload: slotArr,
     });
   };
 }
@@ -319,7 +307,6 @@ export function updateBooking(booking) {
   return async (dispatch) => {
     try {
       const response = await Api.post(`Booking/update`, booking);
-      console.log(booking.id);
     } catch (e) {
       console.log(e.message);
     }
@@ -334,7 +321,6 @@ export function updateBooking(booking) {
 export function deleteBooking(bookingId) {
   return async (dispatch) => {
     try {
-      console.log(bookingId);
       const response = await Api.delete(`Booking/`, { params: { bookingId } });
     } catch (e) {
       console.log(e.message);

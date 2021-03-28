@@ -1,10 +1,4 @@
-import {
-  GET_SLOTS,
-  ADD_SLOT,
-  UPDATE_SLOT,
-  DELETE_SLOT,
-  RESET_SLOTS,
-} from "./types";
+import { GET_SLOTS, ADD_SLOT, DELETE_SLOT, RESET_SLOTS } from "./types";
 
 const initialState = {
   data: [],
@@ -19,12 +13,7 @@ const handlers = {
     ...state,
     data: [...state.data, payload],
   }),
-  [UPDATE_SLOT]: (state, { payload }) => ({
-    ...state,
-    data: [
-      ...state.data.map((item) => (item.id === payload.id ? payload : item)),
-    ],
-  }),
+
   [DELETE_SLOT]: (state, { payload }) => ({
     ...state,
     data: [...state.data.filter((item) => item.id !== payload)],

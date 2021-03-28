@@ -25,7 +25,7 @@ const Booking = () => {
   // CLIENTS
 
   const clients = useSelector(clientsSelector);
-  const [clientId, setClientId] = useState(0);
+  const [clientId, setClientId] = useState(1);
 
   useEffect(() => {
     dispatch(getClients());
@@ -60,7 +60,7 @@ const Booking = () => {
   // SERVICES
 
   const services = useSelector((state) => state.service.data);
-  const [serviceId, setServiceId] = useState(0);
+  const [serviceId, setServiceId] = useState(1);
 
   useEffect(() => {
     dispatch(getServices());
@@ -118,6 +118,7 @@ const Booking = () => {
             </p>
             {getCoachFromSlot(booking.slot.id)}
 
+            <button className={styles.addBtn}>Update</button>
             <button
               className={styles.addBtn}
               onClick={() => deleteHandler(booking.id)}
