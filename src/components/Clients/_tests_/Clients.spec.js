@@ -3,8 +3,8 @@ import { mount, shallow } from "enzyme";
 import Clients from "../Clients";
 import clientsSelector from "../Clients.selector";
 
-import { getClients, resetClient } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import {getClients, resetClient} from "../../../redux/Ducks/Clients.duck";
 
 const mockDispatch = jest.fn();
 

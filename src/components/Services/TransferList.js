@@ -9,16 +9,16 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import {useDispatch, useSelector} from "react-redux";
+
+import Divider from "@material-ui/core/Divider";
+import CardHeader from "@material-ui/core/CardHeader";
 import {
   addQualification,
   deleteQualifications,
-  getCoaches,
   getQualifications,
-  resetCoach,
   resetQualifications
-} from "../../redux/actions";
-import Divider from "@material-ui/core/Divider";
-import CardHeader from "@material-ui/core/CardHeader";
+} from "../../redux/Ducks/Qualifications.duck";
+import {getCoaches, resetCoach} from "../../redux/Ducks/Coaches.duck";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -99,7 +99,7 @@ export default function TransferList({searchId}) {
 
   const createQualification = (coachID) => {
     return {
-      id: (coachID * searchId)*100+11,
+      id: (coachID * searchId)*100,
       ServiceId: searchId,
       CoachId: coachID
     }

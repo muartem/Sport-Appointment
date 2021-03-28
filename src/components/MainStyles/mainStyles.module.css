@@ -190,7 +190,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: 7vh auto;
 }
 
-.clientlogin {
+.clientLogin {
   color: #fff;
   font-size: 1rem;
   font-weight: 300;
@@ -211,7 +211,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   justify-content: space-around;
 }
 
-.bookingContaier {
+.bookingContainer {
   width: fit-content;
   height: fit-content;
   margin: auto;
@@ -283,17 +283,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     max-height: fit-content;
   }
 
-    .bookingSelects {
+  .bookingSelects {
     flex-direction: column;
     width: 70vw;
     margin: 0 auto;
     gap: 5px;
   }
-  
-  .bookingContaier {
+
+  .bookingContainer {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: start;
     gap: 20px;
   }
+}

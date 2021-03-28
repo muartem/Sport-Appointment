@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getSlots,
-  deleteSlot,
-  resetSlots,
-  getCoaches,
-  resetCoach,
-  addSlot,
-} from "../../redux/actions";
+
 import { formattedDate, formattedTime } from "../formattedDate/formattedDate";
+import {addSlot, deleteSlot, getSlots, resetSlots} from "../../redux/Ducks/Slots.duck";
+import {getCoaches, resetCoach} from "../../redux/Ducks/Coaches.duck";
+
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -32,7 +28,7 @@ const Slots = () => {
   useEffect(() => {
     dispatch(getCoaches());
     return () => dispatch(resetCoach());
-  }, []);
+  }, [dispatch]);
 
   const formatCoaches = () =>
     coaches?.map((coach) => (
@@ -124,8 +120,7 @@ const Slots = () => {
       let [month, date, year] = slot.dateStart.split(".");
       slotDate.setFullYear(year, month - 1, date);
 
-      if (currentMonday <= slotDate && nextMonday > slotDate) return true;
-      return false;
+      return currentMonday <= slotDate && nextMonday > slotDate;
     });
   };
 
@@ -162,7 +157,7 @@ const Slots = () => {
           times[time] = true;
         }
       });
-      
+
       weekCalendar[date] = times;
     }
 
@@ -192,7 +187,7 @@ const Slots = () => {
 
       let offset = 24 - day.length;
       if (offset > 0) {
-        dayArray.push(<div key={0} className="cell empty"></div>);
+        dayArray.push(<div key={0} className="cell empty"/>);
       }
 
       day.forEach((value, index) => {
@@ -206,7 +201,7 @@ const Slots = () => {
               e.target.style.background = "#fff";
             }}
             className={cellClass}
-          ></div>
+          />
         );
       });
 
@@ -220,9 +215,9 @@ const Slots = () => {
   };
 
   const formatHoursUl = () => {
-    var hours = [];
+    let hours = [];
 
-    for (var i = 0; i < 24; i++) {
+    for (let i = 0; i < 24; i++) {
       hours.push(i);
     }
 

@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addCoach,
-  getCoaches,
-  updateCoach,
-  deleteCoach,
-  resetCoach,
-} from "../../redux/actions";
-import styles from "../MainStyles/mainStyles.module.css";
+
+import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
 import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import CoachesForm from "./CoachesForm";
-import { formattedDate, unformattedDate } from "../formattedDate/formattedDate";
 import TransferList from "./TransferList";
+
+import {addCoach, deleteCoach, getCoaches, resetCoach, updateCoach} from "../../redux/Ducks/Coaches.duck";
+
+import styles from "../MainStyles/mainStyles.module.css";
 
 const Coaches = () => {
   const dispatch = useDispatch();
@@ -63,7 +60,7 @@ const Coaches = () => {
   useEffect(() => {
     dispatch(getCoaches());
     return () => dispatch(resetCoach());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (
