@@ -15,7 +15,6 @@ export const RESET_CLIENTS = "CLIENTS/RESET_CLIENTS";
 
 export const GET_SLOTS = "SLOTS/GET_SLOTS";
 export const ADD_SLOT = "SLOTS/ADD_SLOT";
-export const UPDATE_SLOT = "SLOTS/UPDATE_SLOT";
 export const DELETE_SLOT = "SLOTS/DELETE_SLOT";
 export const RESET_SLOTS = "SLOTS/RESET_SLOTS";
 

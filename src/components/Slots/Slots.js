@@ -3,19 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSlots,
   deleteSlot,
-  updateSlot,
   resetSlots,
   getCoaches,
   resetCoach,
   addSlot,
 } from "../../redux/actions";
-import Input from "../Input/Input";
-import CRUDButtons from "../buttons/CRUDButtons/CRUDButtons";
-import {
-  formattedDate,
-  unformattedDate,
-  formattedTime,
-} from "../formattedDate/formattedDate";
+import { formattedDate, formattedTime } from "../formattedDate/formattedDate";
 import "./slots.css";
 import styles from "../MainStyles/mainStyles.module.css";
 
@@ -25,13 +18,13 @@ const Slots = () => {
   const dispatch = useDispatch();
 
   const slots = useSelector((state) => state.slots.data);
-  const [slot, setUpdateSlot] = useState({});
-  const [slotToDelete, setSlotToDelete] = useState({});
 
   useEffect(() => {
     dispatch(getSlots());
     return () => dispatch(resetSlots());
   }, [dispatch]);
+
+  // COACHES
 
   const coaches = useSelector((state) => state.coach.data);
   const [coachId, setCoachId] = useState(1);
@@ -49,168 +42,43 @@ const Slots = () => {
       </option>
     ));
 
-  // FORM
+  // ACTIONS
 
-  const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);
-  const [isDeleteButtonDisabled, setDeleteButtonDisabling] = useState(true);
-  const [isUpdateButtonDisabling, setUpdateButtonDisabling] = useState(true);
+  const setSlot = (e, slotArr) => {
+    console.log(slotArr);
 
-  const [isCreateButtonVisible, setCreateButtonVisibility] = useState(true);
-  const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
-  const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
+    let slotArrDelete = [];
+    let slotArrAdd = [];
 
-  const initialInputs = {
-    coachId: {
-      name: "coachId",
-      value: "",
-    },
-    dateStart: {
-      name: "dateStart",
-      value: "",
-      error: "",
-    },
-    timeStart: {
-      name: "timeStart",
-      value: "",
-      error: "",
-    },
-    timeEnd: {
-      name: "timeEnd",
-      value: "",
-      error: "",
-    },
-  };
+    slotArr.forEach((date) => {
+      let currDate = date.split("/")[0];
+      let startTime = date.split("/")[1];
 
-  const [inputs, setInputs] = useState({ ...initialInputs });
-
-  const initialFormState = () => {
-    setCreateButtonDisabling(true);
-    setCreateButtonVisibility(true);
-    setDeleteButtonVisibility(false);
-    setUpdateButtonVisibility(false);
-    setUpdateSlot({});
-    setSlotToDelete({});
-    setInputs((state) => ({ ...initialInputs }));
-  };
-
-  const inputHandler = (e) => {
-    setInputs((state) => {
-      let new_state = { ...state };
-      new_state[e.target.name].value = e.target.value;
-      new_state[e.target.name].error = "";
-      return new_state;
-    });
-    if (
-      e.target.value &&
-      [
-        inputs.dateStart.value,
-        inputs.timeStart.value,
-        inputs.timeEnd.value,
-      ].every((i) => i.length > 0)
-    ) {
-      setCreateButtonDisabling(false);
-      setUpdateButtonDisabling(false);
-    }
-  };
-
-  const blurHandler = (e) => {
-    if (e.target.value.length < 1) {
-      const { name } = e.target;
-      setInputs((state) => {
-        return {
-          ...state,
-          [name]: {
-            ...state[name],
-            error: "Empty field",
-          },
-        };
-      });
-      setCreateButtonDisabling(true);
-    }
-  };
-
-  const updateHandler = () => {
-    dispatch(
-      updateSlot({
-        id: slot.id,
-        coachId: coachId,
-        dateStart: formattedDate(inputs.dateStart.value),
-        timeStart: formattedTime(inputs.timeStart.value),
-        timeEnd: formattedTime(inputs.timeEnd.value),
-      })
-    );
-    initialFormState();
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    dispatch(
-      addSlot({
-        id: 0,
-        coachId: coachId,
-        dateStart: formattedDate(inputs.dateStart.value),
-        timeStart: formattedTime(inputs.timeStart.value),
-        timeEnd: formattedTime(inputs.timeEnd.value),
-      })
-    );
-    initialFormState();
-    dispatch(getSlots());
-    dispatch(resetSlots());
-  };
-
-  const deleteHandler = () => {
-    console.log(slotToDelete);
-    dispatch(deleteSlot(slotToDelete.id));
-    initialFormState();
-  };
-
-  const setSlot = (date) => {
-    return async (e) => {
       const slot = slots.find(
         (slot) =>
-          slot.dateStart === formattedDate(date) && slot.coachId === coachId
+          slot.dateStart === formattedDate(currDate) &&
+          slot.timeStart === formattedTime(startTime) &&
+          slot.coachId === coachId
       );
       if (slot) {
-        setCreateButtonVisibility(false);
-        setDeleteButtonVisibility(true);
-        setUpdateButtonVisibility(true);
-        setDeleteButtonDisabling(false);
-
-        setUpdateSlot(slot);
-        setSlotToDelete(slot);
-
-        const slotInput = {
-          coachId: {
-            name: "coachId",
-            value: slot.coachId,
-          },
-          dateStart: {
-            name: "dateStart",
-            value: unformattedDate(slot.dateStart),
-            error: "",
-          },
-          timeStart: {
-            name: "timeStart",
-            value: slot.timeStart,
-            error: "",
-          },
-          timeEnd: {
-            name: "timeEnd",
-            value: slot.timeEnd,
-            error: "",
-          },
-        };
-        setInputs((state) => ({ ...slotInput }));
+        slotArrDelete.push(slot.id);
       } else {
-        setCreateButtonVisibility(true);
-        setCreateButtonDisabling(true);
-        setDeleteButtonVisibility(false);
-        setUpdateButtonVisibility(false);
-
-        setInputs((state) => ({ ...initialInputs }));
+        let slot = {
+          id: 0,
+          coachId: coachId,
+          dateStart: formattedDate(currDate),
+          timeStart: formattedTime(startTime),
+          duration: "01:00",
+        };
+        slotArrAdd.push(slot);
       }
-    };
+    });
+
+    if (slotArrDelete.length > 0) dispatch(deleteSlot(slotArrDelete));
+    if (slotArrAdd.length > 0) dispatch(addSlot(slotArrAdd));
+
+    dispatch(getSlots());
+    return () => dispatch(resetSlots());
   };
 
   // CALENDAR
@@ -273,9 +141,7 @@ const Slots = () => {
       date.setDate(currentMonday.getDate() + i);
       setDateDetailsToZero(date);
 
-      let times = {};
-
-      let coachDaySchedule = coachWeekSchedule.find((slot) => {
+      let coachDaySchedule = coachWeekSchedule.filter((slot) => {
         let slotDate = new Date(slot.dateStart);
 
         if (
@@ -288,27 +154,15 @@ const Slots = () => {
         return undefined;
       });
 
-      Array(24)
-        .fill()
-        .forEach((value, index) => {
-          let currentDateTime = new Date(date);
-          currentDateTime.setHours(index);
+      let times = Array(24).fill(false);
 
-          if (!coachDaySchedule) {
-            times[currentDateTime] = false;
-            return;
-          }
-
-          let timeStart = coachDaySchedule.timeStart?.split(":")[0];
-          let timeEnd = coachDaySchedule.timeEnd?.split(":")[0];
-
-          if (
-            timeStart <= currentDateTime.getHours() &&
-            timeEnd >= currentDateTime.getHours()
-          )
-            times[currentDateTime] = true;
-          else times[currentDateTime] = false;
-        });
+      coachDaySchedule.forEach((slot) => {
+        let time = Number(slot.timeStart.split(":")[0]);
+        if (time && time < times.length) {
+          times[time] = true;
+        }
+      });
+      
       weekCalendar[date] = times;
     }
 
@@ -316,6 +170,8 @@ const Slots = () => {
   };
 
   // CALENDAR DISPLAY
+
+  let slotArr = [];
 
   const formatWeekCalendar = (currentDate) => {
     let compactWeekCalendar = makeWeekCalendar(currentDate);
@@ -329,28 +185,33 @@ const Slots = () => {
       let dateMonth = date.getMonth() + 1;
 
       dayArray.push(
-        <div key={performance.now()} className="day cell">
+        <div key={key} className="day cell">
           {`${dateDay}.${dateMonth}`}
         </div>
       );
 
-      let offset = 24 - Object.entries(day).length;
+      let offset = 24 - day.length;
       if (offset > 0) {
         dayArray.push(<div key={0} className="cell empty"></div>);
       }
 
-      Object.entries(day).forEach(([time, value]) => {
-        console.log(time, value);
+      day.forEach((value, index) => {
         let cellClass = value === true ? "active cell" : "cell";
-        dayArray.push(<div key={time} className={cellClass}></div>);
+
+        dayArray.push(
+          <div
+            key={index}
+            onClick={(e) => {
+              slotArr.push(`${new Date(key)}/${index}:00`);
+              e.target.style.background = "#fff";
+            }}
+            className={cellClass}
+          ></div>
+        );
       });
 
       arrayRepresentation.push(
-        <div
-          key={performance.now()}
-          className="dayColumn"
-          onClick={setSlot(key)}
-        >
+        <div key={performance.now()} className="dayColumn">
           {dayArray}
         </div>
       );
@@ -383,54 +244,24 @@ const Slots = () => {
       </div>
 
       <div className="formContainer">
-        <form action="" onSubmit={submitHandler}>
-          <select
-            name={inputs.coachId.name}
-            defaultValue={inputs.coachId.value}
-            onChange={(e) => setCoachId(Number(e.target.value))}
-          >
+        <form action="">
+          <select onChange={(e) => setCoachId(Number(e.target.value))}>
             {formatCoaches()}
           </select>
-          <Input
-            key={inputs.dateStart.name + "_slot"}
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="date"
-            name={inputs.dateStart.name}
-            defaultValue={inputs.dateStart.value}
-            error={inputs.dateStart?.error}
-          />
-          <Input
-            key={inputs.timeStart.name + "_slot"}
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.timeStart.name}
-            defaultValue={inputs.timeStart.value}
-            error={inputs.timeStart?.error}
-          />
-          <Input
-            key={inputs.timeEnd.name + "_slot"}
-            onBlur={blurHandler}
-            onChange={inputHandler}
-            type="text"
-            name={inputs.timeEnd.name}
-            defaultValue={inputs.timeEnd.value}
-            error={inputs.timeEnd?.error}
-          />
-          <CRUDButtons
-            blurHandler={blurHandler}
-            inputHandler={inputHandler}
-            submitHandler={submitHandler}
-            updateHandler={updateHandler}
-            deleteHandler={deleteHandler}
-            isCreateButtonVisible={isCreateButtonVisible}
-            isCreateButtonDisabled={isCreateButtonDisabled}
-            isUpdateButtonVisible={isUpdateButtonVisible}
-            isUpdateButtonDisabling={isUpdateButtonDisabling}
-            isDeleteButtonVisible={isDeleteButtonVisible}
-            isDeleteButtonDisabled={isDeleteButtonDisabled}
-          />
+          <div className={styles.btnContainer}>
+            <button
+              onClick={(e) => setSlot(e, slotArr)}
+              className={styles.addBtn}
+            >
+              <p className={styles.addBtnText}>Add</p>
+            </button>
+            <button
+              onClick={(e) => setSlot(e, slotArr)}
+              className={styles.addBtn}
+            >
+              <p className={styles.addBtnText}>Delete</p>
+            </button>
+          </div>
         </form>
       </div>
     </div>

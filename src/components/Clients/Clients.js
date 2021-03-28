@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getClients, resetClient } from "../../redux/actions";
+import { clientsSelector } from "./Clients.selector";
 
 import styles from "../MainStyles/mainStyles.module.css";
-import { clientsSelector } from "./Clients.selector";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,6 @@ const Clients = () => {
     clients?.map((client) => (
       <div key={client.id}>
         <p>{client.name}</p>
-        {/* <span className={styles.clientPhoneNumber}>{client.phoneNumber}</span> */}
         <span className={styles.clientlogin}>{client.login}</span>
       </div>
     ));

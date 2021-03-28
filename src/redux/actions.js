@@ -13,7 +13,6 @@ import {
   DELETE_SERVICE,
   GET_SLOTS,
   ADD_SLOT,
-  UPDATE_SLOT,
   DELETE_SLOT,
   RESET_SLOTS,
   GET_QUALIFICATIONS,
@@ -184,13 +183,14 @@ export function getSlots() {
   };
 }
 
-export function addSlot(slot) {
+export function addSlot(slotArr) {
   return async (dispatch) => {
     try {
-      await Api.post("Slots/", slot);
+      await Api.post("Slots/", slotArr);
+      
       dispatch({
         type: ADD_SLOT,
-        payload: slot,
+        payload: slotArr,
       });
     } catch (e) {
       console.log(e.response.data.title);
@@ -198,28 +198,19 @@ export function addSlot(slot) {
   };
 }
 
-export function updateSlot(slot) {
+export function deleteSlot(slotArr) {
+  console.log(slotArr);
   return async (dispatch) => {
     try {
-      await Api.patch(`Slots/update/${slot.id}`, slot);
-      dispatch({
-        type: UPDATE_SLOT,
-        payload: slot,
+      await Api.delete(`Slots/`, {
+        data: slotArr,
+        headers: { "Content-Type": "application/json" },
       });
-    } catch (e) {
-      console.log(e.response.data.title);
-    }
-  };
-}
-
-export function deleteSlot(slotId) {
-  return async (dispatch) => {
-    try {
-      await Api.delete(`Slots/${slotId}`);
+      
       dispatch({
-        type: DELETE_SLOT,
-        payload: slotId,
-      });
+      type: DELETE_SLOT,
+      payload: slotArr,
+    });
     } catch (e) {
       console.log(e.response.data.title);
     }

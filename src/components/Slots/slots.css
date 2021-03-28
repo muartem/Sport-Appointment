@@ -2,7 +2,16 @@
 
 .slotsContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.formContainer {
+  order: 1;
+  margin: auto;
+}
+
+.calendarContainer {
+  order: 2;
 }
 
 /* CALENDAR */
@@ -10,7 +19,7 @@
 .calendarContainer {
   display: flex;
   flex-direction: column;
-  width: 820px;
+  margin: auto;
 }
 
 .calendarBtns {
@@ -85,17 +94,21 @@
   border-left: 1px solid rgba(255, 255, 255, 0.404);
 }
 
-.calendar .dayColumn:hover {
-  background: rgba(146, 146, 146, 0.116);
-  color: #f8ff13;
-}
-
 .calendar .cell {
   margin-top: 5px;
   height: 30px;
   color: #000;
   background-color: #6d6d6d3a;
   border-radius: 10px;
+}
+
+.calendar .cell:hover {
+  cursor: pointer;
+  background-color: #74771863;
+}
+
+.clicked {
+  background: red;
 }
 
 .calendar .day {
@@ -105,15 +118,31 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.404);
 }
 
+.calendar .day:hover {
+  background: none;
+  cursor: default;
+}
+
 .calendar .active {
   background-color: #f8ff13;
 }
 
+.calendar .active:hover {
+  background: #f7ff13cc;
+}
+
 /* FORM */
 
-.formContainer {
+.formContainer form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 10px;
+  margin: auto;
+}
+
+.formContainer form button {
+  width: fit-content;
+  padding: 0.2em 2em 0.2em 1em;
 }
 
 select {
@@ -151,6 +180,10 @@ option:hover {
     flex-direction: column;
   }
 
+  .hours {
+    margin-left: 0;
+  }
+
   .calendarContainer,
   .calendarBtns {
     margin: auto;
@@ -170,10 +203,21 @@ option:hover {
 
   .formContainer {
     margin: auto;
+    width: 80vw;
   }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 760px) {
+  .formContainer form {
+    flex-direction: column;
+    width: 85vw;
+  }
+
+  .formContainer form button {
+    width: 50%;
+    margin-top: 0;
+  }
+
   .calendarContainer {
     width: 100vw;
   }
