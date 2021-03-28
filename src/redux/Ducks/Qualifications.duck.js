@@ -77,7 +77,7 @@ const handlers = {
         ...state,
         data: [...state.data.filter(item => item.id !== payload)],
     }),
-    [RESET_QUALIFICATIONS]: initialState,
+    [RESET_QUALIFICATIONS]: () => initialState,
     DEFAULT: (state) => state,
 };
 export const qualificationReducer = (state = initialState, action) => {
