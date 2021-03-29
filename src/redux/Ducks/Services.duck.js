@@ -1,5 +1,4 @@
 import {realApi as Api} from "../axios";
-import {getCoaches} from "./Coaches.duck";
 
 const GET_SERVICES = "PM_FIGHT/SERVICES/GET";
 const ADD_SERVICE = "PM_FIGHT/SERVICES/ADD";
