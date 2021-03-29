@@ -110,7 +110,7 @@ const Services = () => {
     e.preventDefault();
     dispatch(
       addService({
-        id: services.sort((a, b) => b.id - a.id)[0].id + 1,
+        id: 0,
         name: inputs.name.value,
         description: inputs.description.value,
         price: inputs.price.value,
