@@ -83,10 +83,12 @@ export default function TransferList({searchId}) {
       setLeft([...left])
     }
   }
+
+  console.log(qualifications.map(q => q.id));
+
   useEffect(  () => {
     dispatch(getQualifications('service', searchId));
     dispatch(getCoaches())
-
     return () => {
       dispatch(resetQualifications())
       dispatch(resetCoach())
@@ -96,6 +98,10 @@ export default function TransferList({searchId}) {
   useEffect(() => {
     update(coaches)
     // eslint-disable-next-line
+    return () => {
+      setLeft([])
+      setRight([])
+    }
   }, [coaches, qualifications])
 
   const leftChecked = intersection(checked, left);
@@ -103,9 +109,9 @@ export default function TransferList({searchId}) {
 
   const createQualification = (coachID) => {
     return {
-      id: (coachID * searchId)*100,
-      ServiceId: searchId,
-      CoachId: coachID
+      id: 0,
+      serviceId: searchId,
+      coachId: coachID
     }
   }
 
@@ -124,20 +130,12 @@ export default function TransferList({searchId}) {
 
   const handleAllRight = () => {
     left.forEach(c => dispatch(addQualification(createQualification(c.id))))
-
-    setRight(right.concat(left));
-    setLeft([]);
-    /*update(coaches)*/
   };
 
   const handleCheckedRight = async () => {
     leftChecked.forEach(c => dispatch(addQualification(createQualification(c.id))))
-
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
-    /*update(coaches)*/
-
+    dispatch(resetQualifications())
   };
 
   const handleCheckedLeft = () => {
@@ -151,9 +149,13 @@ export default function TransferList({searchId}) {
   };
 
   const handleAllLeft = () => {
-    const selectedId = right.map(c => c.id)
+    /*const selectedId = right.map(c => c.id)
+
     const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
-    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+    */
+    qualifications.forEach(q => dispatch(deleteQualifications(q.id)))
+
+    qualifications.forEach(q => console.log(q.id))
 
     setLeft(left.concat(right));
     setRight([]);

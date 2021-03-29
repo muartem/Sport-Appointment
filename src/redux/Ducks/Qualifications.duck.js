@@ -67,7 +67,7 @@ const initialState = {
 const handlers = {
     [GET_QUALIFICATIONS]: (state, { payload }) => ({
         ...state,
-        data: [...state.data, ...payload],
+        data: payload,
     }),
     [ADD_QUALIFICATION]: (state, { payload }) => ({
         ...state,

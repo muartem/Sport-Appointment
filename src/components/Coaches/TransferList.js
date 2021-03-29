@@ -104,9 +104,9 @@ export default function TransferList({searchId}) {
 
   const createQualification = (serviceId) => {
     return {
-      id: (searchId*serviceId)*100+11,
-      ServiceId: serviceId,
-      CoachId: searchId
+      id: 0,
+      serviceId: serviceId,
+      coachId: searchId
     }
   }
 
