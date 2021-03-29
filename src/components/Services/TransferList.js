@@ -49,14 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function not(a, b) {
-  return a.filter((value) => b.indexOf(value) === -1);
-}
-
-function intersection(a, b) {
-  return a.filter((value) => b.indexOf(value) !== -1);
-}
-
 export default function TransferList({searchId}) {
   const classes = useStyles();
 
@@ -84,8 +76,6 @@ export default function TransferList({searchId}) {
     }
   }
 
-  console.log(qualifications.map(q => q.id));
-
   useEffect(  () => {
     dispatch(getQualifications('service', searchId));
     dispatch(getCoaches())
@@ -103,6 +93,14 @@ export default function TransferList({searchId}) {
       setRight([])
     }
   }, [coaches, qualifications])
+
+  const not = (a, b) => {
+    return a.filter((value) => b.indexOf(value) === -1);
+  }
+
+  const intersection = (a, b) => {
+    return a.filter((value) => b.indexOf(value) !== -1);
+  }
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -129,13 +127,20 @@ export default function TransferList({searchId}) {
   };
 
   const handleAllRight = () => {
-    left.forEach(c => dispatch(addQualification(createQualification(c.id))))
+    left.forEach(c => dispatch(addQualification(
+        createQualification(c.id),
+        'service',
+        searchId
+    )))
   };
 
-  const handleCheckedRight = async () => {
-    leftChecked.forEach(c => dispatch(addQualification(createQualification(c.id))))
+  const handleCheckedRight =  () => {
+    leftChecked.forEach(c => dispatch(addQualification(
+        createQualification(c.id),
+        'service',
+        searchId
+    )))
     setChecked(not(checked, leftChecked));
-    dispatch(resetQualifications())
   };
 
   const handleCheckedLeft = () => {
@@ -149,13 +154,11 @@ export default function TransferList({searchId}) {
   };
 
   const handleAllLeft = () => {
-    /*const selectedId = right.map(c => c.id)
+    const selectedId = right.map(c => c.id)
 
     const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
-    */
-    qualifications.forEach(q => dispatch(deleteQualifications(q.id)))
 
-    qualifications.forEach(q => console.log(q.id))
+    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
 
     setLeft(left.concat(right));
     setRight([]);

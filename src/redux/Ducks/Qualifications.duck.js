@@ -22,7 +22,7 @@ export function getQualifications(param, id) {
     };
 }
 
-export function addQualification(qualification) {
+export function addQualification(qualification, param, id) {
     return async (dispatch) => {
         try {
             await Api.post("Qualification/", qualification);
@@ -30,6 +30,7 @@ export function addQualification(qualification) {
                 type: ADD_QUALIFICATION,
                 payload: qualification,
             });
+            dispatch(getQualifications(param, id))
         } catch (e) {
             console.log(e.response.data.title);
         }
