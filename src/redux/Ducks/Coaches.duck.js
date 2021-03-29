@@ -24,6 +24,7 @@ export function addCoach(coach) {
                 type: ADD_COACH,
                 payload: coach,
             });
+            dispatch(getCoaches())
         } catch (e) {
             console.log(e.response.data.title);
         }
@@ -39,6 +40,7 @@ export function updateCoach(coach) {
                 type: UPDATE_COACH,
                 payload: coach,
             });
+            dispatch(getCoaches())
         } catch (e) {
             console.log(e.response.data.title);
         }
@@ -53,6 +55,7 @@ export function deleteCoach(coachId) {
                 type: DELETE_COACH,
                 payload: coachId,
             });
+            dispatch(getCoaches())
         } catch (e) {
             console.log(e.response.data.title);
         }
@@ -74,7 +77,7 @@ const initialState = {
 const handlers = {
     [GET_COACHES]: (state, { payload }) => ({
         ...state,
-        data: [...state.data, ...payload],
+        data: payload
     }),
     [ADD_COACH]: (state, { payload }) => ({
         ...state,

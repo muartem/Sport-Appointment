@@ -24,6 +24,7 @@ export function addService(service) {
                 type: ADD_SERVICE,
                 payload: service,
             });
+            dispatch(getServices())
         } catch (e) {
             console.log(e.response.data.title);
         }
@@ -38,6 +39,7 @@ export function updateService(service) {
                 type: UPDATE_SERVICE,
                 payload: service,
             });
+            dispatch(getServices())
         } catch (e) {
             console.log(e.response.data.title);
         }
@@ -52,6 +54,7 @@ export function deleteService(serviceId) {
                 type: DELETE_SERVICE,
                 payload: serviceId,
             });
+            dispatch(getServices())
         } catch (e) {
             console.log(e.response.data.title);
         }
@@ -74,7 +77,7 @@ const initialState = {
 const handlers = {
     [GET_SERVICES]: (state, { payload }) => ({
         ...state,
-        data: [...state.data, ...payload],
+        data: payload,
     }),
     [ADD_SERVICE]: (state, { payload }) => ({
         ...state,
