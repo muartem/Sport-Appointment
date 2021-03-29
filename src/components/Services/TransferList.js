@@ -49,14 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function not(a, b) {
-  return a.filter((value) => b.indexOf(value) === -1);
-}
-
-function intersection(a, b) {
-  return a.filter((value) => b.indexOf(value) !== -1);
-}
-
 export default function TransferList({searchId}) {
   const classes = useStyles();
 
@@ -83,10 +75,10 @@ export default function TransferList({searchId}) {
       setLeft([...left])
     }
   }
+
   useEffect(  () => {
     dispatch(getQualifications('service', searchId));
     dispatch(getCoaches())
-
     return () => {
       dispatch(resetQualifications())
       dispatch(resetCoach())
@@ -96,16 +88,28 @@ export default function TransferList({searchId}) {
   useEffect(() => {
     update(coaches)
     // eslint-disable-next-line
+    return () => {
+      setLeft([])
+      setRight([])
+    }
   }, [coaches, qualifications])
+
+  const not = (a, b) => {
+    return a.filter((value) => b.indexOf(value) === -1);
+  }
+
+  const intersection = (a, b) => {
+    return a.filter((value) => b.indexOf(value) !== -1);
+  }
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
   const createQualification = (coachID) => {
     return {
-      id: (coachID * searchId)*100,
-      ServiceId: searchId,
-      CoachId: coachID
+      id: 0,
+      serviceId: searchId,
+      coachId: coachID
     }
   }
 
@@ -123,21 +127,20 @@ export default function TransferList({searchId}) {
   };
 
   const handleAllRight = () => {
-    left.forEach(c => dispatch(addQualification(createQualification(c.id))))
-
-    setRight(right.concat(left));
-    setLeft([]);
-    /*update(coaches)*/
+    left.forEach(c => dispatch(addQualification(
+        createQualification(c.id),
+        'service',
+        searchId
+    )))
   };
 
-  const handleCheckedRight = async () => {
-    leftChecked.forEach(c => dispatch(addQualification(createQualification(c.id))))
-
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
+  const handleCheckedRight =  () => {
+    leftChecked.forEach(c => dispatch(addQualification(
+        createQualification(c.id),
+        'service',
+        searchId
+    )))
     setChecked(not(checked, leftChecked));
-    /*update(coaches)*/
-
   };
 
   const handleCheckedLeft = () => {
@@ -152,7 +155,9 @@ export default function TransferList({searchId}) {
 
   const handleAllLeft = () => {
     const selectedId = right.map(c => c.id)
+
     const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
+
     qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
 
     setLeft(left.concat(right));

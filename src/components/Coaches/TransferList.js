@@ -104,9 +104,9 @@ export default function TransferList({searchId}) {
 
   const createQualification = (serviceId) => {
     return {
-      id: (searchId*serviceId)*100+11,
-      ServiceId: serviceId,
-      CoachId: searchId
+      id: 0,
+      serviceId: serviceId,
+      coachId: searchId
     }
   }
 
@@ -124,13 +124,13 @@ export default function TransferList({searchId}) {
   };
 
   const handleAllRight = () => {
-    left.forEach(s => dispatch(addQualification(createQualification(s.id))))
+    left.forEach(s => dispatch(addQualification(createQualification(s.id), 'coach', searchId)))
     setRight(right.concat(left));
     setLeft([]);
   };
 
   const handleCheckedRight = async () => {
-    leftChecked.forEach(s => dispatch(addQualification(createQualification(s.id))))
+    leftChecked.forEach(s => dispatch(addQualification(createQualification(s.id), 'coach', searchId)))
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
