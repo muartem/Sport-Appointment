@@ -32,11 +32,12 @@ const Slots = () => {
   // COACHES
 
   const coaches = useSelector((state) => state.coach.data);
-  const [coachId, setCoachId] = useState(1);
+
+  const [selectedCoachIndex, setCoachIndex] = useState(0);
 
   const formatCoaches = () =>
-    coaches?.map((coach) => (
-      <option key={coach.id} value={coach.id}>
+    coaches?.map((coach, index) => (
+      <option key={coach.id} value={index}>
         {coach.firstName} {""}
         {coach.lastName}
       </option>
@@ -56,14 +57,14 @@ const Slots = () => {
         (slot) =>
           slot.dateStart === formattedDate(currDate) &&
           slot.timeStart === formattedTime(startTime) &&
-          slot.coachId === coachId
+          slot.coachId === coaches[selectedCoachIndex]?.id
       );
       if (slot) {
         slotArrDelete.push(slot.id);
       } else {
         let slot = {
           id: 0,
-          coachId: coachId,
+          coachId: coaches[selectedCoachIndex]?.id,
           dateStart: formattedDate(currDate),
           timeStart: formattedTime(startTime),
           duration: "01:00",
@@ -71,6 +72,9 @@ const Slots = () => {
         slotArrAdd.push(slot);
       }
     });
+
+    console.log(slotArrAdd);
+    console.log(slotArrDelete);
 
     if (slotArrDelete.length > 0) dispatch(deleteSlots(slotArrDelete));
     if (slotArrAdd.length > 0) dispatch(addSlots(slotArrAdd));
@@ -116,7 +120,7 @@ const Slots = () => {
     let nextMonday = calculateMondayDate(pickedDate, 1);
 
     return slots.filter((slot) => {
-      if (slot.coachId !== coachId) return false;
+      if (slot.coachId !== coaches[selectedCoachIndex]?.id) return false;
       let slotDate = new Date();
       let [month, date, year] = slot.dateStart.split(".");
       slotDate.setFullYear(year, month - 1, date);
@@ -240,7 +244,10 @@ const Slots = () => {
       </div>
 
       <div className="formContainer">
-        <select onChange={(e) => setCoachId(Number(e.target.value))}>
+        <select
+          defaultValue={selectedCoachIndex}
+          onChange={(e) => setCoachIndex(Number(e.target.value))}
+        >
           {formatCoaches()}
         </select>
         <div className={styles.btnContainer}>

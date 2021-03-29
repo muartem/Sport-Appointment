@@ -24,7 +24,7 @@ const Booking = () => {
   // CLIENTS
 
   const clients = useSelector(clientsSelector);
-  const [clientId, setClientId] = useState(1);
+  const [selectedClientIndex, setClientIndex] = useState(0);
 
   useEffect(() => {
     dispatch(getClients());
@@ -32,8 +32,8 @@ const Booking = () => {
   }, [dispatch]);
 
   const formatClients = () =>
-    clients?.map((client) => (
-      <option key={client.id} value={client.id}>
+    clients?.map((client, index) => (
+      <option key={client.id} value={index}>
         {client.name}
       </option>
     ));
@@ -59,7 +59,8 @@ const Booking = () => {
   // SERVICES
 
   const services = useSelector((state) => state.service.data);
-  const [serviceId, setServiceId] = useState(1);
+  const [serviceId, setServiceId] = useState();
+  const [selectedServiceId, setServiceIndex] = useState(0);
 
   useEffect(() => {
     dispatch(getServices());
@@ -67,8 +68,8 @@ const Booking = () => {
   }, [dispatch]);
 
   const formatServices = () =>
-    services?.map((service) => (
-      <option key={service.id} value={service.id}>
+    services?.map((service, index) => (
+      <option key={service.id} value={index}>
         {service.name}
       </option>
     ));
@@ -103,10 +104,12 @@ const Booking = () => {
 
   const findBooking = () =>
     bookings
-      .filter(
-        (booking) =>
-          booking.serviceId === serviceId && booking.clientId === clientId
-      )
+      .filter((booking) => {
+        return (
+          booking.serviceId === services[selectedServiceId]?.id &&
+          booking.clientId === clients[selectedClientIndex]?.id
+        );
+      })
       .map((booking) => {
         return (
           <div key={booking.id} className={styles.bookingBox}>
@@ -132,10 +135,10 @@ const Booking = () => {
   return (
     <div>
       <div className={styles.bookingSelects}>
-        <select onChange={(e) => setServiceId(Number(e.target.value))}>
+        <select onChange={(e) => setServiceIndex(Number(e.target.value))}>
           {formatServices()}
         </select>
-        <select onChange={(e) => setClientId(Number(e.target.value))}>
+        <select onChange={(e) => setClientIndex(Number(e.target.value))}>
           {formatClients()}
         </select>
       </div>
