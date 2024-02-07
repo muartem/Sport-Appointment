@@ -15,7 +15,7 @@ import {
   updateCoach,
 } from "../../redux/Ducks/Coaches.duck";
 
-import styles from "../MainStyles/mainStyles.module.css";
+import styles from "../../assets/styles/mainStyles.module.css";
 
 const Coaches = () => {
   const dispatch = useDispatch();

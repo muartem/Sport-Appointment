@@ -9,7 +9,7 @@ export const formattedDate = (incomeDate) => {
   let mm = date.getMonth() + 1;
   let yyyy = date.getFullYear();
 
-  return `${checkDigit(mm)}.${checkDigit(dd)}.${yyyy}`;
+  return `${checkDigit(dd)}.${checkDigit(mm)}.${yyyy}`;
 };
 
 export const unformattedDate = (incomeDate) => {

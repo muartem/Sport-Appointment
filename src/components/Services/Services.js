@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import styles from "../MainStyles/mainStyles.module.css";
+import styles from "../../assets/styles/mainStyles.module.css";
 import List from "../List/List";
 import AddButton from "../buttons/AddButton/AddButton";
 import ServiceForm from "./ServicesForm";

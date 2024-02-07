@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 import App from './components/App';
 import {reducer} from "./redux/reducer";
 
-import './index.css';
+import './assets/styles/index.css';
 
 const composeEnhancers =
     typeof window === 'object' &&

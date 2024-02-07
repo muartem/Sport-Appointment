@@ -42,8 +42,7 @@ export function updateBooking(booking) {
 export function deleteBooking(bookingId) {
     return async (dispatch) => {
         try {
-            console.log(bookingId);
-            await Api.delete(`Booking/`, { params: { bookingId } });
+            await Api.delete(`Booking/${bookingId}`);
             dispatch({
                 type: DELETE_BOOKING,
                 payload: bookingId,

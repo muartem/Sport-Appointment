@@ -6,11 +6,9 @@
 }
 
 html {
-  /*// background-image: url("./assets/images/bg.png"), linear-gradient(180deg, #010101 8.12%, rgba(1, 1, 1, 0.83) 55.52%);*/
-
   background:
           linear-gradient(180deg, #010101ff 10%, rgba(1, 1, 1, 0.5) 66.52%),
-          url("./assets/images/bg.png") center/cover no-repeat;
+          url("../images/bg.png") center/cover no-repeat;
 
   scroll-snap-type: y;
   scroll-behavior: smooth;

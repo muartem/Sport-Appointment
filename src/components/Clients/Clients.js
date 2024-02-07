@@ -4,7 +4,7 @@ import { clientsSelector } from "./Clients.selector";
 
 import {getClients, resetClient} from "../../redux/Ducks/Clients.duck";
 
-import styles from "../MainStyles/mainStyles.module.css";
+import styles from "../../assets/styles/mainStyles.module.css";
 
 const Clients = () => {
   const dispatch = useDispatch();

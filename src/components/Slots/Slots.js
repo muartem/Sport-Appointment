@@ -11,10 +11,12 @@ import {
 import { getCoaches, resetCoach } from "../../redux/Ducks/Coaches.duck";
 
 import "./slots.css";
-import styles from "../MainStyles/mainStyles.module.css";
+import styles from "../../assets/styles/mainStyles.module.css";
 
 const Slots = () => {
   const [pickedDate, setPickedDate] = useState(new Date());
+
+  console.log(pickedDate)
 
   const dispatch = useDispatch();
 
@@ -102,11 +104,11 @@ const Slots = () => {
   };
 
   const prev = () => {
-    setPickedDate(calculateMondayDate(pickedDate, -1));
+    setPickedDate((prevState) => calculateMondayDate(prevState, -1));
   };
 
   const next = () => {
-    setPickedDate(calculateMondayDate(pickedDate, 1));
+    setPickedDate((prevState) => calculateMondayDate(prevState, 1));
   };
 
   const today = () => {

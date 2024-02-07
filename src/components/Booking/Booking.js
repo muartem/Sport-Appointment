@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { clientsSelector } from "../Clients/Clients.selector";
 import {
   formattedTime,
-  formattedDuration,
+  formattedDuration, formattedDate,
 } from "../formattedDate/formattedDate";
 import "../Slots/slots.css";
-import styles from "../MainStyles/mainStyles.module.css";
+import styles from "../../assets/styles/mainStyles.module.css";
 import { getClients, resetClient } from "../../redux/Ducks/Clients.duck";
 import { getCoaches, resetCoach } from "../../redux/Ducks/Coaches.duck";
 import { getServices, resetService } from "../../redux/Ducks/Services.duck";
@@ -25,7 +25,7 @@ const Booking = () => {
   // CLIENTS
 
   const clients = useSelector(clientsSelector);
-  const [selectedClientIndex, setClientIndex] = useState(0);
+  const [selectedClientId, setClientId] = useState(-1);
 
   useEffect(() => {
     dispatch(getClients());
@@ -33,8 +33,8 @@ const Booking = () => {
   }, [dispatch]);
 
   const formatClients = () =>
-    clients?.map((client, index) => (
-      <option key={client.id} value={index}>
+    clients?.map((client) => (
+      <option key={client.id} value={client.id}>
         {client.name}
       </option>
     ));
@@ -43,24 +43,23 @@ const Booking = () => {
 
   const coaches = useSelector((state) => state.coach.data);
 
+  const [selectedCoachId, setCoachId] = useState(-1);
+
   useEffect(() => {
     dispatch(getCoaches());
     return () => dispatch(resetCoach());
   }, [dispatch]);
 
-  const getCoachName = (id) =>
-    coaches
-      .filter((coach) => coach.id === id)
-      .map((coach) => (
-        <p key={coach.id}>
-          Coach: {coach.firstName} {coach.lastName}
-        </p>
-      ));
-
+  const formatCoaches= () =>
+    coaches?.map((coach) => (
+      <option key={coach.id} value={coach.id}>
+        {coach.firstName} {coach.lastName}
+      </option>
+    ));
   // SERVICES
 
   const services = useSelector((state) => state.service.data);
-  const [selectedServiceId, setServiceIndex] = useState(0);
+  const [selectedServiceId, setServiceId] = useState(-1);
 
   useEffect(() => {
     dispatch(getServices());
@@ -68,8 +67,8 @@ const Booking = () => {
   }, [dispatch]);
 
   const formatServices = () =>
-    services?.map((service, index) => (
-      <option key={service.id} value={index}>
+    services?.map((service) => (
+      <option key={service.id} value={service.id}>
         {service.name}
       </option>
     ));
@@ -77,16 +76,29 @@ const Booking = () => {
   // SLOTS
 
   const slots = useSelector((state) => state.slots.data);
+  const [selectedDate, setDate] = useState('all');
 
   useEffect(() => {
     dispatch(getSlots());
     return () => dispatch(resetSlots());
   }, [dispatch]);
 
-  const getCoachFromSlot = (slotId) =>
-    slots
-      .filter((slot) => slot.id === slotId)
-      .map((slot) => <div key={slot.id}>{getCoachName(slot.coachId)}</div>);
+  const formatDate = () => {
+    const today = new Date()
+
+    return [-1, 0, 1, 2, 3, 4, 5].map((i) => {
+      const date = new Date()
+      date.setDate(date.getDate() + i)
+      const label = i === -1 ? 'Yesterday' :
+        i === 0 ? 'Today' :
+          i === 1 ? 'Tomorrow' : formattedDate(date)
+
+      return (
+        <option key={i} value={formattedDate(date)}>
+          {label}
+        </option>
+    )});
+  }
 
   // BOOKING
 
@@ -99,48 +111,92 @@ const Booking = () => {
 
   const deleteHandler = (bookingId) => {
     dispatch(deleteBooking(bookingId));
-    dispatch(resetBookings());
   };
 
   const findBooking = () =>
     bookings
       .filter((booking) => {
+        const slot = slots.find(s => s.id == booking?.slotId)
+
         return (
-          booking.serviceId === services[selectedServiceId]?.id &&
-          booking.clientId === clients[selectedClientIndex]?.id
+          (selectedServiceId === -1 || booking.serviceId == selectedServiceId) &&
+          (selectedClientId === -1 || booking.clientId == selectedClientId) &&
+          (selectedCoachId === -1 || slot.coachId == selectedCoachId) &&
+          (selectedDate === 'all' || formattedDate(slot.dateStart) === selectedDate)
         );
       })
       .map((booking) => {
+        const slot = slots.find(s => s.id == booking?.slotId)
+        const service = services.find(s => s.id == booking?.serviceId)
+        const client = clients.find(c => c.id == booking?.clientId)
+        const coach = coaches.find(c => c.id == slot?.coachId)
+
         return (
           <div key={booking.id} className={styles.bookingBox}>
+            <h2>
+              {service.name}
+            </h2>
             <h3>
-              {booking.slot.dateStart} - {booking.resultPrice}UAH
+              {formattedDate(slot.dateStart)} - {service?.price} UAH
             </h3>
             <p>
-              {booking.slot.timeStart}-
-              {formattedTime(formattedDuration(booking.slot.timeStart))}
+              <b>Time:</b> {slot?.timeStart}-{formattedTime(formattedDuration(slot?.timeStart))}
             </p>
-            {getCoachFromSlot(booking.slot.id)}
-
+            <p>
+              <b>Coach: </b>{coach.firstName} {coach.lastName}
+            </p>
+            <p>
+              <b>Client: </b>{client.name}
+            </p>
             <button
               className={styles.addBtn}
               onClick={() => deleteHandler(booking.id)}
             >
-              Delete
+              Cancel
             </button>
           </div>
         );
       });
 
   return (
-    <div>
+    <div className={styles.resp}>
       <div className={styles.bookingSelects}>
-        <select onChange={(e) => setServiceIndex(Number(e.target.value))}>
-          {formatServices()}
-        </select>
-        <select onChange={(e) => setClientIndex(Number(e.target.value))}>
-          {formatClients()}
-        </select>
+        <div className={styles.bookingOption}>
+          <label>Service:</label>
+          <select onChange={(e) => setServiceId(Number(e.target.value))}>
+            <option key={-1} value={-1}>
+              ***All***
+            </option>
+            {formatServices()}
+          </select>
+        </div>
+        <div className={styles.bookingOption}>
+          <label>Coach:</label>
+          <select onChange={(e) => setCoachId(Number(e.target.value))}>
+            <option key={-1} value={-1}>
+              ***All***
+            </option>
+            {formatCoaches()}
+          </select>
+        </div>
+        <div className={styles.bookingOption}>
+          <label>Client:</label>
+          <select onChange={(e) => setClientId(Number(e.target.value))}>
+            <option key={-1} value={-1}>
+              ***All***
+            </option>
+            {formatClients()}
+          </select>
+        </div>
+        <div className={styles.bookingOption}>
+          <label>Date:</label>
+          <select onChange={(e) => setDate(String(e.target.value))}>
+            <option key={-1} value={'all'}>
+              ***All***
+            </option>
+            {formatDate()}
+          </select>
+        </div>
       </div>
       <div className={styles.bookingContainer}>{findBooking()}</div>
     </div>

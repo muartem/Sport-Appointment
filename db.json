@@ -4,49 +4,49 @@
       "id": "3",
       "name": "Flex",
       "description": "string1",
-      "price": "30000"
+      "price": "300"
     },
     {
       "id": "2",
       "name": "Box",
       "description": "sadf",
-      "price": "asdf"
+      "price": "500"
     },
     {
       "id": "1",
-      "name": "mma",
+      "name": "MMA",
       "description": "sadf",
-      "price": "sadfd"
+      "price": "200"
     },
     {
       "id": "7",
-      "name": "karate",
+      "name": "Karate",
       "description": "kiiii---ja",
-      "price": "1000"
+      "price": "150"
     },
     {
       "id": "8",
       "name": "Sex",
       "description": "fasdf",
-      "price": "1000"
+      "price": "300"
     },
     {
       "id": "9",
       "name": "Aikido",
       "description": "asdf",
-      "price": "2000"
+      "price": "400"
     },
     {
       "id": "10",
       "name": "KUNG-FU",
       "description": "sadf",
-      "price": "200"
+      "price": "700"
     },
     {
       "id": "11",
       "name": "SAmbo",
       "description": "sdf",
-      "price": "200"
+      "price": "100"
     },
     {
       "id": "12",
@@ -187,41 +187,46 @@
       "id": "3",
       "name": "Clementine",
       "login": "380658374633"
+    },
+    {
+      "id": "4",
+      "name": "Brook",
+      "login": "380958354678"
     }
   ],
   "Slots": [
     {
       "id": "1",
-      "coachId": 2,
-      "dateStart": "03.26.2021",
-      "timeStart": "09:00",
+      "coachId": 1,
+      "dateStart": "2024-02-06T18:25:43.511Z",
+      "timeStart": "14:00",
       "timeEnd": "16:00"
     },
     {
       "id": "2",
       "coachId": 2,
-      "dateStart": "03.27.2021",
+      "dateStart": "2024-02-07T18:25:43.511Z",
       "timeStart": "11:00",
       "timeEnd": "18:00"
     },
     {
       "id": "3",
-      "coachId": 2,
-      "dateStart": "03.28.2021",
+      "coachId": 3,
+      "dateStart": "2024-02-08T18:25:43.511Z",
       "timeStart": "11:00",
       "timeEnd": "18:00"
     },
     {
       "id": "4",
       "coachId": 1,
-      "dateStart": "03.26.2021",
+      "dateStart": "2024-02-07T18:25:43.511Z",
       "timeStart": "08:00",
       "timeEnd": "16:00"
     },
     {
       "id": "5",
       "coachId": 1,
-      "dateStart": "03.27.2021",
+      "dateStart": "02.27.2024",
       "timeStart": "2:00",
       "timeEnd": "18:00"
     },
@@ -298,28 +303,28 @@
     {
       "id": "18",
       "coachId": 1,
-      "dateStart": "03.23.2021",
+      "dateStart": "2024-02-13",
       "timeStart": "01:00",
       "timeEnd": "17:00"
     },
     {
       "id": "19",
       "coachId": 1,
-      "dateStart": "03.17.2021",
+      "dateStart": "2024-02-13",
       "timeStart": "01:00",
       "timeEnd": "16:00"
     },
     {
       "id": "20",
       "coachId": 1,
-      "dateStart": "03.19.2021",
+      "dateStart": "2024-02-13",
       "timeStart": "04:00",
       "timeEnd": "18:00"
     },
     {
       "id": "21",
       "coachId": 1,
-      "dateStart": "04.08.2021",
+      "dateStart": "2024-02-13",
       "timeStart": "01:00",
       "timeEnd": "15:00"
     }
@@ -334,8 +339,14 @@
     {
       "id": "2",
       "serviceId": 2,
-      "slotId": 1,
-      "clientId": 1
+      "slotId": 2,
+      "clientId": 2
+    },
+    {
+      "id": "3",
+      "serviceId": 3,
+      "slotId": 3,
+      "clientId": 3
     }
   ]
 }
