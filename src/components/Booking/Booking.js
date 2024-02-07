@@ -18,6 +18,7 @@ import {
   resetBookings,
 } from "../../redux/Ducks/Bookings.duck";
 
+
 const Booking = () => {
   const dispatch = useDispatch();
 
@@ -59,7 +60,6 @@ const Booking = () => {
   // SERVICES
 
   const services = useSelector((state) => state.service.data);
-  const [serviceId, setServiceId] = useState();
   const [selectedServiceId, setServiceIndex] = useState(0);
 
   useEffect(() => {

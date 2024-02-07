@@ -1,5 +1,4 @@
-import {realApi as Api} from "../axios";
-
+import Api from "../../services/api";
 
 const GET_QUALIFICATIONS = "PM_FIGHT/QUALIFICATIONS/GET";
 const ADD_QUALIFICATION = "PM_FIGHT/QUALIFICATIONS/ADD";
@@ -10,7 +9,7 @@ const RESET_QUALIFICATIONS = "PM_FIGHT/QUALIFICATIONS/RESET";
 export function getQualifications(param, id) {
     return async (dispatch) => {
         try {
-            const qualifications = await Api.get(`Qualification/${param}/qualification/${id}`);
+            const qualifications = await Api.get(`Qualification?${param}=${id}`);
             dispatch({
                 type: GET_QUALIFICATIONS,
                 payload: qualifications.data,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -62,22 +62,28 @@ export default function TransferList({searchId}) {
   const [left, setLeft] = useState( []);
   const [right, setRight] = useState( []);
 
-  const update = (list) => {
-    try {
-      const selectedId = qualifications.map(q => q.coachId)
-      const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
-      const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
-      setLeft([...left])
-      setRight([...right])
-    }
-    catch (e){
-      const left = [...coaches]
-      setLeft([...left])
-    }
-  }
+  const update = useCallback(
+    (list) => {
+      try {
+        const selectedId = qualifications.map(q => String(q.coachId))
+        console.log(selectedId);
+        const left = list.filter((l) => selectedId.indexOf(l.id) === -1)
+        const right = list.filter((l) => selectedId.indexOf(l.id) !== -1)
+        console.log(left);
+        console.log(right);
+        setLeft([...left])
+        setRight([...right])
+      }
+      catch (e){
+        setLeft([...coaches])
+      }
+    },
+    [coaches, qualifications],
+  );
+
 
   useEffect(  () => {
-    dispatch(getQualifications('service', searchId));
+    dispatch(getQualifications('serviceId', searchId));
     dispatch(getCoaches())
     return () => {
       dispatch(resetQualifications())
@@ -92,7 +98,7 @@ export default function TransferList({searchId}) {
       setLeft([])
       setRight([])
     }
-  }, [coaches, qualifications])
+  }, [coaches, qualifications, update])
 
   const not = (a, b) => {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -105,11 +111,11 @@ export default function TransferList({searchId}) {
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
-  const createQualification = (coachID) => {
+  const createQualification = (coachId) => {
     return {
-      id: 0,
+      id: +qualifications.sort((qa, qb) => qb.id - qa.id)[0].id + 1,
       serviceId: searchId,
-      coachId: coachID
+      coachId
     }
   }
 
@@ -129,7 +135,7 @@ export default function TransferList({searchId}) {
   const handleAllRight = () => {
     left.forEach(c => dispatch(addQualification(
         createQualification(c.id),
-        'service',
+        'serviceId',
         searchId
     )))
   };
@@ -137,7 +143,7 @@ export default function TransferList({searchId}) {
   const handleCheckedRight =  () => {
     leftChecked.forEach(c => dispatch(addQualification(
         createQualification(c.id),
-        'service',
+        'serviceId',
         searchId
     )))
     setChecked(not(checked, leftChecked));

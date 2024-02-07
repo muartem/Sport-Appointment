@@ -1,8 +1,6 @@
-# PariMatch Fight Academy
+# Fight Academy
 ## [Live demo](https://pm-fight-academy-js-web-dw4lo.ondigitalocean.app/)
-
 ## Description
-
 This is an admin panel for a gym. Here you can: 
 - [x] manage services and coaches, 
 - [x] view client list and their info, 
@@ -25,6 +23,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn serve`
+To start a mock server
 
 ### `yarn start`
 

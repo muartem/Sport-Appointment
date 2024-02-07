@@ -1,4 +1,4 @@
-import { realApi as Api } from "../axios";
+import Api from "../../services/api";
 
 const GET_SLOTS = "PM_FIGHT/SLOTS/GET";
 const ADD_SLOT = "PM_FIGHT/SLOTS/ADD";
