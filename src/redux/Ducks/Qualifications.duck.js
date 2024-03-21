@@ -36,10 +36,11 @@ export function addQualification(qualification, param, id) {
     };
 }
 
-export function deleteQualifications(qualificationId) {
+export function deleteQualification(qualificationId) {
     return async (dispatch) => {
         try {
-            await Api.delete(`Qualification/?qualificationId=${qualificationId}`)
+            console.log(qualificationId);
+            await Api.delete(`Qualification/${qualificationId}`)
             dispatch({
                 type: DELETE_QUALIFICATION,
                 payload: qualificationId,

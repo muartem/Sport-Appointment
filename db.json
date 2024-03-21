@@ -25,12 +25,6 @@
       "price": "150"
     },
     {
-      "id": "8",
-      "name": "Sex",
-      "description": "fasdf",
-      "price": "300"
-    },
-    {
       "id": "9",
       "name": "Aikido",
       "description": "asdf",
@@ -44,7 +38,7 @@
     },
     {
       "id": "11",
-      "name": "SAmbo",
+      "name": "Sambo",
       "description": "sdf",
       "price": "100"
     },
@@ -83,7 +77,7 @@
     {
       "id": "7",
       "firstName": "Serega",
-      "lastName": "chorniy",
+      "lastName": "Chorniy",
       "dateBirth": "01.14.2021",
       "description": "bumer",
       "phoneNumber": "+380972220022"
@@ -129,47 +123,69 @@
       "phoneNumber": "+380972220022"
     },
     {
-      "id": "14",
-      "firstName": "test1",
-      "lastName": "test1",
-      "dateBirth": "03.26.2021",
-      "description": "test1",
-      "phoneNumber": "+380682635836"
-    },
-    {
-      "id": "15",
-      "firstName": "tyhdtr",
-      "lastName": "ghntyfn",
-      "dateBirth": "03.25.2021",
-      "description": "ghndm",
-      "phoneNumber": "+380682635830"
+      "id": "NaN",
+      "firstName": "sdaf",
+      "lastName": "sadf",
+      "dateBirth": "15.01.2024",
+      "description": "sadf",
+      "phoneNumber": "+380971365536"
     }
   ],
   "Qualification": [
     {
-      "id": 0,
-      "serviceId": 3,
-      "coachId": 12
+      "id": "0",
+      "serviceId": "3",
+      "coachId": "12"
     },
     {
-      "id": 1,
-      "serviceId": 7,
-      "coachId": 1
+      "id": "1",
+      "serviceId": "7",
+      "coachId": "1"
     },
     {
-      "id": 2,
-      "serviceId": 3,
-      "coachId": 1
+      "id": "2",
+      "serviceId": "3",
+      "coachId": "1"
     },
     {
-      "id": 3,
-      "serviceId": 3,
-      "coachId": 9
+      "id": "3",
+      "serviceId": "3",
+      "coachId": "9"
     },
     {
-      "id": 3,
+      "id": "3",
       "coachId": "1",
       "serviceId": "2"
+    },
+    {
+      "id": "956673",
+      "coachId": "9",
+      "serviceId": "7"
+    },
+    {
+      "id": "84613",
+      "coachId": "8",
+      "serviceId": "1"
+    },
+    {
+      "id": "45714",
+      "coachId": "3",
+      "serviceId": "10"
+    },
+    {
+      "id": "236236",
+      "serviceId": "2",
+      "coachId": "10"
+    },
+    {
+      "id": "52170",
+      "coachId": "8",
+      "serviceId": "2"
+    },
+    {
+      "id": "37627",
+      "coachId": "8",
+      "serviceId": "9"
     }
   ],
   "Client": [

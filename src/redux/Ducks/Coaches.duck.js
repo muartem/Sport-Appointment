@@ -50,7 +50,7 @@ export function updateCoach(coach) {
 export function deleteCoach(coachId) {
     return async (dispatch) => {
         try {
-            await Api.delete(`Coach/`, { params: { coachId } });
+            await Api.delete(`Coach/${coachId}`);
             dispatch({
                 type: DELETE_COACH,
                 payload: coachId,

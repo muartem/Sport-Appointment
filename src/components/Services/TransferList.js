@@ -14,7 +14,7 @@ import Divider from "@material-ui/core/Divider";
 import CardHeader from "@material-ui/core/CardHeader";
 import {
   addQualification,
-  deleteQualifications,
+  deleteQualification,
   getQualifications,
   resetQualifications
 } from "../../redux/Ducks/Qualifications.duck";
@@ -111,13 +111,11 @@ export default function TransferList({searchId}) {
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
-  const createQualification = (coachId) => {
-    return {
-      id: +qualifications.sort((qa, qb) => qb.id - qa.id)[0].id + 1,
+  const createQualification = (coachId) => ({
+      id: String(Math.floor(performance.now() * 321 / +coachId / +searchId)),
       serviceId: searchId,
       coachId
-    }
-  }
+    })
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -152,7 +150,7 @@ export default function TransferList({searchId}) {
   const handleCheckedLeft = () => {
     const selectedId = rightChecked.map(c => c.id)
     const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
-    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+    qForDel.forEach(q => dispatch(deleteQualification(q.id)))
 
     setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
@@ -164,7 +162,7 @@ export default function TransferList({searchId}) {
 
     const qForDel = qualifications.filter((q) => selectedId.indexOf(q.coachId) !== -1)
 
-    qForDel.forEach(q => dispatch(deleteQualifications(q.id)))
+    qForDel.forEach(q => dispatch(deleteQualification(q.id)))
 
     setLeft(left.concat(right));
     setRight([]);

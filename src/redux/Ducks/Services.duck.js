@@ -49,7 +49,7 @@ export function updateService(service) {
 export function deleteService(serviceId) {
     return async (dispatch) => {
         try {
-            await Api.delete(`Services/`, { params: { serviceId } });
+            await Api.delete(`Services/${serviceId}`);
             dispatch({
                 type: DELETE_SERVICE,
                 payload: serviceId,

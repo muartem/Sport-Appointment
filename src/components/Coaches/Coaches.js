@@ -147,7 +147,7 @@ const Coaches = () => {
     e.preventDefault();
     dispatch(
       addCoach({
-        id: 0,
+        id: String(+coaches.sort((a,b) => b.id - a.id)[0] + 1),
         firstName: inputs.firstName.value,
         lastName: inputs.lastName.value,
         dateBirth: formattedDate(inputs.dateBirth.value),
